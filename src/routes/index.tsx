@@ -3,8 +3,8 @@ import Home from "../pages/Home";
 import LoginPage from "../pages/Login";
 import auth from "../services/auth";
 import Inicio from "../pages/Inicio";
-import EditarUser from "../pages/Editar";
-import PerfilUser from "../pages/Perfil";
+import EditarUser from "../pages/User/Editar";
+import PerfilUser from "../pages/User/Perfil";
 
 
 function AppRouter() {
@@ -14,8 +14,8 @@ function AppRouter() {
         <Router>
             <auth.AuthMiddleware>
                 <Routes>
-                    <Route path="/" element={isAuthenticated ? (<Navigate to="/inicio" />) : (<Home />)}/>
-                    <Route path="/Inicio" element={<Inicio/>}/>
+                    <Route path="/" element={isAuthenticated ? (<Navigate to="/inicio" />) : (<Home />)} />
+                    <Route path="/Inicio" element={<Inicio />} />
                     <Route path="/login" element={isAuthenticated ? (<Navigate to="/inicio" />) : (<LoginPage />)} />
                     <Route path="/perfil/:id" element={isAuthenticated ? (<PerfilUser />) : (<Navigate to="/login" />)} />
                     <Route path="/update/:id" element={isAuthenticated ? (<EditarUser />) : (<Navigate to="/login" />)} />

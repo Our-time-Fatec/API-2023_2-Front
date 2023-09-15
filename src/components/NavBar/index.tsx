@@ -7,6 +7,8 @@ import auth from '../../services/auth';
 import { useEffect, useState } from 'react';
 import DecodedToken from '../../interfaces/DecodedToken';
 import jwtDecode from 'jwt-decode';
+import { FaUser } from 'react-icons/fa';
+import { HiOutlineLogout } from 'react-icons/hi';
 
 function NavBar() {
     const isAuthenticated = !!localStorage.getItem('user');
@@ -28,7 +30,7 @@ function NavBar() {
 
     const handleLogout = () => {
         auth.logout();
-        navigate(0);
+        navigate(0)
     };
 
     return (
@@ -42,17 +44,23 @@ function NavBar() {
                         {/* {isAuthenticated && <Nav.Link as={Link} to={"/"} className="link-no-style">Locações</Nav.Link>} */}
                     </Nav>
                     <Nav>
-                        <NavDropdown title="Perfil" id="collapsible-nav-dropdown">
-                            {isAuthenticated ? (
-                                <>
-                                    <NavDropdown.Item as={Link} to={`/perfil/${userId}`} className="link-no-style">Meu Perfil</NavDropdown.Item>
+                        {isAuthenticated ? (
+                            <>
+                                <NavDropdown title={
+                                    <span className='d-flex-row align-items-center'>
+                                        <FaUser className='me-1' />
+                                    </span>
+                                } id="collapsible-nav-dropdown">
+                                    <NavDropdown.Item as={Link} to={`/perfil/${userId}`} className="link-no-style ">Meu Perfil<FaUser className='mx-2' /></NavDropdown.Item>
                                     <NavDropdown.Divider />
-                                    <NavDropdown.Item onClick={handleLogout}>Deslogar</NavDropdown.Item>
-                                </>
-                            ) : (
-                                <NavDropdown.Item as={Link} to={"/login"} className="link-no-style">Login</NavDropdown.Item>
-                            )}
-                        </NavDropdown>
+                                    <NavDropdown.Item onClick={handleLogout}>Deslogar<HiOutlineLogout className='mx-2'/></NavDropdown.Item>
+                                    
+                                </NavDropdown>
+                            </>
+                        ) : (
+                            <Nav.Link as={Link} to={"/login"} className="link-no-style">Login</Nav.Link>
+                        )}
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>

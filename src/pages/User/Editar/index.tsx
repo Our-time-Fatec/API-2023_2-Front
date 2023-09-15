@@ -2,8 +2,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaUser, FaLock } from 'react-icons/fa';
-import api from '../../services/api';
-import NavBar from '../../components/NavBar';
+import api from '../../../services/api';
+import NavBar from '../../../components/NavBar';
 
 const EditarUser: React.FC = () => {
     const [username, setUsername] = useState<string>('');
