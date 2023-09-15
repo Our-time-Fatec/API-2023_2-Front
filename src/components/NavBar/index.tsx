@@ -34,23 +34,23 @@ function NavBar() {
     return (
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
             <Container>
-                <Navbar.Brand><Link to={""} className="link-no-style">Bicikreta</Link></Navbar.Brand>
+                <Navbar.Brand className="link-no-style">Bicikreta</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
-                        <Nav.Link><Link to={"/inicio"} className="link-no-style">Inicio</Link></Nav.Link>
-                        {/* {isAuthenticated && <Nav.Link><Link to={"/"} className="link-no-style">Locações</Link></Nav.Link>} */}
+                        <Nav.Link as={Link} to={"/inicio"} className="link-no-style">Inicio</Nav.Link>
+                        {/* {isAuthenticated && <Nav.Link as={Link} to={"/"} className="link-no-style">Locações</Nav.Link>} */}
                     </Nav>
                     <Nav>
                         <NavDropdown title="Perfil" id="collapsible-nav-dropdown">
                             {isAuthenticated ? (
                                 <>
-                                    <NavDropdown.Item><Link to={`/perfil/${userId}`} className="link-no-style">Meu Perfil</Link></NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to={`/perfil/${userId}`} className="link-no-style">Meu Perfil</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item onClick={handleLogout}>Deslogar</NavDropdown.Item>
                                 </>
                             ) : (
-                                <NavDropdown.Item><Link to={"/login"} className="link-no-style">Login</Link></NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to={"/login"} className="link-no-style">Login</NavDropdown.Item>
                             )}
                         </NavDropdown>
                     </Nav>

@@ -7,7 +7,6 @@ import DecodedToken from '../../interfaces/DecodedToken';
 const PerfilUser: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const { id: userIdFromUrl } = useParams<{ id: string }>();
-  console.log(userId)
   useEffect(() => {
     const token = localStorage.getItem('user');
 
