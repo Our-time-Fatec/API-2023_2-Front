@@ -2,10 +2,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaUser, FaLock } from 'react-icons/fa';
-import auth from '../../services/auth';
 import api from '../../services/api';
+import NavBar from '../../components/NavBar';
 
-const UpdatePage: React.FC = () => {
+const EditarUser: React.FC = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
@@ -37,25 +37,32 @@ const UpdatePage: React.FC = () => {
     };
 
     return (
-        <div className="login-container">
-            <Form>
-                <Form.Group controlId="formUsername">
-                    <Form.Label>Nome de Usuário</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Digite seu nome de usuário"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <FaUser />
-                </Form.Group>
+        <div className='editar'>
+            <header>
+                <NavBar />
+            </header>
+            <main>
+                <div className="login-container">
+                    <Form>
+                        <Form.Group controlId="formUsername">
+                            <Form.Label>Nome de Usuário</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Digite seu nome de usuário"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <FaUser />
+                        </Form.Group>
 
-                <Button variant="primary" onClick={handleUpdate}>
-                    Entrar
-                </Button>
-            </Form>
+                        <Button variant="primary" onClick={handleUpdate}>
+                            Entrar
+                        </Button>
+                    </Form>
+                </div>
+            </main>
         </div>
     );
 };
 
-export default UpdatePage;
+export default EditarUser;

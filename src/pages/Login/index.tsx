@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaUser, FaLock } from 'react-icons/fa';
 import auth from '../../services/auth';
+import NavBar from '../../components/NavBar';
 
 const LoginPage: React.FC = () => {
     const [username, setUsername] = useState<string>('');
@@ -21,32 +22,39 @@ const LoginPage: React.FC = () => {
     };
 
     return (
-        <div className="login-container">
-            <Form>
-                <Form.Group controlId="formUsername">
-                    <Form.Label>Nome de Usuário</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Digite seu nome de usuário"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <FaUser />
-                </Form.Group>
-                <Form.Group controlId="formPassword">
-                    <Form.Label>Senha</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Digite sua senha"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <FaLock />
-                </Form.Group>
-                <Button variant="primary" onClick={handleLogin}>
-                    Entrar
-                </Button>
-            </Form>
+        <div className='login'>
+            <header>
+                <NavBar/>
+            </header>
+            <main>
+                <div className="login-container">
+                    <Form>
+                        <Form.Group controlId="formUsername">
+                            <Form.Label>Nome de Usuário</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Digite seu nome de usuário"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                            <FaUser />
+                        </Form.Group>
+                        <Form.Group controlId="formPassword">
+                            <Form.Label>Senha</Form.Label>
+                            <Form.Control
+                                type="password"
+                                placeholder="Digite sua senha"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <FaLock />
+                        </Form.Group>
+                        <Button variant="primary" onClick={handleLogin}>
+                            Entrar
+                        </Button>
+                    </Form>
+                </div>
+            </main>
         </div>
     );
 };
