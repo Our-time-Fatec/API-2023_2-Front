@@ -2,16 +2,16 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaUser, FaLock } from 'react-icons/fa';
-import NavBar from '../../components/NavBar';
-import api from '../../services/api';
+import api from '../../../services/api';
+import NavBar from '../../../components/NavBar';
 
-const LoginPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        await api.post(`/user/login`, { username, password })
+        await api.post(`/user/register`, { username, password })
             .then((response) => {
                 localStorage.setItem('token', JSON.stringify(response.data.token));
                 localStorage.setItem('username', JSON.stringify(response.data.username));
@@ -61,4 +61,4 @@ const LoginPage: React.FC = () => {
     );
 };
 
-export default LoginPage;
+export default RegisterPage;
