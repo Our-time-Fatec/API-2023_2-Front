@@ -3,12 +3,13 @@ import { Link, useParams } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import NavBar from '../../../components/NavBar';
 import DecodedToken from '../../../interfaces/DecodedToken';
+import { TokenExpiredError } from 'jsonwebtoken';
 
 const PerfilUser: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const { id: userIdFromUrl } = useParams<{ id: string }>();
   useEffect(() => {
-    const token = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
 
     if (token) {
       try {

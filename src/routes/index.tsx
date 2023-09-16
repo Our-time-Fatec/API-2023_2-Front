@@ -8,7 +8,7 @@ import PerfilUser from "../pages/User/Perfil";
 
 
 function AppRouter() {
-    const isAuthenticated = !!localStorage.getItem('user');
+    const isAuthenticated = !!localStorage.getItem('token');
 
     return (
         <Router>

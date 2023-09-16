@@ -13,23 +13,22 @@ const EditarUser: React.FC = () => {
 
     const handleUpdate = async () => {
         try {
-            const tokenJson = localStorage.getItem('user'); // Recupere o token JWT do localStorage como um objeto JSON
-            console.log(tokenJson);
+            const tokenJson = localStorage.getItem('token');
 
             if (tokenJson) {
                 const tokenObject = JSON.parse(tokenJson);
-                console.log(tokenObject.token)
-
                 const headers = {
-                    Authorization: `${tokenObject.token}`, // Inclua o token no cabeçalho de autorização
+                    Authorization: `${tokenObject}`,
                 };
-
-                const user = await api.put(`/user/${id}`, { username, password }, { headers });
-                console.log(user);
-                alert('Usuário editado com sucesso!');
-                navigate(0);
+                await api.put(`/user/${id}`, { username, password }, { headers })
+                    .then((response) => {
+                        alert(response.data.message);
+                        navigate(0);
+                    })
+                    .catch((error) => {
+                        alert(error.response.data.message);
+                    })
             } else {
-                // Lidar com a ausência do token, como redirecionar para a página de login
             }
         } catch (error) {
             console.error('Erro ao fazer update:', error);

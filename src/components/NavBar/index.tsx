@@ -11,17 +11,20 @@ import { FaUser } from 'react-icons/fa';
 import { HiOutlineLogout } from 'react-icons/hi';
 
 function NavBar() {
-    const isAuthenticated = !!localStorage.getItem('user');
+    const isAuthenticated = !!localStorage.getItem('token');
     const navigate = useNavigate();
     const [userId, setUserId] = useState<string | null>(null);
+    const [username, setUsername] = useState<string | null>(null);
 
     useEffect(() => {
-        const token = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+        const username = localStorage.getItem('username');
 
-        if (token) {
+        if (token && username) {
             try {
                 const decodedToken = jwtDecode<DecodedToken>(token);
                 setUserId(decodedToken.userId);
+                setUsername(JSON.parse(username));
             } catch (error) {
                 console.error('Erro ao decodificar o token JWT:', error);
             }
@@ -49,12 +52,13 @@ function NavBar() {
                                 <NavDropdown title={
                                     <span className='d-flex-row align-items-center'>
                                         <FaUser className='me-1' />
+                                        <span>{username ? username : ""}</span>
                                     </span>
                                 } id="collapsible-nav-dropdown">
                                     <NavDropdown.Item as={Link} to={`/perfil/${userId}`} className="link-no-style ">Meu Perfil<FaUser className='mx-2' /></NavDropdown.Item>
                                     <NavDropdown.Divider />
-                                    <NavDropdown.Item onClick={handleLogout}>Deslogar<HiOutlineLogout className='mx-2'/></NavDropdown.Item>
-                                    
+                                    <NavDropdown.Item onClick={handleLogout}>Deslogar<HiOutlineLogout className='mx-2' /></NavDropdown.Item>
+
                                 </NavDropdown>
                             </>
                         ) : (

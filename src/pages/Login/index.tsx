@@ -4,6 +4,7 @@ import { Button, Form } from 'react-bootstrap';
 import { FaUser, FaLock } from 'react-icons/fa';
 import auth from '../../services/auth';
 import NavBar from '../../components/NavBar';
+import api from '../../services/api';
 
 const LoginPage: React.FC = () => {
     const [username, setUsername] = useState<string>('');
@@ -11,20 +12,22 @@ const LoginPage: React.FC = () => {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        try {
-            const user = await auth.login(username, password);
-            localStorage.setItem('user', JSON.stringify(user));
-            alert('Logado com sucesso!');
-            navigate(0)
-        } catch (error) {
-            console.error('Erro ao fazer login:', error);
-        }
+        await api.post(`/user/login`, { username, password })
+            .then((response) => {
+                localStorage.setItem('token', JSON.stringify(response.data.token));
+                localStorage.setItem('username', JSON.stringify(response.data.username));
+                alert(response.data.message);
+                navigate(0);
+            })
+            .catch((error) => {
+                alert(error.response.data.message)
+            })
     };
 
     return (
         <div className='login'>
             <header>
-                <NavBar/>
+                <NavBar />
             </header>
             <main>
                 <div className="login-container">
