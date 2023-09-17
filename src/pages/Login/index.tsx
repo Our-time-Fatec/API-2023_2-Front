@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaUser, FaLock } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md'
 import NavBar from '../../components/NavBar';
 import api from '../../services/api';
 
@@ -28,30 +29,29 @@ const LoginPage: React.FC = () => {
             <header>
                 <NavBar />
             </header>
-            <main>
-                <div className="login-container">
+            <main className='main-container'>
+                <div className="d-flex justify-content-center align-items-center login-container">
                     <Form>
                         <Form.Group controlId="formUsername">
-                            <Form.Label>Nome de Usuário</Form.Label>
+                            <Form.Label className='d-flex align-items-center gap-2'><MdEmail/><span>E-mail</span></Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Digite seu nome de usuário"
+                                placeholder="Digite seu e-mail"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
-                            <FaUser />
                         </Form.Group>
                         <Form.Group controlId="formPassword">
-                            <Form.Label>Senha</Form.Label>
+                            <Form.Label className='d-flex align-items-center gap-2'><FaLock /><span>Senha</span></Form.Label>
                             <Form.Control
                                 type="password"
                                 placeholder="Digite sua senha"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <FaLock />
+                            
                         </Form.Group>
-                        <Button variant="primary" onClick={handleLogin}>
+                        <Button variant="primary" onClick={handleLogin} className='mt-2'>
                             Entrar
                         </Button>
                     </Form>

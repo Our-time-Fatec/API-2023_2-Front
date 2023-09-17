@@ -8,6 +8,7 @@ import { TokenExpiredError } from 'jsonwebtoken';
 const PerfilUser: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const { id: userIdFromUrl } = useParams<{ id: string }>();
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
 

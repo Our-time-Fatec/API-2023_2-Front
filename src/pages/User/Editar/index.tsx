@@ -1,15 +1,32 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaUser, FaLock } from 'react-icons/fa';
 import api from '../../../services/api';
 import NavBar from '../../../components/NavBar';
+import DecodedToken from '../../../interfaces/DecodedToken';
+import jwtDecode from 'jwt-decode';
 
 const EditarUser: React.FC = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
     const { id } = useParams();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          try {
+            const decodedToken = jwtDecode<DecodedToken>(token);
+            if(decodedToken.userId != id){
+                navigate("/")
+            }
+          } catch (error) {
+            console.error('Erro ao decodificar o token JWT:', error);
+          }
+
+        }
+      }, []);
 
     const handleUpdate = async () => {
         try {
