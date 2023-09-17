@@ -39,8 +39,7 @@ const PerfilUser: React.FC = () => {
         <NavBar />
       </header>
       <main className='main-container'>
-        <h1>Perfil do Usuário</h1>
-        <p>Username: {user?.username}</p>
+        <h1>{userIdFromUrl == userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>
         <p>Email: {user?.email}</p>
         <p>Telefone: {user?.telefone}</p>
         <p>Endereço: {user?.endereco}</p>
@@ -50,7 +49,7 @@ const PerfilUser: React.FC = () => {
             user?.bicicletas && user.bicicletas.map((i) => {
               return (
                 <div className="div-bike" key={i.id}>
-                  <CardBike marca={i.marca.nome} modalidade={i.modalidade.nome} foto={i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true}/>
+                  <CardBike marca={i.marca.nome} modalidade={i.modalidade.nome} foto={i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} />
                 </div>
               )
             })
