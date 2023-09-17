@@ -1,9 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import api from "./api";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
 import DecodedToken from "../interfaces/DecodedToken";
-import User from "../interfaces/User";
 
 // const login = async (username: string, password: string): Promise<User> => {
 //   const response = await api.post(`/user/login`, { username, password });

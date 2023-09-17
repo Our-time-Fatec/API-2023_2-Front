@@ -14,7 +14,13 @@ function Inicio() {
 
     useEffect(() => {
         getAllBikes();
-    });
+
+        const intervalId = setInterval(() => {
+            getAllBikes();
+        }, 60000);
+
+        return () => clearInterval(intervalId);
+    }, []);
 
     return (
         <div className="inicio">
