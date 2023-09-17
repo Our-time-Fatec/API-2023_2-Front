@@ -62,7 +62,10 @@ function NavBar() {
                                 </NavDropdown>
                             </>
                         ) : (
-                            <Nav.Link as={Link} to={"/login"} className="link-no-style">Login</Nav.Link>
+                            <>
+                                <Nav.Link as={Link} to={"/register"} className="link-no-style">Registrar</Nav.Link>
+                                <Nav.Link as={Link} to={"/login"} className="link-no-style">Logar</Nav.Link>
+                            </>
                         )}
 
                     </Nav>

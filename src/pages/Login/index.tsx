@@ -30,10 +30,11 @@ const LoginPage: React.FC = () => {
                 <NavBar />
             </header>
             <main className='main-container'>
-                <div className="d-flex justify-content-center align-items-center login-container">
+                <h1 className='mt-3'>Login</h1>
+                <div className="d-flex justify-content-center align-items-center login-container mt-5">
                     <Form>
                         <Form.Group controlId="formUsername">
-                            <Form.Label className='d-flex align-items-center gap-2'><MdEmail/><span>E-mail</span></Form.Label>
+                            <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>E-mail</span></Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Digite seu e-mail"
@@ -49,7 +50,7 @@ const LoginPage: React.FC = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            
+
                         </Form.Group>
                         <Button variant="primary" onClick={handleLogin} className='mt-2'>
                             Entrar

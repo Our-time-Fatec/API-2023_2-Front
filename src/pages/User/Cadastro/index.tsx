@@ -1,22 +1,40 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { FaUser, FaLock } from 'react-icons/fa';
+import { FaUser, FaLock, FaMapMarkerAlt } from 'react-icons/fa';
+import { MdEmail, MdCall } from 'react-icons/md'
 import api from '../../../services/api';
 import NavBar from '../../../components/NavBar';
+import User from '../../../interfaces/User';
 
 const RegisterPage: React.FC = () => {
-    const [username, setUsername] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+
     const navigate = useNavigate();
 
-    const handleLogin = async () => {
-        await api.post(`/user/register`, { username, password })
+    const [formState, setFormState] = useState<User>({
+        username: "",
+        email: "",
+        password: "",
+        telefone: "",
+        endereco: ""
+    });
+
+    function updateForm(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+
+        setFormState({
+            ...formState,
+            [e.target.name]:
+                e.target.value
+        })
+    };
+
+
+    const handleRegister = async (e:ChangeEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        await api.post(`/user/register`, formState)
             .then((response) => {
-                localStorage.setItem('token', JSON.stringify(response.data.token));
-                localStorage.setItem('username', JSON.stringify(response.data.username));
                 alert(response.data.message);
-                navigate(0);
+                navigate('/login');
             })
             .catch((error) => {
                 alert(error.response.data.message)
@@ -28,31 +46,62 @@ const RegisterPage: React.FC = () => {
             <header>
                 <NavBar />
             </header>
-            <main>
-                <div className="login-container">
-                    <Form>
+            <main className='main-container'>
+                <h1 className='mt-3'>Registrar-se</h1>
+                <div className="d-flex justify-content-center align-items-center login-container mt-5">
+                    <Form onSubmit={handleRegister}>
                         <Form.Group controlId="formUsername">
-                            <Form.Label>Nome de Usuário</Form.Label>
+                            <Form.Label className='d-flex align-items-center gap-2'><FaUser /><span>Username</span></Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Digite seu nome de usuário"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                placeholder="Digite seu username"
+                                name="username"
+                                value={formState.username}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
-                            <FaUser />
+                        </Form.Group>
+                        <Form.Group controlId="formUsername">
+                            <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>E-mail</span></Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Digite seu e-mail"
+                                name="email"
+                                value={formState.email}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
                         </Form.Group>
                         <Form.Group controlId="formPassword">
-                            <Form.Label>Senha</Form.Label>
+                            <Form.Label className='d-flex align-items-center gap-2'><MdCall /><span>Telefone</span></Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Digite seu telefone"
+                                name="telefone"
+                                value={formState.telefone}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formPassword">
+                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Endereço</span></Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Digite seu endereço"
+                                name="endereco"
+                                value={formState.endereco}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formPassword">
+                            <Form.Label className='d-flex align-items-center gap-2'><FaLock /><span>Senha</span></Form.Label>
                             <Form.Control
                                 type="password"
                                 placeholder="Digite sua senha"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                name="password"
+                                value={formState.password}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
-                            <FaLock />
                         </Form.Group>
-                        <Button variant="primary" onClick={handleLogin}>
-                            Entrar
+                        <Button variant="primary" type='submit' className='mt-2'>
+                            Registrar-se
                         </Button>
                     </Form>
                 </div>

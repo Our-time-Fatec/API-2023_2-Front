@@ -27,10 +27,9 @@ function Inicio() {
             <header>
                 <NavBar />
             </header>
-            <main>
-                <h1>Bicicletas disponiveis</h1>
+            <main className="main-container">
+                <h1 className="mt-3">Bicicletas disponiveis</h1>
                 <div className="bike mx-4 d-flex gap-2">
-                    {/* <CardBike marca={"Caloi"} modalidade={"MTB"} foto={"https://images.tcdn.com.br/img/img_prod/909210/bicicleta_caloi_explorer_20_azul_6535_1_8d5c2b4ac83fe87e5d525ca1299fea4d.jpg"} descricao={"Moutain bike para trilhas "} valorDia={250} valorHora={10} /> */}
                     {
                         bicicletas && bicicletas.map((i) => {
                             return (
