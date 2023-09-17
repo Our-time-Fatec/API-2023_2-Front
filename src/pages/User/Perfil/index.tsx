@@ -4,13 +4,23 @@ import jwtDecode from 'jwt-decode';
 import NavBar from '../../../components/NavBar';
 import DecodedToken from '../../../interfaces/DecodedToken';
 import { TokenExpiredError } from 'jsonwebtoken';
+import User from '../../../interfaces/User';
+import api from '../../../services/api';
+import CardBike from '../../../components/Card';
 
 const PerfilUser: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const { id: userIdFromUrl } = useParams<{ id: string }>();
-  
+  const [user, setUser] = useState<User>();
+
+  async function getUser() {
+    const response = await api.get<User>(`/user/${userIdFromUrl}`)
+    setUser(response.data);
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('token');
+    getUser()
 
     if (token) {
       try {
@@ -27,10 +37,24 @@ const PerfilUser: React.FC = () => {
       <header>
         <NavBar />
       </header>
-      <main>
-        <h1>Perfil</h1>
-        <p>Usuario: {userIdFromUrl}</p>
+      <main className='main-container'>
+        <h1>Perfil do Usuário</h1>
+        <p>Username: {user?.username}</p>
+        <p>Email: {user?.email}</p>
+        <p>Telefone: {user?.telefone}</p>
+        <p>Endereço: {user?.endereco}</p>
         {userIdFromUrl == userId ? (<Link to={`/update/${userId}`}>Editar minhas informações</Link>) : ""}
+        <div className="bicicletas d-flex gap-2">
+          {
+            user?.bicicletas && user.bicicletas.map((i) => {
+              return (
+                <div className="div-bike" key={i.id}>
+                  <CardBike marca={i.marca.nome} modalidade={i.modalidade.nome} foto={i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} />
+                </div>
+              )
+            })
+          }
+        </div>
       </main>
     </div>
   );

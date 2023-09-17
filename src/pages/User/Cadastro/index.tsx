@@ -60,7 +60,7 @@ const RegisterPage: React.FC = () => {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
-                        <Form.Group controlId="formUsername">
+                        <Form.Group controlId="formEmail">
                             <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>E-mail</span></Form.Label>
                             <Form.Control
                                 type="text"
@@ -70,7 +70,7 @@ const RegisterPage: React.FC = () => {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
-                        <Form.Group controlId="formPassword">
+                        <Form.Group controlId="formTelefone">
                             <Form.Label className='d-flex align-items-center gap-2'><MdCall /><span>Telefone</span></Form.Label>
                             <Form.Control
                                 type="text"
@@ -80,7 +80,7 @@ const RegisterPage: React.FC = () => {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
-                        <Form.Group controlId="formPassword">
+                        <Form.Group controlId="formEndereco">
                             <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Endereço</span></Form.Label>
                             <Form.Control
                                 type="text"
