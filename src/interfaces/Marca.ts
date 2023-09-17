@@ -1,5 +1,5 @@
-interface Modalidade {
+interface Marca {
     id: number;
     nome: string;
 }
-export default Modalidade;
+export default Marca;
