@@ -47,7 +47,7 @@ const EditarUser: React.FC = () => {
                     .then((response) => {
                         alert(response.data.message);
                         localStorage.setItem('username', JSON.stringify(formState.username));
-                        navigate(0);
+                        navigate(`/perfil/${id}`);
                     })
                     .catch((error) => {
                         alert(error.response.data.message);
