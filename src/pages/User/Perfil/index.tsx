@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import NavBar from '../../../components/NavBar';
 import DecodedToken from '../../../interfaces/DecodedToken';
@@ -12,6 +12,7 @@ const PerfilUser: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const { id: userIdFromUrl } = useParams<{ id: string }>();
   const [user, setUser] = useState<User>();
+  const location = useLocation();
 
   async function getUser() {
     const response = await api.get<User>(`/user/${userIdFromUrl}`)
@@ -30,7 +31,7 @@ const PerfilUser: React.FC = () => {
         console.error('Erro ao decodificar o token JWT:', error);
       }
     }
-  }, []);
+  }, [location.pathname]);
 
   return (
     <div>
@@ -49,7 +50,7 @@ const PerfilUser: React.FC = () => {
             user?.bicicletas && user.bicicletas.map((i) => {
               return (
                 <div className="div-bike" key={i.id}>
-                  <CardBike marca={i.marca.nome} modalidade={i.modalidade.nome} foto={i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} />
+                  <CardBike marca={i.marca.nome} modalidade={i.modalidade.nome} foto={i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true}/>
                 </div>
               )
             })

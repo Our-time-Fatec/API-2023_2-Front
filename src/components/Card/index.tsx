@@ -1,5 +1,6 @@
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
+import { Link } from 'react-router-dom';
 
 interface CardBike {
     marca: string;
@@ -8,9 +9,11 @@ interface CardBike {
     descricao: string;
     valorDia: number;
     valorHora: number;
+    donoId: number;
+    isProfile?: boolean;
 }
 
-function CardBike({ marca, modalidade, foto, descricao, valorDia, valorHora }: CardBike) {
+function CardBike({ marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile }: CardBike) {
     const isAuthenticated = !!localStorage.getItem('token');
     return (
         <Card style={{ width: '18rem' }}>
@@ -27,7 +30,7 @@ function CardBike({ marca, modalidade, foto, descricao, valorDia, valorHora }: C
             </ListGroup>
             <Card.Body>
                 <Card.Link href="#">Ver Mais</Card.Link>
-                {isAuthenticated ? (<Card.Link href="#">Contato</Card.Link>) : ""}
+                {!isProfile && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}`}>Contato</Card.Link>) : ""}
                 
             </Card.Body>
         </Card>
