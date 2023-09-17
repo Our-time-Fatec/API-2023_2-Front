@@ -82,7 +82,7 @@ const EditarUser: React.FC = () => {
                 <NavBar />
             </header>
             <main className='main-container'>
-                <h1 className='mt-3'>Editar User: {formState.username}</h1>
+                <h1 className='mt-3'>Editar minhas informações</h1>
                 <div className="d-flex justify-content-center align-items-center login-container mt-5">
                     <Form onSubmit={handleUpdate}>
                         <Form.Group controlId="formUsername">
