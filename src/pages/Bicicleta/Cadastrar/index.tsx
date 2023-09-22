@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Button, Col, Form } from 'react-bootstrap';
 import { FaUser, FaLock, FaMapMarkerAlt } from 'react-icons/fa';
 import { MdEmail, MdCall } from 'react-icons/md'
@@ -12,9 +12,12 @@ import Marchas from '../../../Enums/Marcha';
 import Aro from '../../../Enums/Aro';
 import Material from '../../../Enums/Material';
 import Suspensao from '../../../Enums/Suspensao';
+import Marca from '../../../interfaces/Marca';
+import Modalidade from '../../../interfaces/Modalidade';
 
 const CadastrarBikePage: React.FC = () => {
-
+    const [marcas, setMarcas] = useState<Marca[]>([]);
+    const [modalidades, setModalidades] = useState<Marca[]>([]);
     const [formState, setFormState] = useState<Bicicleta>({
         tamanho: "",
         cor: "",
@@ -30,6 +33,21 @@ const CadastrarBikePage: React.FC = () => {
         modalidadeId: 0
     });
 
+    async function getMarcasModalidades() {
+        const tokenJson = localStorage.getItem('token');
+
+        if (tokenJson) {
+            const tokenObject = JSON.parse(tokenJson);
+            const headers = {
+                Authorization: `${tokenObject}`,
+            };
+            const marcasResponse = await api.get<Marca[]>(`/marca/`, { headers });
+            const modalidadesResponse = await api.get<Modalidade[]>(`/modalidade/`, { headers });
+            setMarcas(marcasResponse.data);
+            setModalidades(modalidadesResponse.data);
+        }
+    }
+
     function updateForm(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
 
         setFormState({
@@ -39,6 +57,9 @@ const CadastrarBikePage: React.FC = () => {
         })
     };
 
+    useEffect(() => {
+        getMarcasModalidades();
+    }, [])
 
     return (
         <div className='cadastrarBike'>
@@ -115,22 +136,37 @@ const CadastrarBikePage: React.FC = () => {
                         <Form.Label className='d-flex align-items-center gap-2'><span>Marca</span></Form.Label>
                         <Form.Control
                             as="select"
-                            name="marca"
+                            name="marcaId"
                             value={formState.marcaId}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         >
                             <option value="">Selecione a Marca</option>
+                            {
+                                marcas && marcas.map((marca) => (
+                                    <option key={marca.id} value={marca.id}>
+                                        {marca.nome}
+                                    </option>
+                                ))
+                            }
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId="formModalidade">
                         <Form.Label className='d-flex align-items-center gap-2'><span>Modalidade</span></Form.Label>
                         <Form.Control
                             as="select"
-                            name="modalidade"
+                            name="modalidadeId"
                             value={formState.modalidadeId}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         >
                             <option value="">Selecione a Modalidade</option>
+                            <option value={12}>modalidade 2</option>
+                            {
+                                modalidades && modalidades.map((modalidade) => (
+                                    <option key={modalidade.id} value={modalidade.id}>
+                                        {modalidade.nome}
+                                    </option>
+                                ))
+                            }
                         </Form.Control>
                     </Form.Group>
                     <Button variant="primary" type='submit' className='mt-2'>
