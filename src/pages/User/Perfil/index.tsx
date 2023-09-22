@@ -45,6 +45,7 @@ const PerfilUser: React.FC = () => {
         <p>Endereço: {user?.endereco}</p>
         {userIdFromUrl == userId ? (<Link to={`/update/${userId}`}>Editar minhas informações</Link>) : ""}
         {userIdFromUrl == userId ? (<Link to={`/bike/cadastrar`}>Cadastrar Bicicleta</Link>) : ""}
+        <h1>{userIdFromUrl == userId ? "Minhas Bikes" : `Bikes de ${user?.username}`}</h1>
         <div className="bicicletas d-flex flex-wrap gap-2">
           {
             user?.bicicletas && user.bicicletas.map((i) => {

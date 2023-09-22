@@ -256,7 +256,6 @@ const CadastrarBikePage: React.FC = () => {
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         >
                             <option value="">Selecione a Modalidade</option>
-                            <option value={12}>modalidade 2</option>
                             {
                                 modalidades && modalidades.map((modalidade) => (
                                     <option key={modalidade.id} value={modalidade.id}>
