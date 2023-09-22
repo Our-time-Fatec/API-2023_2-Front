@@ -1,12 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Button, Col, Form } from 'react-bootstrap';
-import { FaUser, FaLock, FaMapMarkerAlt } from 'react-icons/fa';
-import { MdEmail, MdCall } from 'react-icons/md'
+import { Button, Form } from 'react-bootstrap';
 import api from '../../../services/api';
 import NavBar from '../../../components/NavBar';
 import Generos from '../../../Enums/Genero';
-import User from '../../../interfaces/User';
 import Bicicleta from '../../../interfaces/Bicicleta';
 import Marchas from '../../../Enums/Marcha';
 import Aro from '../../../Enums/Aro';
@@ -75,7 +72,6 @@ const CadastrarBikePage: React.FC = () => {
 
     const handleCadastro = async (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let registersuccess = false;
         if (tokenJson) {
             const tokenObject = JSON.parse(tokenJson);
             const headers = {
@@ -83,42 +79,45 @@ const CadastrarBikePage: React.FC = () => {
             };
             await api.post(`/bicicleta/`, formState, { headers })
                 .then((response) => {
-                    registersuccess = true
+                    const message = response.data.message;
+                    const bikeId = response.data.bikeId;
                     setBikeResponse({
-                        message: response.data.message,
-                        bikeId: response.data.bikeId
+                        message: message,
+                        bikeId: bikeId
                     })
-                })
-                .catch((error) => {
-                    alert(error.response.data.message)
-                })
-        }
-        if (tokenJson && registersuccess) {
-            const tokenObject = JSON.parse(tokenJson);
-            const headers = {
-                Authorization: `${tokenObject}`,
-            };
-            const formData = new FormData();
-            if (imagem && bikeResponse.bikeId) {
-                formData.append('file', imagem);
-                formData.append('id_bike', bikeResponse.bikeId.toString());
-            }
-
-            await api.post(`/foto/upload`, formData, {
-                headers: {
-                    ...headers,
-                    'Content-Type': 'multipart/form-data',
-                },
-            })
-                .then((response) => {
-                    alert(bikeResponse.message);
-                    navigate('/perfil/1');
+                    uploadImage(message, bikeId);
                 })
                 .catch((error) => {
                     alert(error.response.data.message)
                 })
         }
     };
+
+    const uploadImage = async (message: string, bikeId: number) => {
+        const tokenObject = JSON.parse(tokenJson || '');
+        const headers = {
+            Authorization: `${tokenObject}`,
+        };
+        if (imagem && bikeId) {
+
+            await api.post(`/foto/upload/`, {
+                'file': imagem,
+                'id_bike': bikeId
+            }, {
+                headers: {
+                    ...headers,
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+                .then((response) => {
+                    alert(message);
+                    navigate('/perfil/1');
+                })
+                .catch((error) => {
+                    alert(error.response.data.error)
+                })
+        }
+    }
 
     return (
         <div className='cadastrarBike'>
