@@ -16,9 +16,15 @@ import Marca from '../../../interfaces/Marca';
 import Modalidade from '../../../interfaces/Modalidade';
 
 const CadastrarBikePage: React.FC = () => {
+    const navigate = useNavigate();
+    const tokenJson = localStorage.getItem('token');
     const [marcas, setMarcas] = useState<Marca[]>([]);
     const [modalidades, setModalidades] = useState<Marca[]>([]);
     const [imagem, setImagem] = useState<File | null>(null);
+    const [bikeResponse, setBikeResponse] = useState({
+        message: "",
+        bikeId: 0
+    })
     const [formState, setFormState] = useState<Bicicleta>({
         tamanho: "",
         cor: "",
@@ -35,7 +41,7 @@ const CadastrarBikePage: React.FC = () => {
     });
 
     async function getMarcasModalidades() {
-        const tokenJson = localStorage.getItem('token');
+
 
         if (tokenJson) {
             const tokenObject = JSON.parse(tokenJson);
@@ -67,13 +73,60 @@ const CadastrarBikePage: React.FC = () => {
         getMarcasModalidades();
     }, [])
 
+    const handleCadastro = async (e: ChangeEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        let registersuccess = false;
+        if (tokenJson) {
+            const tokenObject = JSON.parse(tokenJson);
+            const headers = {
+                Authorization: `${tokenObject}`,
+            };
+            await api.post(`/bicicleta/`, formState, { headers })
+                .then((response) => {
+                    registersuccess = true
+                    setBikeResponse({
+                        message: response.data.message,
+                        bikeId: response.data.bikeId
+                    })
+                })
+                .catch((error) => {
+                    alert(error.response.data.message)
+                })
+        }
+        if (tokenJson && registersuccess) {
+            const tokenObject = JSON.parse(tokenJson);
+            const headers = {
+                Authorization: `${tokenObject}`,
+            };
+            const formData = new FormData();
+            if (imagem && bikeResponse.bikeId) {
+                formData.append('file', imagem);
+                formData.append('id_bike', bikeResponse.bikeId.toString());
+            }
+
+            await api.post(`/foto/upload`, formData, {
+                headers: {
+                    ...headers,
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+                .then((response) => {
+                    alert(bikeResponse.message);
+                    navigate('/perfil/1');
+                })
+                .catch((error) => {
+                    alert(error.response.data.message)
+                })
+        }
+    };
+
     return (
         <div className='cadastrarBike'>
             <header>
                 <NavBar />
             </header>
             <main className='main-container'>
-                <Form>
+                <Form onSubmit={handleCadastro}>
                     <Form.Group controlId="formTamanho">
                         <Form.Label className='d-flex align-items-center gap-2'><span>Tamanho</span></Form.Label>
                         <Form.Control
@@ -122,6 +175,22 @@ const CadastrarBikePage: React.FC = () => {
                             {Object.values(Marchas).map((marcha) => (
                                 <option key={marcha} value={marcha}>
                                     {marcha}
+                                </option>
+                            ))}
+                        </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formAro">
+                        <Form.Label className='d-flex align-items-center gap-2'><span>Aro</span></Form.Label>
+                        <Form.Control
+                            as="select"
+                            name="aro"
+                            value={formState.aro}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                        >
+                            <option value="">Selecione o aro da bicicleta</option>
+                            {Object.values(Aro).map((aro) => (
+                                <option key={aro} value={aro}>
+                                    {aro}
                                 </option>
                             ))}
                         </Form.Control>
