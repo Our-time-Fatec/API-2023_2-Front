@@ -18,6 +18,7 @@ import Modalidade from '../../../interfaces/Modalidade';
 const CadastrarBikePage: React.FC = () => {
     const [marcas, setMarcas] = useState<Marca[]>([]);
     const [modalidades, setModalidades] = useState<Marca[]>([]);
+    const [imagem, setImagem] = useState<File | null>(null);
     const [formState, setFormState] = useState<Bicicleta>({
         tamanho: "",
         cor: "",
@@ -57,6 +58,11 @@ const CadastrarBikePage: React.FC = () => {
         })
     };
 
+    function handleImageChange(e: ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0] || null;
+        setImagem(file);
+    };
+
     useEffect(() => {
         getMarcasModalidades();
     }, [])
@@ -68,6 +74,26 @@ const CadastrarBikePage: React.FC = () => {
             </header>
             <main className='main-container'>
                 <Form>
+                    <Form.Group controlId="formTamanho">
+                        <Form.Label className='d-flex align-items-center gap-2'><span>Tamanho</span></Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Digite o tamanho da sua bike"
+                            name="tamanho"
+                            value={formState.tamanho}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formCor">
+                        <Form.Label className='d-flex align-items-center gap-2'><span>Cor</span></Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Digite a cor da sua bike"
+                            name="cor"
+                            value={formState.cor}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                        />
+                    </Form.Group>
                     <Form.Group controlId="formGenero">
                         <Form.Label className='d-flex align-items-center gap-2'><span>Genero</span></Form.Label>
                         <Form.Control
@@ -168,6 +194,46 @@ const CadastrarBikePage: React.FC = () => {
                                 ))
                             }
                         </Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formValorHora">
+                        <Form.Label className='d-flex align-items-center gap-2'><span>Valor por Hora</span></Form.Label>
+                        <Form.Control
+                            type="number"
+                            placeholder="Digite o valor por hora"
+                            name="valorHora"
+                            value={formState.valorHora}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formValorDia">
+                        <Form.Label className='d-flex align-items-center gap-2'><span>Valor por Dia</span></Form.Label>
+                        <Form.Control
+                            type="number"
+                            placeholder="Digite o valor por dia"
+                            name="valorDia"
+                            value={formState.valorDia}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formDescricao">
+                        <Form.Label className='d-flex align-items-center gap-2'><span>Descrição</span></Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="Digite a descrição da sua bike"
+                            name="descricao"
+                            value={formState.descricao}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="formFoto">
+                        <Form.Label className='d-flex align-items-center gap-2'><span>Foto</span></Form.Label>
+                        <Form.Control
+                            type="file"
+                            placeholder="Insira a imagem principal da sua bicicleta"
+                            name="foto"
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
+
+                        />
                     </Form.Group>
                     <Button variant="primary" type='submit' className='mt-2'>
                         Cadastrar Bike
