@@ -44,12 +44,13 @@ const PerfilUser: React.FC = () => {
         <p>Telefone: {user?.telefone}</p>
         <p>Endereço: {user?.endereco}</p>
         {userIdFromUrl == userId ? (<Link to={`/update/${userId}`}>Editar minhas informações</Link>) : ""}
+        {userIdFromUrl == userId ? (<Link to={`/bike/cadastrar`}>Cadastrar Bicicleta</Link>) : ""}
         <div className="bicicletas d-flex gap-2">
           {
             user?.bicicletas && user.bicicletas.map((i) => {
               return (
                 <div className="div-bike" key={i.id}>
-                  <CardBike marca={i.marca.nome} modalidade={i.modalidade.nome} foto={i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} />
+                  <CardBike marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0].url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} />
                 </div>
               )
             })

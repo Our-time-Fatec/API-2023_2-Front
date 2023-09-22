@@ -9,7 +9,7 @@ import Modalidade from "./Modalidade";
 import User from "./User";
 
 interface Bicicleta {
-    id: number;
+    id?: number;
     tamanho: string;
     cor: string;
     generos: Generos;
@@ -20,17 +20,18 @@ interface Bicicleta {
     descricao: string;
     valorHora: number;
     valorDia: number;
-    isAlugada: boolean;
+    isAlugada?: boolean;
     marcaId: number;
     modalidadeId: number;
-    donoId: number;
-    avaliacao: number;
-    marca: Marca;
-    modalidade: Modalidade;
-    dono: User;
-    fotos: Foto[];
-    createdAt: string;
-    updatedAt: string;
+    donoId?: number;
+    avaliacao?: number;
+    marca?: Marca;
+    modalidade?: Modalidade;
+    dono?: User;
+    fotos?: Foto[];
+    createdAt?: string;
+    updatedAt?: string;
 }
+
 
 export default Bicicleta;

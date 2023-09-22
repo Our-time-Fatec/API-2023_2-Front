@@ -42,7 +42,7 @@ const RegisterPage: React.FC = () => {
     };
 
     return (
-        <div className='login'>
+        <div className='register'>
             <header>
                 <NavBar />
             </header>

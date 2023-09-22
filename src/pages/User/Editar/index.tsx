@@ -77,7 +77,7 @@ const EditarUser: React.FC = () => {
 
 
     return (
-        <div className='login'>
+        <div className='editar'>
             <header>
                 <NavBar />
             </header>

@@ -3,13 +3,13 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from 'react-router-dom';
 
 interface CardBike {
-    marca: string;
-    modalidade: string;
-    foto: string;
+    marca?: string;
+    modalidade?: string;
+    foto?: string;
     descricao: string;
     valorDia: number;
     valorHora: number;
-    donoId: number;
+    donoId?: number;
     isProfile?: boolean;
 }
 
@@ -17,7 +17,7 @@ function CardBike({ marca, modalidade, foto, descricao, valorDia, valorHora, don
     const isAuthenticated = !!localStorage.getItem('token');
     return (
         <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={`http://localhost:3001/images/${foto}`} />
+            <Card.Img variant="top" src={`${foto}`} />
             <Card.Body>
                 <Card.Title>{marca} - {modalidade} </Card.Title>
                 <Card.Text>
