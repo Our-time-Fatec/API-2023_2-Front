@@ -11,6 +11,8 @@ import Material from '../../../Enums/Material';
 import Suspensao from '../../../Enums/Suspensao';
 import Marca from '../../../interfaces/Marca';
 import Modalidade from '../../../interfaces/Modalidade';
+import DecodedToken from '../../../interfaces/DecodedToken';
+import jwtDecode from 'jwt-decode';
 
 const CadastrarBikePage: React.FC = () => {
     const navigate = useNavigate();
@@ -98,6 +100,7 @@ const CadastrarBikePage: React.FC = () => {
         const headers = {
             Authorization: `${tokenObject}`,
         };
+        const decodedToken = jwtDecode<DecodedToken>(tokenJson || '');
         if (imagem && bikeId) {
 
             await api.post(`/foto/upload/`, {
@@ -111,7 +114,7 @@ const CadastrarBikePage: React.FC = () => {
             })
                 .then((response) => {
                     alert(message);
-                    navigate('/perfil/1');
+                    navigate(`/perfil/${decodedToken.userId}`);
                 })
                 .catch((error) => {
                     alert(error.response.data.error)
