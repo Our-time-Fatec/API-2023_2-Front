@@ -6,6 +6,7 @@ import { MdEmail, MdCall } from 'react-icons/md'
 import api from '../../../services/api';
 import NavBar from '../../../components/NavBar';
 import User from '../../../interfaces/User';
+import { Link } from 'react-router-dom';
 
 const RegisterPage: React.FC = () => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -51,9 +52,10 @@ const RegisterPage: React.FC = () => {
                 <NavBar isLogin={true} />
             </header>
             <main className='main-container'>
-                <h1 className='mt-3'>Registrar-se</h1>
+                <h1 className='mt-3'>Bem-vindo</h1>
+                <h2>Efetue já seu registro!</h2>
                 <div className="d-flex justify-content-center align-items-center login-container mt-5">
-                    <Form onSubmit={handleRegister}>
+                    <Form className='d-flex flex-column gap-2' onSubmit={handleRegister}>
                         <Form.Group controlId="formUsername">
                             <Form.Label className='d-flex align-items-center gap-2'><FaUser /><span>Username</span></Form.Label>
                             <Form.Control
@@ -104,10 +106,20 @@ const RegisterPage: React.FC = () => {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
-                        <Button variant="primary" type='submit' className='mt-2' disabled={isButtonDisabled}>
+                        <Button variant="primary" type='submit' className='mt-3' disabled={isButtonDisabled}>
                             Registrar-se
                         </Button>
                     </Form>
+                </div>
+                <div className='options d-flex flex-column align-items-center mt-4'>
+                    <span className='d-flex gap-1'>
+                        <span>Já possuí uma conta?</span>
+                        <Link to={`/`}>Logue aqui!</Link>
+                    </span>
+                    <span className='d-flex gap-1'>
+                        <span>Quer navegar como visistante?</span>
+                        <Link to={`/inicio`}>Continue aqui!</Link>
+                    </span>
                 </div>
             </main>
         </div>
