@@ -11,6 +11,7 @@ import User from '../../../interfaces/User';
 
 const EditarUser: React.FC = () => {
     const navigate = useNavigate();
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const { id } = useParams();
     const [formState, setFormState] = useState<User>({
         username: "",
@@ -37,6 +38,7 @@ const EditarUser: React.FC = () => {
         e.preventDefault();
         try {
             const tokenJson = localStorage.getItem('token');
+            setIsButtonDisabled(true);
 
             if (tokenJson) {
                 const tokenObject = JSON.parse(tokenJson);
@@ -50,12 +52,16 @@ const EditarUser: React.FC = () => {
                         navigate(`/perfil/${id}`);
                     })
                     .catch((error) => {
-                        alert(error.response.data.message);
+                        alert(error.response.data.error);
                     })
+                    .finally(() => {
+                        setIsButtonDisabled(false);
+                    });
             } else {
             }
         } catch (error) {
             console.error('Erro ao fazer update:', error);
+            setIsButtonDisabled(false);
         }
     };
 
@@ -125,7 +131,7 @@ const EditarUser: React.FC = () => {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
-                        <Button variant="primary" type='submit' className='mt-2'>
+                        <Button variant="primary" type='submit' className='mt-2' disabled={isButtonDisabled}>
                             Editar
                         </Button>
                     </Form>
