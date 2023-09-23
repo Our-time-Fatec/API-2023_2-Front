@@ -17,6 +17,7 @@ import jwtDecode from 'jwt-decode';
 const CadastrarBikePage: React.FC = () => {
     const navigate = useNavigate();
     const tokenJson = localStorage.getItem('token');
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [marcas, setMarcas] = useState<Marca[]>([]);
     const [modalidades, setModalidades] = useState<Marca[]>([]);
     const [imagem, setImagem] = useState<File | null>(null);
@@ -74,6 +75,7 @@ const CadastrarBikePage: React.FC = () => {
 
     const handleCadastro = async (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsButtonDisabled(true);
         if (tokenJson) {
             const tokenObject = JSON.parse(tokenJson);
             const headers = {
@@ -90,7 +92,8 @@ const CadastrarBikePage: React.FC = () => {
                     uploadImage(message, bikeId);
                 })
                 .catch((error) => {
-                    alert(error.response.data.message)
+                    alert(error.response.data.error)
+                    setIsButtonDisabled(false);
                 })
         }
     };
@@ -119,6 +122,9 @@ const CadastrarBikePage: React.FC = () => {
                 .catch((error) => {
                     alert(error.response.data.error)
                 })
+                .finally(() => {
+                    setIsButtonDisabled(false);
+                });
         }
     }
 
@@ -305,7 +311,7 @@ const CadastrarBikePage: React.FC = () => {
 
                         />
                     </Form.Group>
-                    <Button variant="primary" type='submit' className='mt-2'>
+                    <Button variant="primary" type='submit' className='mt-2' disabled={isButtonDisabled}>
                         Cadastrar Bike
                     </Button>
                 </Form>

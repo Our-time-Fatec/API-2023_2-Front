@@ -8,7 +8,7 @@ import NavBar from '../../../components/NavBar';
 import User from '../../../interfaces/User';
 
 const RegisterPage: React.FC = () => {
-
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const navigate = useNavigate();
 
     const [formState, setFormState] = useState<User>({
@@ -29,22 +29,26 @@ const RegisterPage: React.FC = () => {
     };
 
 
-    const handleRegister = async (e:ChangeEvent<HTMLFormElement>) => {
+    const handleRegister = async (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsButtonDisabled(true);
         await api.post(`/user/register`, formState)
             .then((response) => {
                 alert(response.data.message);
                 navigate('/login');
             })
             .catch((error) => {
-                alert(error.response.data.message)
+                alert(error.response.data.error)
             })
+            .finally(() => {
+                setIsButtonDisabled(false);
+            });
     };
 
     return (
         <div className='register'>
             <header>
-                <NavBar isLogin={true}/>
+                <NavBar isLogin={true} />
             </header>
             <main className='main-container'>
                 <h1 className='mt-3'>Registrar-se</h1>
@@ -100,7 +104,7 @@ const RegisterPage: React.FC = () => {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
-                        <Button variant="primary" type='submit' className='mt-2'>
+                        <Button variant="primary" type='submit' className='mt-2' disabled={isButtonDisabled}>
                             Registrar-se
                         </Button>
                     </Form>

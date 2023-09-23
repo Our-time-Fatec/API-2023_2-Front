@@ -9,9 +9,11 @@ import api from '../../services/api';
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const navigate = useNavigate();
 
     const handleLogin = async () => {
+        setIsButtonDisabled(true);
         await api.post(`/user/login`, { email, password })
             .then((response) => {
                 localStorage.setItem('token', JSON.stringify(response.data.token));
@@ -22,6 +24,9 @@ const LoginPage: React.FC = () => {
             .catch((error) => {
                 alert(error.response.data.message)
             })
+            .finally(() => {
+                setIsButtonDisabled(false);
+            });
     };
 
     return (
@@ -53,7 +58,7 @@ const LoginPage: React.FC = () => {
                             />
 
                         </Form.Group>
-                        <Button variant="primary" onClick={handleLogin} className='mt-3'>
+                        <Button variant="primary" onClick={handleLogin} className='mt-3' disabled={isButtonDisabled}>
                             Entrar
                         </Button>
                     </Form>
