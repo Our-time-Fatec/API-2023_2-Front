@@ -29,7 +29,7 @@ function Inicio() {
             </header>
             <main className="main-container">
                 <h1 className="mt-3">Bicicletas disponiveis</h1>
-                <div className="bike mx-4 d-flex flex-wrap gap-2">
+                <div className="bike mx-4 d-flex flex-wrap align-items-center justify-content-center gap-3">
                     {
                         bicicletas && bicicletas.filter((i) => !i.isAlugada).map((i) => {
                             return (
