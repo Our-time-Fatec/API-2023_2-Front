@@ -39,7 +39,7 @@ function NavBar() {
     return (
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
             <Container>
-                <Navbar.Brand className="link-no-style">Bicikreta</Navbar.Brand>
+                <Navbar.Brand className="link-no-style"><img src="https://api2023awsbucket.s3.amazonaws.com/BiCICRETA.png" style={{ width: '110px' }} /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
