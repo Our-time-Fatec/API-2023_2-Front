@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, useNavigate, Navigate } from "react-router-dom";
-import Home from "../pages/Home";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import LoginPage from "../pages/Login";
 import auth from "../services/auth";
 import Inicio from "../pages/Inicio";

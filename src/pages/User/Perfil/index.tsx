@@ -3,7 +3,6 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import NavBar from '../../../components/NavBar';
 import DecodedToken from '../../../interfaces/DecodedToken';
-import { TokenExpiredError } from 'jsonwebtoken';
 import User from '../../../interfaces/User';
 import api from '../../../services/api';
 import CardBike from '../../../components/Card';

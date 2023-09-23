@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
-import { FaUser, FaLock } from 'react-icons/fa';
+import { FaLock } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md'
 import NavBar from '../../components/NavBar';
 import api from '../../services/api';

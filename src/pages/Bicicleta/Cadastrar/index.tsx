@@ -65,9 +65,21 @@ const CadastrarBikePage: React.FC = () => {
     };
 
     function handleImageChange(e: ChangeEvent<HTMLInputElement>) {
-        const file = e.target.files?.[0] || null;
-        setImagem(file);
-    };
+        const selectedFile = e.target.files?.[0];
+
+        if (selectedFile) {
+            const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+
+            if (allowedTypes.includes(selectedFile.type)) {
+                setImagem(selectedFile);
+            } else {
+                alert("Por favor, selecione um arquivo de imagem válido (JPEG, PNG, GIF ou WebP).");
+                e.target.value = "";
+            }
+        } else {
+            setImagem(null);
+        }
+    }
 
     useEffect(() => {
         getMarcasModalidades();
@@ -307,8 +319,8 @@ const CadastrarBikePage: React.FC = () => {
                             type="file"
                             placeholder="Insira a imagem principal da sua bicicleta"
                             name="foto"
+                            accept="image/*"
                             onChange={(e: ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
-
                         />
                     </Form.Group>
                     <Button variant="primary" type='submit' className='mt-2' disabled={isButtonDisabled}>
