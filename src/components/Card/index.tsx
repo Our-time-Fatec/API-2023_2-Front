@@ -14,15 +14,16 @@ interface CardBike {
     isAlugada?: boolean;
 }
 
-function CardBike({ marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile , isAlugada}: CardBike) {
+function CardBike({ marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada }: CardBike) {
     const isAuthenticated = !!localStorage.getItem('token');
     return (
         <Card style={{ width: '18rem' }}>
             <Card.Img variant="top" src={`${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
             <Card.Body>
+                <span className={isAlugada ? "text-danger" : "text-success"}>{isAlugada ? "Alugada" : "Disponivel"}</span>
                 <Card.Title>{marca} - {modalidade}</Card.Title>
                 <Card.Text style={{ height: '3rem', overflowY: 'auto' }}>
-                    {descricao} 
+                    {descricao}
                 </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">

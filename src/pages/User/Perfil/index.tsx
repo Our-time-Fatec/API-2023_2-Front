@@ -51,7 +51,7 @@ const PerfilUser: React.FC = () => {
             user?.bicicletas && user.bicicletas.map((i) => {
               return (
                 <div className="div-bike" key={i.id}>
-                  <CardBike marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} />
+                  <CardBike marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} isAlugada={i.isAlugada} />
                 </div>
               )
             })

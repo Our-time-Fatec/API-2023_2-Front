@@ -31,7 +31,7 @@ function Inicio() {
                 <h1 className="mt-3">Bicicletas disponiveis</h1>
                 <div className="bike mx-4 d-flex flex-wrap gap-2">
                     {
-                        bicicletas && bicicletas.map((i) => {
+                        bicicletas && bicicletas.filter((i) => !i.isAlugada).map((i) => {
                             return (
 
                                 <div className="bike" key={i.id}>
