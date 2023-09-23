@@ -16,13 +16,12 @@ function AppRouter() {
         <Router>
             <auth.AuthMiddleware>
                 <Routes>
-                    <Route path="/" element={isAuthenticated ? (<Navigate to="/inicio" />) : (<Home />)} />
+                    <Route path="/" element={isAuthenticated ? (<Navigate to="/inicio" />) : (<LoginPage />)} />
                     <Route path="/Inicio" element={<Inicio />} />
-                    <Route path="/login" element={isAuthenticated ? (<Navigate to="/inicio" />) : (<LoginPage />)} />
                     <Route path="/register" element={isAuthenticated ? (<Navigate to="/inicio" />) : (<RegisterPage />)} />
-                    <Route path="/perfil/:id" element={isAuthenticated ? (<PerfilUser />) : (<Navigate to="/login" />)} />
-                    <Route path="/update/:id" element={isAuthenticated ? (<EditarUser />) : (<Navigate to="/login" />)} />
-                    <Route path="/bike/cadastrar" element={isAuthenticated ? (<CadastrarBikePage />) : (<Navigate to="/login" />)} />
+                    <Route path="/perfil/:id" element={isAuthenticated ? (<PerfilUser />) : (<Navigate to="/" />)} />
+                    <Route path="/update/:id" element={isAuthenticated ? (<EditarUser />) : (<Navigate to="/" />)} />
+                    <Route path="/bike/cadastrar" element={isAuthenticated ? (<CadastrarBikePage />) : (<Navigate to="/" />)} />
                 </Routes>
             </auth.AuthMiddleware>
         </Router>

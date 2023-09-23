@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaUser, FaLock } from 'react-icons/fa';
@@ -7,12 +7,12 @@ import NavBar from '../../components/NavBar';
 import api from '../../services/api';
 
 const LoginPage: React.FC = () => {
-    const [username, setUsername] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        await api.post(`/user/login`, { username, password })
+        await api.post(`/user/login`, { email, password })
             .then((response) => {
                 localStorage.setItem('token', JSON.stringify(response.data.token));
                 localStorage.setItem('username', JSON.stringify(response.data.username));
@@ -27,19 +27,20 @@ const LoginPage: React.FC = () => {
     return (
         <div className='login'>
             <header>
-                <NavBar />
+                <NavBar isLogin={true} />
             </header>
             <main className='main-container'>
-                <h1 className='mt-3'>Login</h1>
+                <h1 className='mt-3'>Bem-vindo</h1>
+                <h2>Efetue já seu login!</h2>
                 <div className="d-flex justify-content-center align-items-center login-container mt-5">
-                    <Form>
-                        <Form.Group controlId="formUsername">
-                            <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>Username</span></Form.Label>
+                    <Form className='d-flex flex-column gap-2'>
+                        <Form.Group controlId="formEmail">
+                            <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>Email</span></Form.Label>
                             <Form.Control
-                                type="text"
-                                placeholder="Digite seu username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                type="email"
+                                placeholder="Digite seu Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </Form.Group>
                         <Form.Group controlId="formPassword">
@@ -52,10 +53,20 @@ const LoginPage: React.FC = () => {
                             />
 
                         </Form.Group>
-                        <Button variant="primary" onClick={handleLogin} className='mt-2'>
+                        <Button variant="primary" onClick={handleLogin} className='mt-3'>
                             Entrar
                         </Button>
                     </Form>
+                </div>
+                <div className='options d-flex flex-column align-items-center mt-4'>
+                    <span className='d-flex gap-1'>
+                        <span>Ainda não tem uma conta?</span>
+                        <Link to={`/register`}>Registre-se aqui!</Link>
+                    </span>
+                    <span className='d-flex gap-1'>
+                        <span>Quer navegar como visistante?</span>
+                        <Link to={`/inicio`}>Continue aqui!</Link>
+                    </span>
                 </div>
             </main>
         </div>

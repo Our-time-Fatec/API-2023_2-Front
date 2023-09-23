@@ -10,7 +10,11 @@ import jwtDecode from 'jwt-decode';
 import { FaUser } from 'react-icons/fa';
 import { HiOutlineLogout } from 'react-icons/hi';
 
-function NavBar() {
+interface CardNav {
+    isLogin?: boolean;
+}
+
+function NavBar({ isLogin }: CardNav) {
     const isAuthenticated = !!localStorage.getItem('token');
     const navigate = useNavigate();
     const [userId, setUserId] = useState<string | null>(null);
@@ -41,35 +45,40 @@ function NavBar() {
             <Container>
                 <Navbar.Brand className="link-no-style"><img src="https://api2023awsbucket.s3.amazonaws.com/BiCICRETA.png" style={{ width: '110px' }} /></Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link as={Link} to={"/inicio"} className="link-no-style">Inicio</Nav.Link>
-                        {/* {isAuthenticated && <Nav.Link as={Link} to={"/"} className="link-no-style">Locações</Nav.Link>} */}
-                    </Nav>
-                    <Nav>
-                        {isAuthenticated ? (
-                            <>
-                                <NavDropdown title={
-                                    <span className='d-flex-row align-items-center'>
-                                        <FaUser className='me-1' />
-                                        <span>{username ? username : ""}</span>
-                                    </span>
-                                } id="collapsible-nav-dropdown">
-                                    <NavDropdown.Item as={Link} to={`/perfil/${userId}`} className="link-no-style ">Meu Perfil<FaUser className='mx-2' /></NavDropdown.Item>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item onClick={handleLogout}>Deslogar<HiOutlineLogout className='mx-2' /></NavDropdown.Item>
+                {
+                    !isLogin ? (
+                        <Navbar.Collapse id="responsive-navbar-nav">
+                            <Nav className="me-auto">
+                                <Nav.Link as={Link} to={"/inicio"} className="link-no-style">Inicio</Nav.Link>
+                                {/* {isAuthenticated && <Nav.Link as={Link} to={"/"} className="link-no-style">Locações</Nav.Link>} */}
+                            </Nav>
+                            <Nav>
+                                {isAuthenticated ? (
+                                    <>
+                                        <NavDropdown title={
+                                            <span className='d-flex-row align-items-center'>
+                                                <FaUser className='me-1' />
+                                                <span>{username ? username : ""}</span>
+                                            </span>
+                                        } id="collapsible-nav-dropdown">
+                                            <NavDropdown.Item as={Link} to={`/perfil/${userId}`} className="link-no-style ">Meu Perfil<FaUser className='mx-2' /></NavDropdown.Item>
+                                            <NavDropdown.Divider />
+                                            <NavDropdown.Item onClick={handleLogout}>Sair<HiOutlineLogout className='mx-2' /></NavDropdown.Item>
 
-                                </NavDropdown>
-                            </>
-                        ) : (
-                            <>
-                                <Nav.Link as={Link} to={"/register"} className="link-no-style">Registrar</Nav.Link>
-                                <Nav.Link as={Link} to={"/login"} className="link-no-style">Logar</Nav.Link>
-                            </>
-                        )}
+                                        </NavDropdown>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Nav.Link as={Link} to={"/"} className="link-no-style">Logar</Nav.Link>
+                                    </>
+                                )}
 
-                    </Nav>
-                </Navbar.Collapse>
+                            </Nav>
+                        </Navbar.Collapse>
+                    ) :
+                    ""
+                }
+
             </Container>
         </Navbar>
     );
