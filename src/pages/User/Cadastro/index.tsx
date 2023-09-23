@@ -35,7 +35,7 @@ const RegisterPage: React.FC = () => {
         await api.post(`/user/register`, formState)
             .then((response) => {
                 alert(response.data.message);
-                navigate('/login');
+                navigate('/');
             })
             .catch((error) => {
                 alert(error.response.data.error)
