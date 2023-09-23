@@ -34,10 +34,10 @@ const LoginPage: React.FC = () => {
                 <div className="d-flex justify-content-center align-items-center login-container mt-5">
                     <Form>
                         <Form.Group controlId="formUsername">
-                            <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>E-mail</span></Form.Label>
+                            <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>Username</span></Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Digite seu e-mail"
+                                placeholder="Digite seu username"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />

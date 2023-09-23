@@ -29,9 +29,9 @@ function CardBike({ marca, modalidade, foto, descricao, valorDia, valorHora, don
                 <ListGroup.Item>Valor por hora: R$ {valorHora}</ListGroup.Item>
             </ListGroup>
             <Card.Body>
-                <Card.Link href="#">Ver Mais</Card.Link>
+                <Card.Link href="#" className='disabled-link'>Ver Mais</Card.Link>
                 {!isProfile && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}`}>Contato</Card.Link>) : ""}
-                
+
             </Card.Body>
         </Card>
     );

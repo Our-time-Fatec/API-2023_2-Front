@@ -10,3 +10,8 @@
     align-items: center;
   }
   
+  .disabled-link {
+    pointer-events: none; /* Impede eventos de clique */
+    color: #6c757d; /* Define a cor de texto desativada */
+    text-decoration: none; /* Remove a sublinhado */
+  }
