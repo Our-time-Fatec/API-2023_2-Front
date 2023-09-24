@@ -7,6 +7,7 @@ import api from '../../../services/api';
 import NavBar from '../../../components/NavBar';
 import User from '../../../interfaces/User';
 import { Link } from 'react-router-dom';
+import PhoneInput from 'react-phone-input-2';
 
 const RegisterPage: React.FC = () => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -62,6 +63,7 @@ const RegisterPage: React.FC = () => {
                                 type="text"
                                 placeholder="Digite seu username"
                                 name="username"
+                                required
                                 value={formState.username}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
@@ -69,21 +71,25 @@ const RegisterPage: React.FC = () => {
                         <Form.Group controlId="formEmail">
                             <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>E-mail</span></Form.Label>
                             <Form.Control
-                                type="text"
+                                type="email"
                                 placeholder="Digite seu e-mail"
                                 name="email"
+                                required
                                 value={formState.email}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
                         <Form.Group controlId="formTelefone">
                             <Form.Label className='d-flex align-items-center gap-2'><MdCall /><span>Telefone</span></Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Digite seu telefone"
-                                name="telefone"
+                            <PhoneInput
+                                country={'br'} 
                                 value={formState.telefone}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                                onChange={(value, data, event, formattedValue) => updateForm(event)}
+                                inputProps={{
+                                    name: 'telefone',
+                                    required: true,
+                                    'aria-label': 'Telefone',
+                                }}
                             />
                         </Form.Group>
                         <Form.Group controlId="formEndereco">
@@ -92,6 +98,7 @@ const RegisterPage: React.FC = () => {
                                 type="text"
                                 placeholder="Digite seu endereço"
                                 name="endereco"
+                                required
                                 value={formState.endereco}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
@@ -102,6 +109,7 @@ const RegisterPage: React.FC = () => {
                                 type="password"
                                 placeholder="Digite sua senha"
                                 name="password"
+                                required
                                 value={formState.password}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />

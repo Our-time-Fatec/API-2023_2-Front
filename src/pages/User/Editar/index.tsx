@@ -8,6 +8,7 @@ import NavBar from '../../../components/NavBar';
 import DecodedToken from '../../../interfaces/DecodedToken';
 import jwtDecode from 'jwt-decode';
 import User from '../../../interfaces/User';
+import PhoneInput from 'react-phone-input-2';
 
 const EditarUser: React.FC = () => {
     const navigate = useNavigate();
@@ -97,6 +98,7 @@ const EditarUser: React.FC = () => {
                                 type="text"
                                 placeholder="Digite seu username"
                                 name="username"
+                                required
                                 value={formState.username}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
@@ -104,21 +106,25 @@ const EditarUser: React.FC = () => {
                         <Form.Group controlId="formEmail">
                             <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>E-mail</span></Form.Label>
                             <Form.Control
-                                type="text"
+                                type="email"
                                 placeholder="Digite seu e-mail"
                                 name="email"
+                                required
                                 value={formState.email}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
                         <Form.Group controlId="formTelefone">
                             <Form.Label className='d-flex align-items-center gap-2'><MdCall /><span>Telefone</span></Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Digite seu telefone"
-                                name="telefone"
+                            <PhoneInput
+                                country={'br'} 
                                 value={formState.telefone}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                                onChange={(value, data, event, formattedValue) => updateForm(event)}
+                                inputProps={{
+                                    name: 'telefone',
+                                    required: true,
+                                    'aria-label': 'Telefone',
+                                }}
                             />
                         </Form.Group>
                         <Form.Group controlId="formEndereco">
@@ -127,6 +133,7 @@ const EditarUser: React.FC = () => {
                                 type="text"
                                 placeholder="Digite seu endereço"
                                 name="endereco"
+                                required
                                 value={formState.endereco}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />

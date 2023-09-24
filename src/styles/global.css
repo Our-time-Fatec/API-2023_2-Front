@@ -11,7 +11,11 @@
   }
   
   .disabled-link {
-    pointer-events: none; /* Impede eventos de clique */
-    color: #6c757d; /* Define a cor de texto desativada */
-    text-decoration: none; /* Remove a sublinhado */
+    pointer-events: none; 
+    color: #6c757d;
+    text-decoration: none;
   }
+
+  .special-label {
+    display: none; 
+}
