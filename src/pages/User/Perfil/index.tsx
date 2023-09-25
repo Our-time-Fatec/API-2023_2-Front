@@ -6,6 +6,7 @@ import DecodedToken from '../../../interfaces/DecodedToken';
 import User from '../../../interfaces/User';
 import api from '../../../services/api';
 import CardBike from '../../../components/Card';
+import { Button } from 'react-bootstrap';
 
 const PerfilUser: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
@@ -32,29 +33,49 @@ const PerfilUser: React.FC = () => {
     }
   }, [location.pathname]);
 
+  const formatPhoneNumber = (phoneNumber: string) => {
+    const numericPhone = phoneNumber.replace(/\D/g, '');
+    const formattedPhone = numericPhone.startsWith('55') ? numericPhone : `55${numericPhone}`;
+    return formattedPhone;
+  };
+
+  const formattedPhoneNumber = user?.telefone ? formatPhoneNumber(user.telefone) : '';
+  const whatsappLink = `https://wa.me/${formattedPhoneNumber}`;
+
   return (
     <div>
       <header>
         <NavBar />
       </header>
       <main className='main-container'>
-        <h1>{userIdFromUrl == userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>
-        <p>Email: {user?.email}</p>
-        <p>Telefone: {user?.telefone}</p>
-        <p>Endereço: {user?.endereco}</p>
-        {userIdFromUrl == userId ? (<Link to={`/update/${userId}`}>Editar minhas informações</Link>) : ""}
-        {userIdFromUrl == userId ? (<Link to={`/bike/cadastrar`}>Cadastrar Bicicleta</Link>) : ""}
-        <h1>{userIdFromUrl == userId ? "Minhas Bikes" : `Bikes de ${user?.username}`}</h1>
-        <div className="bicicletas d-flex flex-wrap align-items-center justify-content-center gap-3">
-          {
-            user?.bicicletas && user.bicicletas.map((i) => {
-              return (
-                <div className="div-bike" key={i.id}>
-                  <CardBike marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} isAlugada={i.isAlugada} />
-                </div>
-              )
-            })
-          }
+        <div className="userDados d-flex flex-column align-items-center justify-content-center">
+          <h1>{userIdFromUrl == userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>
+          <p>Email: {user?.email}</p>
+          <p>Telefone: {user?.telefone}</p>
+          <p>Endereço: {user?.endereco}</p>
+          <Button variant="success" className='mt-2' href={whatsappLink} target="_blank" rel="noopener noreferrer">
+            WhatsApp
+          </Button>
+          {userIdFromUrl == userId ? (<Link to={`/update/${userId}`}>Editar minhas informações</Link>) : ""}
+          {userIdFromUrl == userId ? (<Link to={`/bike/cadastrar`}>Cadastrar Bicicleta</Link>) : ""}
+        </div>
+        <div className="userBikes d-flex flex-column justify-content-center align-items-center">
+          {user?.bicicletas && user?.bicicletas?.length > 0 ? (
+            <>
+              <h1 className='mt-2'>{userIdFromUrl == userId ? "Minhas Bikes" : `Bikes de ${user?.username}`}</h1>
+              <div className="bicicletas d-flex flex-wrap align-items-center justify-content-center gap-3">
+                {user?.bicicletas.map((i) => {
+                  return (
+                    <div className="div-bike" key={i.id}>
+                      <CardBike marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} isAlugada={i.isAlugada} />
+                    </div>
+                  )
+                })}
+              </div>
+            </>
+          ) : (
+            <span className='mt-5'>{user?.username} ainda não tem bicicletas cadastradas.</span>
+          )}
         </div>
       </main>
     </div>
