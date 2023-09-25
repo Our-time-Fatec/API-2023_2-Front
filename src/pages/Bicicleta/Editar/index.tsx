@@ -117,7 +117,7 @@ const EditarBikePage: React.FC = () => {
                 <NavBar />
             </header>
             <main className='main-container'>
-                <h1>Editar Bicicleta {formState.donoId}</h1>
+                <h1>Editar Bicicleta</h1>
                 <Form className='d-flex flex-column gap-2' onSubmit={handleUpdate}>
                     <Form.Check
                         type="checkbox"
