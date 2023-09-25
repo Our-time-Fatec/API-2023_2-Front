@@ -22,7 +22,7 @@ function AppRouter() {
                     <Route path="/perfil/:id" element={isAuthenticated ? (<PerfilUser />) : (<Navigate to="/" />)} />
                     <Route path="/update/:id" element={isAuthenticated ? (<EditarUser />) : (<Navigate to="/" />)} />
                     <Route path="/bike/cadastrar" element={isAuthenticated ? (<CadastrarBikePage />) : (<Navigate to="/" />)} />
-                    <Route path="/bike/editar/:id" element={isAuthenticated ? (<EditarBikePage />) : (<Navigate to="/" />)} />
+                    <Route path="/perfil/:donoId/bike/editar/:id" element={isAuthenticated ? (<EditarBikePage />) : (<Navigate to="/" />)} />
                 </Routes>
             </auth.AuthMiddleware>
         </Router>

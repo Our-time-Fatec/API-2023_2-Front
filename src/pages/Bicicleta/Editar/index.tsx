@@ -11,10 +11,12 @@ import Material from '../../../Enums/Material';
 import Suspensao from '../../../Enums/Suspensao';
 import Marca from '../../../interfaces/Marca';
 import Modalidade from '../../../interfaces/Modalidade';
+import jwtDecode from 'jwt-decode';
+import DecodedToken from '../../../interfaces/DecodedToken';
 
 const EditarBikePage: React.FC = () => {
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { id, donoId } = useParams();
     const tokenJson = localStorage.getItem('token');
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [marcas, setMarcas] = useState<Marca[]>([]);
@@ -32,11 +34,11 @@ const EditarBikePage: React.FC = () => {
         valorDia: 0,
         marcaId: 0,
         modalidadeId: 0,
+        donoId: 0,
         isAlugada: false
     });
 
-    async function getBikeMarcasModalidades() {
-
+    async function getMarcasModalidades() {
 
         if (tokenJson) {
             const tokenObject = JSON.parse(tokenJson);
@@ -45,11 +47,19 @@ const EditarBikePage: React.FC = () => {
             };
             const marcasResponse = await api.get<Marca[]>(`/marca/`, { headers });
             const modalidadesResponse = await api.get<Modalidade[]>(`/modalidade/`, { headers });
-            const bikeResponse = await api.get<Bicicleta>(`/bicicleta/${id}`, { headers });
             setMarcas(marcasResponse.data);
             setModalidades(modalidadesResponse.data);
-            setFormState(bikeResponse.data);
         }
+    }
+
+    async function getBike() {
+        await api.get<Bicicleta>(`/bicicleta/${id}/${donoId}`)
+            .then((response) => {
+                setFormState(response.data);
+            })
+            .catch((error) => {
+                navigate("/")
+            })
     }
 
     function updateForm(e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
@@ -62,7 +72,21 @@ const EditarBikePage: React.FC = () => {
     };
 
     useEffect(() => {
-        getBikeMarcasModalidades();
+        getMarcasModalidades();
+        getBike();
+
+        const token = localStorage.getItem('token');
+        if (token) {
+            try {
+                const decodedToken = jwtDecode<DecodedToken>(token);
+                if (decodedToken.userId != donoId) {
+                    navigate("/")
+                }
+            } catch (error) {
+                console.error('Erro ao decodificar o token JWT:', error);
+            }
+
+        }
     }, [])
 
     const handleUpdate = async (e: ChangeEvent<HTMLFormElement>) => {
@@ -87,14 +111,13 @@ const EditarBikePage: React.FC = () => {
         }
     };
 
-
     return (
         <div className='editarBike'>
             <header>
                 <NavBar />
             </header>
             <main className='main-container'>
-                <h1>Editar Bicicleta</h1>
+                <h1>Editar Bicicleta {formState.donoId}</h1>
                 <Form className='d-flex flex-column gap-2' onSubmit={handleUpdate}>
                     <Form.Check
                         type="checkbox"
