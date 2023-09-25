@@ -1,8 +1,10 @@
+import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from 'react-router-dom';
 
 interface CardBike {
+    id?: number;
     marca?: string;
     modalidade?: string;
     foto?: string;
@@ -12,9 +14,10 @@ interface CardBike {
     donoId?: number;
     isProfile?: boolean;
     isAlugada?: boolean;
+    isMyPerfil?: boolean;
 }
 
-function CardBike({ marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada }: CardBike) {
+function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada, isMyPerfil }: CardBike) {
     const isAuthenticated = !!localStorage.getItem('token');
     return (
         <Card style={{ width: '18rem' }}>
@@ -31,9 +34,21 @@ function CardBike({ marca, modalidade, foto, descricao, valorDia, valorHora, don
                 <ListGroup.Item>Valor por hora: R$ {valorHora}</ListGroup.Item>
             </ListGroup>
             <Card.Body>
-                <Card.Link href="#" className='disabled-link'>Ver Mais</Card.Link>
-                {!isProfile && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}`}>Contato</Card.Link>) : ""}
-
+                <Card.Link className='disabled-link' as={Link} to={`#`}>
+                    <Button variant="success" className='mt-2' disabled>
+                        Ver Mais
+                    </Button>
+                </Card.Link >
+                {!isProfile && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}`}>
+                    <Button variant="primary" className='mt-2'>
+                        Contato
+                    </Button>
+                </Card.Link >) : ""}
+                {isMyPerfil && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}/bike/editar/${id}`}>
+                    <Button variant="success" className='mt-2'>
+                        Editar
+                    </Button>
+                </Card.Link >) : ""}
             </Card.Body>
         </Card>
     );
