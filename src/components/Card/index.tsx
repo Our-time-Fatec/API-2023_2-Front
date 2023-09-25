@@ -34,8 +34,8 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
                 <ListGroup.Item>Valor por hora: R$ {valorHora}</ListGroup.Item>
             </ListGroup>
             <Card.Body>
-                <Card.Link className='disabled-link' as={Link} to={`#`}>
-                    <Button variant="success" className='mt-2' disabled>
+                <Card.Link className='' as={Link} to={`/bike/${id}`}>
+                    <Button variant="success" className='mt-2'>
                         Ver Mais
                     </Button>
                 </Card.Link >
@@ -45,7 +45,7 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
                     </Button>
                 </Card.Link >) : ""}
                 {isMyPerfil && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}/bike/editar/${id}`}>
-                    <Button variant="success" className='mt-2'>
+                    <Button variant="primary" className='mt-2'>
                         Editar
                     </Button>
                 </Card.Link >) : ""}

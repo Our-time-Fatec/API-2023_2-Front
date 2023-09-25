@@ -7,6 +7,7 @@ import PerfilUser from "../pages/User/Perfil";
 import RegisterPage from "../pages/User/Cadastro";
 import CadastrarBikePage from "../pages/Bicicleta/Cadastrar";
 import EditarBikePage from "../pages/Bicicleta/Editar";
+import VisualizarBike from "../pages/Bicicleta/Visualizar";
 
 
 function AppRouter() {
@@ -22,6 +23,7 @@ function AppRouter() {
                     <Route path="/perfil/:id" element={isAuthenticated ? (<PerfilUser />) : (<Navigate to="/" />)} />
                     <Route path="/update/:id" element={isAuthenticated ? (<EditarUser />) : (<Navigate to="/" />)} />
                     <Route path="/bike/cadastrar" element={isAuthenticated ? (<CadastrarBikePage />) : (<Navigate to="/" />)} />
+                    <Route path="/bike/:id" element={<VisualizarBike />} />
                     <Route path="/perfil/:donoId/bike/editar/:id" element={isAuthenticated ? (<EditarBikePage />) : (<Navigate to="/" />)} />
                 </Routes>
             </auth.AuthMiddleware>
