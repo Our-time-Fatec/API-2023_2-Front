@@ -55,7 +55,7 @@ const CadastrarBikePage: React.FC = () => {
         }
     }
 
-    function updateForm(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    function updateForm(e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
 
         setFormState({
             ...formState,
@@ -146,133 +146,144 @@ const CadastrarBikePage: React.FC = () => {
                 <NavBar />
             </header>
             <main className='main-container'>
-                <Form onSubmit={handleCadastro}>
-                    <Form.Group controlId="formTamanho">
-                        <Form.Label className='d-flex align-items-center gap-2'><span>Tamanho</span></Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Digite o tamanho da sua bike"
-                            name="tamanho"
-                            required
-                            value={formState.tamanho}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="formCor">
-                        <Form.Label className='d-flex align-items-center gap-2'><span>Cor</span></Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Digite a cor da sua bike"
-                            name="cor"
-                            required
-                            value={formState.cor}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="formGenero">
-                        <Form.Label className='d-flex align-items-center gap-2'><span>Genero</span></Form.Label>
-                        <Form.Control
-                            as="select"
-                            name="generos"
-                            required
-                            value={formState.generos}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                        >
-                            <option value="">Selecione um gênero</option>
-                            {Object.values(Generos).map((genero) => (
-                                <option key={genero} value={genero}>
-                                    {genero}
-                                </option>
-                            ))}
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="formMarcha">
-                        <Form.Label className='d-flex align-items-center gap-2'><span>Marchas</span></Form.Label>
-                        <Form.Control
-                            as="select"
-                            name="marchas"
-                            required
-                            value={formState.marchas}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                        >
-                            <option value="">Selecione a quantidade de marchas</option>
-                            {Object.values(Marchas).map((marcha) => (
-                                <option key={marcha} value={marcha}>
-                                    {marcha}
-                                </option>
-                            ))}
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="formAro">
-                        <Form.Label className='d-flex align-items-center gap-2'><span>Aro</span></Form.Label>
-                        <Form.Control
-                            as="select"
-                            name="aro"
-                            required
-                            value={formState.aro}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                        >
-                            <option value="">Selecione o aro da bicicleta</option>
-                            {Object.values(Aro).map((aro) => (
-                                <option key={aro} value={aro}>
-                                    {aro}
-                                </option>
-                            ))}
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="formMaterial">
-                        <Form.Label className='d-flex align-items-center gap-2'><span>Material</span></Form.Label>
-                        <Form.Control
-                            as="select"
-                            name="material"
-                            required
-                            value={formState.material}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                        >
-                            <option value="">Selecione o material</option>
-                            {Object.values(Material).map((material) => (
-                                <option key={material} value={material}>
-                                    {material}
-                                </option>
-                            ))}
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="formSuspensao">
-                        <Form.Label className='d-flex align-items-center gap-2'><span>Suspensão</span></Form.Label>
-                        <Form.Control
-                            as="select"
-                            name="suspensao"
-                            required
-                            value={formState.suspensao}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                        >
-                            <option value="">Selecione a suspensão</option>
-                            {Object.values(Suspensao).map((suspensao) => (
-                                <option key={suspensao} value={suspensao}>
-                                    {suspensao}
-                                </option>
-                            ))}
-                        </Form.Control>
-                    </Form.Group>
-                    <Form.Group controlId="formMarca">
-                        <Form.Label className='d-flex align-items-center gap-2'><span>Marca</span></Form.Label>
-                        <Form.Control
-                            as="select"
-                            name="marcaId"
-                            required
-                            value={formState.marcaId}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                        >
-                            <option value="">Selecione a Marca</option>
-                            {
-                                marcas && marcas.map((marca) => (
-                                    <option key={marca.id} value={marca.id}>
-                                        {marca.nome}
+                <h1>Cadastrar Bicicleta</h1>
+                <Form className='d-flex flex-column gap-2' onSubmit={handleCadastro}>
+                    <div className="d-flex gap-2">
+                        <Form.Group controlId="formTamanho" className="col-md-6">
+                            <Form.Label><span>Tamanho</span></Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Tamanho da bicicleta"
+                                name="tamanho"
+                                required
+                                value={formState.tamanho}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
+
+                        <Form.Group controlId="formCor" className="col-md-6">
+                            <Form.Label><span>Cor</span></Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Cor da bicicleta"
+                                name="cor"
+                                required
+                                value={formState.cor}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
+                    </div>
+                    <div className="d-flex gap-2">
+
+                        <Form.Group controlId="formGenero" className="col-md-6">
+                            <Form.Label className='d-flex align-items-center gap-2'><span>Genero</span></Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="generos"
+                                required
+                                value={formState.generos}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            >
+                                <option value="">Selecione um gênero</option>
+                                {Object.values(Generos).map((genero) => (
+                                    <option key={genero} value={genero}>
+                                        {genero}
                                     </option>
-                                ))
-                            }
-                        </Form.Control>
-                    </Form.Group>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formMarcha" className="col-md-6">
+                            <Form.Label className='d-flex align-items-center gap-2'><span>Marchas</span></Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="marchas"
+                                required
+                                value={formState.marchas}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            >
+                                <option value="">Quantidade de marchas</option>
+                                {Object.values(Marchas).map((marcha) => (
+                                    <option key={marcha} value={marcha}>
+                                        {marcha}
+                                    </option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
+                    </div>
+                    <div className="d-flex gap-2">
+                        <Form.Group controlId="formAro" className="col-md-6">
+                            <Form.Label className='d-flex align-items-center gap-2'><span>Aro</span></Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="aro"
+                                required
+                                value={formState.aro}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            >
+                                <option value="">Tamanho do aro</option>
+                                {Object.values(Aro).map((aro) => (
+                                    <option key={aro} value={aro}>
+                                        {aro}
+                                    </option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formMaterial" className="col-md-6">
+                            <Form.Label className='d-flex align-items-center gap-2'><span>Material</span></Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="material"
+                                required
+                                value={formState.material}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            >
+                                <option value="">Material do quadro</option>
+                                {Object.values(Material).map((material) => (
+                                    <option key={material} value={material}>
+                                        {material}
+                                    </option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
+                    </div>
+                    <div className="d-flex gap-2">
+                        <Form.Group controlId="formSuspensao" className="col-md-6">
+                            <Form.Label className='d-flex align-items-center gap-2'><span>Suspensão</span></Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="suspensao"
+                                required
+                                value={formState.suspensao}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            >
+                                <option value="">Selecione a suspensão</option>
+                                {Object.values(Suspensao).map((suspensao) => (
+                                    <option key={suspensao} value={suspensao}>
+                                        {suspensao}
+                                    </option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group controlId="formMarca" className="col-md-6">
+                            <Form.Label className='d-flex align-items-center gap-2'><span>Marca</span></Form.Label>
+                            <Form.Control
+                                as="select"
+                                name="marcaId"
+                                required
+                                value={formState.marcaId}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            >
+                                <option value="">Selecione a Marca</option>
+                                {
+                                    marcas && marcas.map((marca) => (
+                                        <option key={marca.id} value={marca.id}>
+                                            {marca.nome}
+                                        </option>
+                                    ))
+                                }
+                            </Form.Control>
+                        </Form.Group>
+                    </div>
                     <Form.Group controlId="formModalidade">
                         <Form.Label className='d-flex align-items-center gap-2'><span>Modalidade</span></Form.Label>
                         <Form.Control
@@ -292,37 +303,40 @@ const CadastrarBikePage: React.FC = () => {
                             }
                         </Form.Control>
                     </Form.Group>
-                    <Form.Group controlId="formValorHora">
-                        <Form.Label className='d-flex align-items-center gap-2'><span>Valor por Hora</span></Form.Label>
-                        <Form.Control
-                            type="number"
-                            placeholder="Digite o valor por hora"
-                            name="valorHora"
-                            required
-                            value={formState.valorHora}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId="formValorDia">
-                        <Form.Label className='d-flex align-items-center gap-2'><span>Valor por Dia</span></Form.Label>
-                        <Form.Control
-                            type="number"
-                            placeholder="Digite o valor por dia"
-                            name="valorDia"
-                            required
-                            value={formState.valorDia}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                        />
-                    </Form.Group>
+                    <div className="d-flex gap-2">
+                        <Form.Group controlId="formValorHora" className="col-md-6">
+                            <Form.Label className='d-flex align-items-center gap-2'><span>Valor por Hora</span></Form.Label>
+                            <Form.Control
+                                type="number"
+                                placeholder="Digite o valor por hora"
+                                name="valorHora"
+                                required
+                                value={formState.valorHora}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formValorDia" className="col-md-6">
+                            <Form.Label className='d-flex align-items-center gap-2'><span>Valor por Dia</span></Form.Label>
+                            <Form.Control
+                                type="number"
+                                placeholder="Digite o valor por dia"
+                                name="valorDia"
+                                required
+                                value={formState.valorDia}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
+                    </div>
                     <Form.Group controlId="formDescricao">
                         <Form.Label className='d-flex align-items-center gap-2'><span>Descrição</span></Form.Label>
-                        <Form.Control
-                            type="text"
+                        <textarea
+                            className="form-control"
+                            style={{ height: '100px' }}
                             placeholder="Digite a descrição da sua bike"
                             name="descricao"
                             required
                             value={formState.descricao}
-                            onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => updateForm(e)}
                         />
                     </Form.Group>
                     <Form.Group controlId="formFoto">
@@ -337,7 +351,7 @@ const CadastrarBikePage: React.FC = () => {
                         />
                     </Form.Group>
                     <Button variant="primary" type='submit' className='mt-2' disabled={isButtonDisabled}>
-                        Cadastrar Bike
+                        Cadastrar
                     </Button>
                 </Form>
             </main>

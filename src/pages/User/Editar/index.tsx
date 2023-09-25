@@ -91,7 +91,7 @@ const EditarUser: React.FC = () => {
             <main className='main-container'>
                 <h1 className='mt-3'>Editar minhas informações</h1>
                 <div className="d-flex justify-content-center align-items-center login-container mt-5">
-                    <Form onSubmit={handleUpdate}>
+                    <Form className='d-flex flex-column gap-2' onSubmit={handleUpdate}>
                         <Form.Group controlId="formUsername">
                             <Form.Label className='d-flex align-items-center gap-2'><FaUser /><span>Username</span></Form.Label>
                             <Form.Control
