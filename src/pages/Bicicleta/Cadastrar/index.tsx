@@ -153,6 +153,7 @@ const CadastrarBikePage: React.FC = () => {
                             type="text"
                             placeholder="Digite o tamanho da sua bike"
                             name="tamanho"
+                            required
                             value={formState.tamanho}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         />
@@ -163,6 +164,7 @@ const CadastrarBikePage: React.FC = () => {
                             type="text"
                             placeholder="Digite a cor da sua bike"
                             name="cor"
+                            required
                             value={formState.cor}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         />
@@ -172,6 +174,7 @@ const CadastrarBikePage: React.FC = () => {
                         <Form.Control
                             as="select"
                             name="generos"
+                            required
                             value={formState.generos}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         >
@@ -188,6 +191,7 @@ const CadastrarBikePage: React.FC = () => {
                         <Form.Control
                             as="select"
                             name="marchas"
+                            required
                             value={formState.marchas}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         >
@@ -204,6 +208,7 @@ const CadastrarBikePage: React.FC = () => {
                         <Form.Control
                             as="select"
                             name="aro"
+                            required
                             value={formState.aro}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         >
@@ -220,6 +225,7 @@ const CadastrarBikePage: React.FC = () => {
                         <Form.Control
                             as="select"
                             name="material"
+                            required
                             value={formState.material}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         >
@@ -236,6 +242,7 @@ const CadastrarBikePage: React.FC = () => {
                         <Form.Control
                             as="select"
                             name="suspensao"
+                            required
                             value={formState.suspensao}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         >
@@ -252,6 +259,7 @@ const CadastrarBikePage: React.FC = () => {
                         <Form.Control
                             as="select"
                             name="marcaId"
+                            required
                             value={formState.marcaId}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         >
@@ -270,6 +278,7 @@ const CadastrarBikePage: React.FC = () => {
                         <Form.Control
                             as="select"
                             name="modalidadeId"
+                            required
                             value={formState.modalidadeId}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         >
@@ -289,6 +298,7 @@ const CadastrarBikePage: React.FC = () => {
                             type="number"
                             placeholder="Digite o valor por hora"
                             name="valorHora"
+                            required
                             value={formState.valorHora}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         />
@@ -299,6 +309,7 @@ const CadastrarBikePage: React.FC = () => {
                             type="number"
                             placeholder="Digite o valor por dia"
                             name="valorDia"
+                            required
                             value={formState.valorDia}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         />
@@ -309,6 +320,7 @@ const CadastrarBikePage: React.FC = () => {
                             type="text"
                             placeholder="Digite a descrição da sua bike"
                             name="descricao"
+                            required
                             value={formState.descricao}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         />
@@ -319,6 +331,7 @@ const CadastrarBikePage: React.FC = () => {
                             type="file"
                             placeholder="Insira a imagem principal da sua bicicleta"
                             name="foto"
+                            required
                             accept="image/*"
                             onChange={(e: ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
                         />
