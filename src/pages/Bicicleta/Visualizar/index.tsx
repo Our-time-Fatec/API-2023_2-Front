@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../../../components/NavBar';
 import api from '../../../services/api';
 import Bicicleta from '../../../interfaces/Bicicleta';
@@ -10,6 +10,7 @@ import Material from '../../../Enums/Material';
 import Suspensao from '../../../Enums/Suspensao';
 import Marca from '../../../interfaces/Marca';
 import Modalidade from '../../../interfaces/Modalidade';
+import { Button } from 'react-bootstrap';
 
 const marcaPadrao: Marca = {
     id: 0,
@@ -24,6 +25,7 @@ const modalidadePadrao: Modalidade = {
 const VisualizarBike: React.FC = () => {
     const navigate = useNavigate();
     const { id } = useParams();
+    const isAuthenticated = !!localStorage.getItem('token');
     const tokenJson = localStorage.getItem('token');
     const [bicicleta, setBicicleta] = useState<Bicicleta>({
         tamanho: "",
@@ -76,7 +78,18 @@ const VisualizarBike: React.FC = () => {
                 <div className="d-flex flex-row gap-3 mt-3">
                     <div className="d-flex flex-column gap-2 img-bike" style={{ width: '20rem' }}>
                         <img src={bicicleta.fotos && bicicleta.fotos[0]?.url} style={{ height: '22rem', objectFit: 'cover', objectPosition: 'center' }} />
-                        <span className={bicicleta?.isAlugada ? "text-danger" : "text-success"}><strong>{bicicleta?.isAlugada ? "Alugada" : "Disponivel"}</strong></span>
+                        <div className="d-flex gap-2">
+                            <span><strong>Dono: </strong>{bicicleta.dono?.username}</span>
+                            <span>
+                                <strong>Status: </strong>
+                                <span className={bicicleta?.isAlugada ? "text-danger" : "text-success"}>{bicicleta?.isAlugada ? "Alugada" : "Disponivel"}</span>
+                            </span>
+                        </div>
+                        {isAuthenticated ? (<Link to={`/perfil/${bicicleta?.donoId}`}>
+                            <Button variant="primary" >
+                                Contato
+                            </Button>
+                        </Link >) : ""}
                     </div>
                     <div className="d-flex flex-column gap-2 info-bikes">
                         <span><strong>Marca: </strong>{bicicleta?.marca?.nome}</span>
