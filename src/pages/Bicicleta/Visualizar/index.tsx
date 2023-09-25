@@ -75,21 +75,9 @@ const VisualizarBike: React.FC = () => {
                 <NavBar />
             </header>
             <main className='main-container'>
-                <div className="d-flex flex-row gap-3 mt-3">
+                <div className="d-flex flex-wrap justify-content-center gap-3 mt-3">
                     <div className="d-flex flex-column gap-2 img-bike" style={{ width: '20rem' }}>
                         <img src={bicicleta.fotos && bicicleta.fotos[0]?.url} style={{ height: '22rem', objectFit: 'cover', objectPosition: 'center' }} />
-                        <div className="d-flex gap-2">
-                            <span><strong>Dono: </strong>{bicicleta.dono?.username}</span>
-                            <span>
-                                <strong>Status: </strong>
-                                <span className={bicicleta?.isAlugada ? "text-danger" : "text-success"}>{bicicleta?.isAlugada ? "Alugada" : "Disponivel"}</span>
-                            </span>
-                        </div>
-                        {isAuthenticated ? (<Link to={`/perfil/${bicicleta?.donoId}`}>
-                            <Button variant="primary" >
-                                Contato
-                            </Button>
-                        </Link >) : ""}
                     </div>
                     <div className="d-flex flex-column gap-2 info-bikes">
                         <span><strong>Marca: </strong>{bicicleta?.marca?.nome}</span>
@@ -108,6 +96,18 @@ const VisualizarBike: React.FC = () => {
                         <span><strong>Descrição: </strong>{bicicleta?.descricao}</span>
                     </div>
                 </div>
+                <div className="d-flex gap-2 mt-3">
+                    <span><strong>Dono: </strong>{bicicleta.dono?.username}</span>
+                    <span>
+                        <strong>Status: </strong>
+                        <span className={bicicleta?.isAlugada ? "text-danger" : "text-success"}>{bicicleta?.isAlugada ? "Alugada" : "Disponivel"}</span>
+                    </span>
+                </div>
+                {isAuthenticated ? (<Link className='mt-2' to={`/perfil/${bicicleta?.donoId}`}>
+                    <Button variant="primary" >
+                        Contato
+                    </Button>
+                </Link >) : ""}
             </main>
         </div>
     );
