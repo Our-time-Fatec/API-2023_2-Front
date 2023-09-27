@@ -1,0 +1,21 @@
+  .link-no-style {
+    color: inherit; 
+    text-decoration: none; 
+  }
+
+  .main-container {
+    height: calc(100vh - 56px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .disabled-link {
+    pointer-events: none; 
+    color: #6c757d;
+    text-decoration: none;
+  }
+
+  .special-label {
+    display: none; 
+}
