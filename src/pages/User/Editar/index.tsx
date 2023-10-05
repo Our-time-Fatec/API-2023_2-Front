@@ -138,7 +138,7 @@ const EditarUser: React.FC = () => {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
-                        <Button variant="primary" type='submit' className='mt-2' disabled={isButtonDisabled}>
+                        <Button variant='dark' type='submit' className='mt-2' disabled={isButtonDisabled}>
                             Editar
                         </Button>
                     </Form>
