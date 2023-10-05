@@ -3,6 +3,7 @@ import CardBike from "../../components/Card";
 import NavBar from "../../components/NavBar";
 import Bicicleta from "../../interfaces/Bicicleta";
 import api from "../../services/api";
+import "./style.css";
 
 function Inicio() {
     const [bicicletas, setBicicleta] = useState<Bicicleta[]>([]);
@@ -24,10 +25,10 @@ function Inicio() {
 
     return (
         <div className="inicio">
-            <header>
+            <header className="header-container">
                 <NavBar />
             </header>
-            <main className="main-container">
+            <main className="main-container inicio-container">
                 <div className="d-flex flex-column align-items-center justify-content-center mt-3 gap-2">
                     <h1 className="text-success">Bicicletas disponiveis</h1>
                     <div className="bike mx-4 d-flex flex-wrap align-items-center justify-content-center gap-3 mt-3">

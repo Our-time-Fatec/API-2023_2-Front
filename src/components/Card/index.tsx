@@ -20,7 +20,7 @@ interface CardBike {
 function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada, isMyPerfil }: CardBike) {
     const isAuthenticated = !!localStorage.getItem('token');
     return (
-        <Card style={{ width: '18rem' }}>
+        <Card className='card' style={{ width: '18rem' }}>
             <Card.Img variant="top" src={`${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
             <Card.Body>
                 <span className={isAlugada ? "text-danger" : "text-success"}>{isAlugada ? "Alugada" : "Disponivel"}</span>
