@@ -8,6 +8,8 @@ import NavBar from '../../../components/NavBar';
 import User from '../../../interfaces/User';
 import { Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
+import './cadastro.css';
+
 
 const RegisterPage: React.FC = () => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -114,7 +116,7 @@ const RegisterPage: React.FC = () => {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
-                        <Button variant="primary" type='submit' className='mt-3' disabled={isButtonDisabled}>
+                        <Button variant="dark" type='submit' className='mt-3' disabled={isButtonDisabled}>
                             Registrar-se
                         </Button>
                     </Form>
