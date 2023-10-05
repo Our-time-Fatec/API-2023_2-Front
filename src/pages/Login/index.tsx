@@ -5,6 +5,7 @@ import { FaLock } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md'
 import NavBar from '../../components/NavBar';
 import api from '../../services/api';
+import './login.css';
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState<string>('');
@@ -35,8 +36,8 @@ const LoginPage: React.FC = () => {
                 <NavBar isLogin={true} />
             </header>
             <main className='main-container'>
-                <h1 className='mt-3'>Bem-vindo</h1>
-                <h2>Efetue já seu login!</h2>
+                <h1 className='mt-5' style={{ color: '#38f515' }}> Bem-vindo</h1>
+                <h2 className='mt-1' style={{ color: '#38f515' }}>Efetue já seu login!</h2>
                 <div className="d-flex justify-content-center align-items-center login-container mt-5">
                     <Form className='d-flex flex-column gap-2'>
                         <Form.Group controlId="formEmail">
@@ -58,12 +59,13 @@ const LoginPage: React.FC = () => {
                             />
 
                         </Form.Group>
-                        <Button variant="primary" onClick={handleLogin} className='mt-3' disabled={isButtonDisabled}>
-                            Entrar
+                        <Button variant="dark" onClick={handleLogin} className='mt-3 custom-login-button' disabled={isButtonDisabled}>
+                        Entrar
                         </Button>
-                    </Form>
+
+                        </Form>
                 </div>
-                <div className='options d-flex flex-column align-items-center mt-4'>
+                <div className= 'options d-flex flex-column align-items-center mt-5'>
                     <span className='d-flex gap-1'>
                         <span>Ainda não tem uma conta?</span>
                         <Link to={`/register`}>Registre-se aqui!</Link>
