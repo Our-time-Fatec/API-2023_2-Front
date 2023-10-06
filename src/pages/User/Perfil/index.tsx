@@ -7,7 +7,7 @@ import User from '../../../interfaces/User';
 import api from '../../../services/api';
 import CardBike from '../../../components/Card';
 import { Button } from 'react-bootstrap';
-
+import './style.css'
 const PerfilUser: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const { id: userIdFromUrl } = useParams<{ id: string }>();
@@ -49,7 +49,7 @@ const PerfilUser: React.FC = () => {
       </header>
       <main className='main-container'>
         <div className="userDados d-flex flex-column align-items-center justify-content-center">
-          <h1>{userIdFromUrl == userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>
+          <h1 className='meuperfil'>{userIdFromUrl == userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>
           <p>Email: {user?.email}</p>
           <p>Telefone: {user?.telefone}</p>
           <p>Endereço: {user?.endereco}</p>

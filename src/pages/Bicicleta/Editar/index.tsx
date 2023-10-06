@@ -13,6 +13,7 @@ import Marca from '../../../interfaces/Marca';
 import Modalidade from '../../../interfaces/Modalidade';
 import jwtDecode from 'jwt-decode';
 import DecodedToken from '../../../interfaces/DecodedToken';
+import './style.css'
 
 const EditarBikePage: React.FC = () => {
     const navigate = useNavigate();

@@ -1,0 +1,104 @@
+/* Estilos para o componente PerfilUser */
+
+/* Estilos para o corpo da página */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Estilos para a seção de informações do usuário */
+  .userDados {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center;
+    color: white;
+  }
+  
+  .userDados h1 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .userDados p {
+    color: #555;
+    margin: 5px 0;
+  }
+  
+  .userDados a {
+    margin: 10px 0;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .userDados a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Estilos para o botão WhatsApp */
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #fff;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+  }
+  
+  /* Estilos para a seção de bicicletas do usuário */
+  .userBikes {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .userBikes h1 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .bicicletas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  /* Estilos para as divs de bicicletas */
+  .div-bike {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fff;
+  }
+  
+  /* Estilos para o texto quando o usuário não tem bicicletas cadastradas */
+  .userBikes span {
+    color: #555;
+    margin-top: 20px;
+  }
+  
+  /* Estilos para links */
+  a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Outros estilos gerais */
+  /* Adicione outros estilos gerais aqui */
+  
