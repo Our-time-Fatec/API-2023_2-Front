@@ -53,7 +53,7 @@ const PerfilUser: React.FC = () => {
           <p>Email: {user?.email}</p>
           <p>Telefone: {user?.telefone}</p>
           <p>Endereço: {user?.endereco}</p>
-          <Button variant="success" className='mt-2' href={whatsappLink} target="_blank" rel="noopener noreferrer">
+          <Button variant="success" className='whatsapp' href={whatsappLink} target="_blank" rel="noopener noreferrer">
             WhatsApp
           </Button>
           {userIdFromUrl == userId ? (<Link to={`/update/${userId}`}>Editar minhas informações</Link>) : ""}

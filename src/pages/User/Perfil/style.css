@@ -12,7 +12,7 @@
   .userDados {
     margin-top: 20px;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: solid #ffffff;
     border-radius: 5px;
     background-color: #f9f9f9;
     text-align: center;
@@ -21,17 +21,18 @@
   
   .userDados h1 {
     margin-bottom: 10px;
-    color: #333;
+    color: #000000;
   }
   
   .userDados p {
     color: #555;
-    margin: 5px 0;
+    margin: 10px 0;
   }
   
+
   .userDados a {
-    margin: 10px 0;
-    color: #007bff;
+    margin: 5px 0;
+    color: #000000;
     text-decoration: none;
     font-weight: bold;
   }
@@ -42,16 +43,16 @@
   
   /* Estilos para o botão WhatsApp */
   .btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: #38f515;
+    border-color: #38f515;
     font-weight: bold;
     margin-top: 10px;
     color: #fff;
   }
   
   .btn-success:hover {
-    background-color: #218838;
-    border-color: #1e7e34;
+    background-color: #38f515;
+    border-color: #38f515;
   }
   
   /* Estilos para a seção de bicicletas do usuário */
@@ -62,7 +63,7 @@
   
   .userBikes h1 {
     margin-bottom: 20px;
-    color: #333;
+    color: #38f515;
   }
   
   .bicicletas {
@@ -76,9 +77,9 @@
   /* Estilos para as divs de bicicletas */
   .div-bike {
     width: 300px;
-    border: 1px solid #ccc;
+    border: center solid #ffffff;
     border-radius: 5px;
-    padding: 10px;
+    padding: 6px;
     background-color: #fff;
   }
   
@@ -90,7 +91,7 @@
   
   /* Estilos para links */
   a {
-    color: #007bff;
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
   }

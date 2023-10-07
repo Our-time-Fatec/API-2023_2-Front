@@ -32,7 +32,7 @@ header {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    color:white;
+    color:rgb(255, 255, 255);
   }
   
   .info-bikes span {
@@ -47,3 +47,51 @@ header {
   
   /* Customize other styles as needed */
   
+  /* VisualizarBike.css */
+
+/* Styles for the header */
+header {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+  }
+  
+  /* Styles for the main container */
+  .main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+  }
+  
+  /* Styles for the bike image */
+  .img-bike {
+    width: 20rem;
+  }
+  
+  .img-bike img {
+    height: 22rem;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  /* Styles for bike information */
+  .info-bikes {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .info-bikes span {
+    font-weight: bold;
+    color: white; /* Set the color to white */
+  }
+  
+  /* Styles for the "Dono" and "Status" */
+  .d-flex.gap-2 span strong {
+    color: white; /* Set the color to white */
+  }
+  
+  /* Customize other styles as needed */
+  
+ 
