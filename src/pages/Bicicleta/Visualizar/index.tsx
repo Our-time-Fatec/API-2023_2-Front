@@ -11,6 +11,8 @@ import Suspensao from '../../../Enums/Suspensao';
 import Marca from '../../../interfaces/Marca';
 import Modalidade from '../../../interfaces/Modalidade';
 import { Button } from 'react-bootstrap';
+import './style.css';
+
 
 const marcaPadrao: Marca = {
     id: 0,
@@ -97,14 +99,15 @@ const VisualizarBike: React.FC = () => {
                     </div>
                 </div>
                 <div className="d-flex gap-2 mt-3">
-                    <span><strong>Dono: </strong>{bicicleta.dono?.username}</span>
-                    <span>
-                        <strong>Status: </strong>
-                        <span className={bicicleta?.isAlugada ? "text-danger" : "text-success"}>{bicicleta?.isAlugada ? "Alugada" : "Disponivel"}</span>
-                    </span>
-                </div>
+    <span><strong>Dono: </strong>{bicicleta.dono?.username}</span>
+</div>
+<div className="d-flex gap-2">
+    <span><strong>Status: </strong></span>
+    <span className={bicicleta?.isAlugada ? "text-danger" : "text-success"}>{bicicleta?.isAlugada ? "Alugada" : "Disponivel"}</span>
+</div>
+
                 {isAuthenticated ? (<Link className='mt-2' to={`/perfil/${bicicleta?.donoId}`}>
-                    <Button variant="primary" >
+                    <Button variant="dark" >
                         Contato
                     </Button>
                 </Link >) : ""}
