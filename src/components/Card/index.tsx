@@ -2,6 +2,7 @@ import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from 'react-router-dom';
+import './style.css'
 
 interface CardBike {
     id?: number;
@@ -35,12 +36,12 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
             </ListGroup>
             <Card.Body>
                 <Card.Link className='' as={Link} to={`/bike/${id}`}>
-                    <Button variant="success" className='mt-2'>
+                    <Button variant="dark" className='mt-2'>
                         Ver Mais
                     </Button>
                 </Card.Link >
                 {!isProfile && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}`}>
-                    <Button variant="primary" className='mt-2'>
+                    <Button variant="dark" className='mt-2'>
                         Contato
                     </Button>
                 </Card.Link >) : ""}
