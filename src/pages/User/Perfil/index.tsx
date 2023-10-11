@@ -49,25 +49,25 @@ const PerfilUser: React.FC = () => {
       </header>
       <main className='main-container'>
         <div className="userDados d-flex flex-column align-items-center justify-content-center">
-          <h1 className='meuperfil'>{userIdFromUrl == userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>
+          <h1 className='meuperfil'>{userIdFromUrl === userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>
           <p>Email: {user?.email}</p>
           <p>Telefone: {user?.telefone}</p>
           <p>Endereço: {user?.endereco}</p>
           <Button variant="success" className='whatsapp' href={whatsappLink} target="_blank" rel="noopener noreferrer">
             WhatsApp
           </Button>
-          {userIdFromUrl == userId ? (<Link to={`/update/${userId}`}>Editar minhas informações</Link>) : ""}
-          {userIdFromUrl == userId ? (<Link to={`/bike/cadastrar`}>Cadastrar Bicicleta</Link>) : ""}
+          {userIdFromUrl === userId ? (<Link to={`/update/${userId}`}>Editar minhas informações</Link>) : ""}
+          {userIdFromUrl === userId ? (<Link to={`/bike/cadastrar`}>Cadastrar Bicicleta</Link>) : ""}
         </div>
         <div className="userBikes d-flex flex-column justify-content-center align-items-center">
           {user?.bicicletas && user?.bicicletas?.length > 0 ? (
             <>
-              <h1 className='mt-2'>{userIdFromUrl == userId ? "Minhas Bikes" : `Bikes de ${user?.username}`}</h1>
+              <h1 className='mt-2'>{userIdFromUrl === userId ? "Minhas Bikes" : `Bikes de ${user?.username}`}</h1>
               <div className="bicicletas d-flex flex-wrap align-items-center justify-content-center gap-3">
                 {user?.bicicletas.map((i) => {
                   return (
                     <div className="div-bike" key={i.id}>
-                      <CardBike id={i.id} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} isAlugada={i.isAlugada} isMyPerfil={userIdFromUrl == userId} />
+                      <CardBike id={i.id} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} isAlugada={i.isAlugada} isMyPerfil={userIdFromUrl === userId} />
                     </div>
                   )
                 })}

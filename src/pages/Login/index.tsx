@@ -36,9 +36,9 @@ const LoginPage: React.FC = () => {
                 <NavBar isLogin={true} />
             </header>
             <main className='main-container'>
-                <h1 className='mt-5' style={{ color: '#38f515' }}> Bem-vindo</h1>
+                <h1 className='mt-1' style={{ color: '#38f515' }}> Bem-vindo</h1>
                 <h2 className='mt-1' style={{ color: '#38f515' }}>Efetue já seu login!</h2>
-                <div className="d-flex justify-content-center align-items-center login-container mt-5">
+                <div className="d-flex justify-content-center align-items-center login-container mt-1">
                     <Form className='d-flex flex-column gap-2'>
                         <Form.Group controlId="formEmail">
                             <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>Email</span></Form.Label>
@@ -65,7 +65,7 @@ const LoginPage: React.FC = () => {
 
                         </Form>
                 </div>
-                <div className= 'options d-flex flex-column align-items-center mt-5'>
+                <div className= 'options d-flex flex-column align-items-center mt-1'>
                     <span className='d-flex gap-1'>
                         <span>Ainda não tem uma conta?</span>
                         <Link to={`/register`}>Registre-se aqui!</Link>
