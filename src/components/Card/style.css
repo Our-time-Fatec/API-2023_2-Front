@@ -10,7 +10,7 @@
 
 .card img {
     height: 15rem;
-    object-fit: cover;
+    object-fit: center;
     object-position: center;
 }
 
@@ -40,7 +40,7 @@
     text-decoration: none;
 }
 
-.card .btn {
+.mt1 {
     width: 100%;
     margin-top: 0.5rem;
     font-size: 1rem;
@@ -62,5 +62,3 @@
 .text-dark:hover {
     color: #111;
 }
-
-/* Add additional styles as needed */
