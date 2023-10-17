@@ -1,4 +1,66 @@
-.card{
-    color: #38f515;
-    background-color: blue;
+/* style.css */
+
+.card {
+    width: 18rem;
+    margin: 20px;
+    border: 2px solid #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
 }
+
+.card img {
+    height: 15rem;
+    object-fit: cover;
+    object-position: center;
+}
+
+.card .card-body {
+    padding: 1rem;
+    text-align: center;
+    background-color: #f0f0f0;
+}
+
+.card .card-title {
+    font-size: 1.2rem;
+    margin: center;
+}
+
+.card .card-text {
+    height: 3rem;
+    overflow-y: auto;
+    margin: center;
+    font-size: 0.9rem;
+}
+
+.card .list-group-item {
+    font-size: 0.9rem;
+}
+
+.card .card-link {
+    text-decoration: none;
+}
+
+.card .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    margin: center;
+}
+
+.text-success {
+    color: green;
+}
+
+.text-danger {
+    color: red;
+}
+
+.text-dark {
+    color: #333;
+}
+
+.text-dark:hover {
+    color: #111;
+}
+
+/* Add additional styles as needed */

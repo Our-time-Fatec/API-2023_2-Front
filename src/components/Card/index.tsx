@@ -36,15 +36,20 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
             </ListGroup>
             <Card.Body>
                 <Card.Link className='' as={Link} to={`/bike/${id}`}>
-                    <Button variant="dark" className='mt-2'>
+                    <Button variant="dark" className='mt-1'>
                         Ver Mais
                     </Button>
                 </Card.Link >
                 {!isProfile && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}`}>
-                    <Button variant="dark" className='mt-2'>
+                    <Button variant="dark" className='mt-1'>
                         Contato
                     </Button>
                 </Card.Link >) : ""}
+                <Card.Link className='' as={Link} to={`/bike/${id}`}>
+                    <Button variant="dark" className='mt-1'>
+                       Solicitar
+                    </Button>
+                </Card.Link >
                 {isMyPerfil && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}/bike/editar/${id}`}>
                     <Button variant="primary" className='mt-2'>
                         Editar
