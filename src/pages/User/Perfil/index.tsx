@@ -56,8 +56,8 @@ const PerfilUser: React.FC = () => {
           <Button variant="success" className='whatsapp' href={whatsappLink} target="_blank" rel="noopener noreferrer">
             WhatsApp
           </Button>
-          {userIdFromUrl === userId ? (<Link to={`/update/${userId}`}>Editar minhas informações</Link>) : ""}
-          {userIdFromUrl === userId ? (<Link to={`/bike/cadastrar`}>Cadastrar Bicicleta</Link>) : ""}
+          {userIdFromUrl == userId ? (<Link to={`/update/${userId}`}>Editar minhas informações</Link>) : ""}
+          {userIdFromUrl == userId ? (<Link to={`/bike/cadastrar`}>Cadastrar Bicicleta</Link>) : ""}
         </div>
         <div className="userBikes d-flex flex-column justify-content-center align-items-center">
           {user?.bicicletas && user?.bicicletas?.length > 0 ? (
