@@ -22,7 +22,7 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
     const isAuthenticated = !!localStorage.getItem('token');
     return (
         <Card className='card' style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={`${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
+            <Card.Img variant="top" src={`http://localhost:3001/images/${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
             <Card.Body>
                 <span className={isAlugada ? "text-danger" : "text-success"}>{isAlugada ? "Alugada" : "Disponivel"}</span>
                 <Card.Title>{marca} - {modalidade}</Card.Title>
