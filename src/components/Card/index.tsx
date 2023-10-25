@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from 'react-router-dom';
 import './style.css'
+import api from '../../services/api';
 
 interface CardBike {
     id?: number;
@@ -20,6 +21,35 @@ interface CardBike {
 
 function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada, isMyPerfil }: CardBike) {
     const isAuthenticated = !!localStorage.getItem('token');
+    const tokenJson = localStorage.getItem('token');
+    const handleSolicitarClick = async () => {
+        if (tokenJson) {
+            const tokenObject = JSON.parse(tokenJson);
+            const headers = {
+                Authorization: `${tokenObject}`,
+            };
+        try{
+            const data = {
+              idBicicleta: id,
+              idLocador: donoId
+            };
+            const response = await api.post(`/solicitacao/create/`, data, {headers});
+            if (response.status === 200) {
+                alert("Solicitação enviada com sucesso!");
+              } else {
+                if (response.data.error === "Você não pode solicitar sua própria bicicleta.") {
+                  alert("Você não pode solicitar sua própria bicicleta.");
+                } else {
+                  // Outros erros
+                  alert(`Erro ao enviar a solicitação: ${response.data.error}`);
+                }
+              }
+            } catch (error) {
+              console.error("Erro ao enviar a solicitação:", error);
+              alert("Ocorreu um erro de rede ou exceção. Por favor, tente novamente mais tarde.");
+            }
+    }
+    }
     return (
         <Card className='card' style={{ width: '18rem' }}>
             <Card.Img variant="top" src={`http://localhost:3001/images/${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
@@ -45,11 +75,11 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
                         Contato
                     </Button>
                 </Card.Link >) : ""}
-                <Card.Link className='' as={Link} to={`/bike/${id}`}>
-                    <Button variant="dark" className='mt-1'>
+                {isAuthenticated ? (<Card.Link className='' as={Link} to={`/solicitacoesEnviadas`}>
+                    <Button variant="dark" className='mt-1' onClick={handleSolicitarClick}>
                        Solicitar
                     </Button>
-                </Card.Link >
+                </Card.Link >) : ""}
                 {isMyPerfil && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}/bike/editar/${id}`}>
                     <Button variant="primary" className='mt-2'>
                         Editar
@@ -59,5 +89,4 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
         </Card>
     );
 }
-
 export default CardBike;

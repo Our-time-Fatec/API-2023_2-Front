@@ -4,6 +4,8 @@ import NavBar from "../../components/NavBar";
 import Bicicleta from "../../interfaces/Bicicleta";
 import api from "../../services/api";
 import "./style.css";
+import Solicitacao from '../../interfaces/Solicitacao';
+
 
 function Inicio() {
     const [bicicletas, setBicicleta] = useState<Bicicleta[]>([]);

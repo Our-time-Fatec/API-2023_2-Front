@@ -49,7 +49,7 @@ function NavBar({ isLogin }: CardNav) {
                     !isLogin ? (
                         <Navbar.Collapse id="responsive-navbar-nav">
                             <Nav className="me-auto">
-                                <Nav.Link as={Link} to={"/inicio"} className="link-no-style">Inicio</Nav.Link>
+                                <Nav.Link as={Link} to={"/inicio"} className="link-no-style ">Inicio</Nav.Link>
                                 {/* {isAuthenticated && <Nav.Link as={Link} to={"/"} className="link-no-style">Locações</Nav.Link>} */}
                             </Nav>
                             <Nav>
@@ -67,8 +67,9 @@ function NavBar({ isLogin }: CardNav) {
                                                         <span> Minhas Solicitações</span>
                                                     </span>
                                                 }>
-                                                    <NavDropdown.Item className='Teste'>Enviados</NavDropdown.Item>
-                                                    <NavDropdown.Item className='Teste'>Recebidos</NavDropdown.Item>
+                                                    <NavDropdown.Item  as={Link}  to={`/solicitacoesEnviadas/`}className='Teste'>Enviados</NavDropdown.Item>
+                                                    <NavDropdown.Item as={Link}  to={`/Solicitacoes/`}
+                                                    className='Teste'>Recebidos</NavDropdown.Item>
                                                 </NavDropdown>
                                             
                                                
