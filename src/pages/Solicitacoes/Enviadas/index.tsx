@@ -18,10 +18,15 @@ const SoliCard = (props: {title:string}) => {
 function App() {
   const [solicitacoes, setSolicitacoes] = useState<Solicitacao[]>([]);
 
-  async function getAllSolicit() { 
-    const response = await api.get<Solicitacao[]>("/solicitacao/");
-        setSolicitacoes(response.data);
+  async function getAllSolicit() {
+    try {
+      const response = await api.get<Solicitacao[]>("/solicitacao/");
+      setSolicitacoes(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar solicitações:", error);
     }
+  }
+  
   useEffect(() => {
     getAllSolicit();
 
@@ -38,8 +43,8 @@ function App() {
       <div className="main-container">
         <div className="bike">
           {
-          solicitacoes && solicitacoes.filter((i) => !i.isRespondido).
-          map((i) =>{
+          solicitacoes && solicitacoes.filter((i) => !i.isRespondido)
+          .map((i) =>{
             return (
               <div key={i.idSolicitacao}>
                 <SoliCard
