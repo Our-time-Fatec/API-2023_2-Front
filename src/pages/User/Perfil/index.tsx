@@ -9,7 +9,7 @@ import CardBike from '../../../components/Card';
 import { Button } from 'react-bootstrap';
 import './style.css'
 const PerfilUser: React.FC = () => {
-  const [userId, setUserId] = useState<string | null>(null);
+  const [userId, setUserId] = useState<number>();
   const { id: userIdFromUrl } = useParams<{ id: string }>();
   const [user, setUser] = useState<User>();
   const location = useLocation();
@@ -26,7 +26,7 @@ const PerfilUser: React.FC = () => {
     if (token) {
       try {
         const decodedToken = jwtDecode<DecodedToken>(token);
-        setUserId(decodedToken.userId);
+        setUserId(parseInt(decodedToken.userId));
       } catch (error) {
         console.error('Erro ao decodificar o token JWT:', error);
       }
@@ -65,7 +65,7 @@ const PerfilUser: React.FC = () => {
                 {user?.bicicletas.map((i) => {
                   return (
                     <div className="div-bike" key={i.id}>
-                      <CardBike id={i.id} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} isAlugada={i.isAlugada} isMyPerfil={userIdFromUrl == userId} />
+                      <CardBike id={i.id} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} isAlugada={i.isAlugada} isMyPerfil={userIdFromUrl == userId} usuarioLogadoId={userId} />
                     </div>
                   )
                 })}

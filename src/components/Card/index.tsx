@@ -17,9 +17,10 @@ interface CardBike {
     isProfile?: boolean;
     isAlugada?: boolean;
     isMyPerfil?: boolean;
+    usuarioLogadoId?: number;
 }
 
-function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada, isMyPerfil }: CardBike) {
+function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada, isMyPerfil, usuarioLogadoId }: CardBike) {
     const isAuthenticated = !!localStorage.getItem('token');
     const tokenJson = localStorage.getItem('token');
     const handleSolicitarClick = async () => {
@@ -72,13 +73,13 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
                         Contato
                     </Button>
                 </Card.Link >) : ""}
-                {isAuthenticated ? (<Card.Link className='' as={Link} to={`/solicitacoesEnviadas`}>
+                {!isAlugada && isAuthenticated && (donoId != usuarioLogadoId) ? (<Card.Link className='' as={Link} to={`/solicitacoesEnviadas`}>
                     <Button variant="dark" className='mt-1' onClick={handleSolicitarClick}>
                        Solicitar
                     </Button>
                 </Card.Link >) : ""}
                 {isMyPerfil && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}/bike/editar/${id}`}>
-                    <Button variant="primary" className='mt-2'>
+                    <Button variant="dark" className='mt-2'>
                         Editar
                     </Button>
                 </Card.Link >) : ""}

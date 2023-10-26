@@ -75,14 +75,14 @@
   }
   
   /* Estilos para as divs de bicicletas */
-  .div-bike {
+  /* .div-bike {
     width: 300px;
     border: center solid #ffffff;
     border-radius: 5px;
     padding: 6px;
     background-color: #fff;
   }
-  
+   */
   /* Estilos para o texto quando o usuário não tem bicicletas cadastradas */
   .userBikes span {
     color: #555;
