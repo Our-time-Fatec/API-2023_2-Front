@@ -9,8 +9,7 @@ const SoliCard = (props: {title:string}) => {
   return (
     <div className="card-bike">
       <div className="card-title">{props.title}</div>
-      <button className="btn-Aceitar">Aceitar</button>
-      <button className="btn-Recusar">Recusar</button>
+      <p>Aguardando resposta </p>
     </div>
   );
 };
