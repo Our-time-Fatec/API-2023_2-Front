@@ -77,7 +77,7 @@ const VisualizarBike: React.FC = () => {
             <main className='main-container'>
                 <div className="d-flex flex-wrap justify-content-center gap-3 mt-3">
                     <div className="d-flex flex-column gap-2 img-bike" style={{ width: '20rem' }}>
-                        <img src={bicicleta.fotos && bicicleta.fotos[0]?.url} style={{ height: '22rem', objectFit: 'cover', objectPosition: 'center' }} />
+                        <img src={`http://localhost:3001/images/${bicicleta.fotos && bicicleta.fotos[0]?.url}`} style={{ height: '22rem', objectFit: 'cover', objectPosition: 'center' }} />
                     </div>
                     <div className="d-flex flex-column gap-2 info-bikes">
                         <span><strong>Marca: </strong>{bicicleta?.marca?.nome}</span>

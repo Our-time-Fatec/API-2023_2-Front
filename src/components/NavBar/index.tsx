@@ -62,26 +62,26 @@ function NavBar({ isLogin }: CardNav) {
                                             </span>
                                         } id="collapsible-nav-dropdown">
                                             <NavDropdown.Item as={Link} to={`/perfil/${userId}`} className="link-no-style ">Meu Perfil<FaUser className='mx-2' /></NavDropdown.Item>
-                                                <NavDropdown title={
-                                                    <span className='d-flex-row align-items-center'>
-                                                        <span> Minhas Solicitações</span>
-                                                    </span>
-                                                }>
-                                                    <NavDropdown.Item  as={Link}  to={`/solicitacoesEnviadas/`}className='Teste'>Enviados</NavDropdown.Item>
-                                                    <NavDropdown.Item as={Link}  to={`/Solicitacoes/`}
-                                                    className='Teste'>Recebidos</NavDropdown.Item>
-                                                </NavDropdown>
-                                            
-                                               
-                                                <NavDropdown title={
+                                            <NavDropdown title={
+                                                <span className='d-flex-row align-items-center'>
+                                                    <span> Minhas Solicitações</span>
+                                                </span>
+                                            }>
+                                                <NavDropdown.Item as={Link} to={`/solicitacoesEnviadas/`} className='Teste'>Enviados</NavDropdown.Item>
+                                                {/* <NavDropdown.Item as={Link}  to={`/Solicitacoes/`}
+                                                    className='Teste'>Recebidos</NavDropdown.Item> */}
+                                            </NavDropdown>
+
+
+                                            {/* <NavDropdown title={
                                                     <span className='titulo d-flex-row align-items-center'>
                                                         <span> Minhas locações</span>
                                                     </span>
                                                 }>
                                                     <NavDropdown.Item className='Teste'>Enviados</NavDropdown.Item>
                                                     <NavDropdown.Item className='Teste'>Recebidos</NavDropdown.Item>
-                                                </NavDropdown>
-                                           
+                                                </NavDropdown> */}
+
 
 
                                             <NavDropdown.Divider />
