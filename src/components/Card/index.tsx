@@ -34,21 +34,18 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
               idLocador: donoId
             };
             const response = await api.post(`/solicitacao/create/`, data, {headers});
-            if (response.status === 200) {
-                alert("Solicitação enviada com sucesso!");
-              } else {
-                if (response.data.error === "Você não pode solicitar sua própria bicicleta.") {
-                  alert("Você não pode solicitar sua própria bicicleta.");
-                } else {
-                  // Outros erros
-                  alert(`Erro ao enviar a solicitação: ${response.data.error}`);
-                }
-              }
-            } catch (error) {
-              console.error("Erro ao enviar a solicitação:", error);
-              alert("Ocorreu um erro de rede ou exceção. Por favor, tente novamente mais tarde.");
-            }
-    }
+        if (response.status === 200) {
+            alert("Solicitação enviada com sucesso!");
+          } else {
+            alert(`Erro ao enviar a solicitação: ${response.data.error}`);
+          }
+        }catch (error) {
+          alert("Erro ao enviar a solicitação: Ocorreu um erro de rede ou exceção.");
+          console.error("Erro ao enviar a solicitação:", error);
+        }
+      } else {
+        alert("Você precisa fazer login para fazer uma solicitação.");
+      }
     }
     return (
         <Card className='card' style={{ width: '18rem' }}>

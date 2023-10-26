@@ -114,9 +114,7 @@ const EditarBikePage: React.FC = () => {
 
     return (
         <div className='editarBike'>
-            <header>
-                <NavBar />
-            </header>
+            <NavBar />
             <main className='main-container'>
                 <h1>Editar Bicicleta</h1>
                 <Form className='d-flex flex-column gap-2' onSubmit={handleUpdate}>

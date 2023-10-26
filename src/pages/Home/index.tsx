@@ -4,9 +4,8 @@ import NavBar from "../../components/NavBar";
 export default function Home() {
     return (
         <div className="Home">
-            <header>
+
                 <NavBar />
-            </header>
             <main className="main-container">
                 <div className="mt-5 d-flex-column text-center">
                     <h1>Bem vindo ao site Bicicreta</h1>

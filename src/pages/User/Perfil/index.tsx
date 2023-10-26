@@ -44,9 +44,7 @@ const PerfilUser: React.FC = () => {
 
   return (
     <div>
-      <header>
         <NavBar />
-      </header>
       <main className='main-container'>
         <div className="userDados d-flex flex-column align-items-center justify-content-center">
           <h1 className='meuperfil'>{userIdFromUrl === userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>

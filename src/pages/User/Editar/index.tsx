@@ -85,9 +85,7 @@ const EditarUser: React.FC = () => {
 
     return (
         <div className='editar'>
-            <header>
                 <NavBar />
-            </header>
             <main className='main-container'>
                 <h1 className='mt-3'>Editar minhas informações</h1>
                 <div className="d-flex justify-content-center align-items-center login-container mt-5">

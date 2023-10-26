@@ -73,9 +73,7 @@ const VisualizarBike: React.FC = () => {
 
     return (
         <div>
-            <header>
-                <NavBar />
-            </header>
+            <NavBar />
             <main className='main-container'>
                 <div className="d-flex flex-wrap justify-content-center gap-3 mt-3">
                     <div className="d-flex flex-column gap-2 img-bike" style={{ width: '20rem' }}>

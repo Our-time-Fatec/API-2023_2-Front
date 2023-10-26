@@ -143,9 +143,7 @@ const CadastrarBikePage: React.FC = () => {
 
     return (
         <div className='cadastrarBike'>
-            <header>
-                <NavBar />
-            </header>
+           <NavBar />
             <main className='main-container'>
                 <h1>Cadastrar Bicicleta</h1>
                 <Form className='d-flex flex-column gap-2' onSubmit={handleCadastro}>

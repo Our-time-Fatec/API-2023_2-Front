@@ -32,9 +32,7 @@ const LoginPage: React.FC = () => {
 
     return (
         <div className='login'>
-            <header>
                 <NavBar isLogin={true} />
-            </header>
             <main className='main-container'>
                 <h1 className='mt-1' style={{ color: '#38f515' }}> Bem-vindo</h1>
                 <h2 className='mt-1' style={{ color: '#38f515' }}>Efetue já seu login!</h2>

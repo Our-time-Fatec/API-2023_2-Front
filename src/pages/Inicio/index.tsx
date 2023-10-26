@@ -4,7 +4,6 @@ import NavBar from "../../components/NavBar";
 import Bicicleta from "../../interfaces/Bicicleta";
 import api from "../../services/api";
 import "./style.css";
-import Solicitacao from '../../interfaces/Solicitacao';
 
 
 function Inicio() {
@@ -27,9 +26,7 @@ function Inicio() {
 
     return (
         <div className="inicio">
-            <header className="header-container">
-                <NavBar />
-            </header>
+            <NavBar />
             <main className="main-container inicio-container">
                 <div className="d-flex flex-column align-items-center justify-content-center mt-3 gap-2">
                     <h1 className="text-success">Bicicletas disponiveis</h1>
