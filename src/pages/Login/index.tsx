@@ -24,6 +24,7 @@ const LoginPage: React.FC = () => {
             .then((response) => {
                 localStorage.setItem('token', JSON.stringify(response.data.token));
                 localStorage.setItem('username', JSON.stringify(response.data.username));
+                localStorage.setItem('imageUser', JSON.stringify(response.data.imageUser));
                 alert(response.data.message);
                 navigate(0);
             })
@@ -37,8 +38,26 @@ const LoginPage: React.FC = () => {
 
     const responseGoogle = (response: any) => {
         const credentialsDecode = jwtDecode<DecodedCredentials>(response.credential);
-        console.log(credentialsDecode)
-    }
+        handleAuthGoogle(credentialsDecode);
+    };
+
+    const handleAuthGoogle = async (credentialsDecode:DecodedCredentials) => {
+        setIsButtonDisabled(true);
+        await api.post(`/user/authGoogle`, credentialsDecode)
+            .then((response) => {
+                localStorage.setItem('token', JSON.stringify(response.data.token));
+                localStorage.setItem('username', JSON.stringify(response.data.username));
+                localStorage.setItem('imageUser', JSON.stringify(response.data.imageUser));
+                alert(response.data.message);
+                navigate(0);
+            })
+            .catch((error) => {
+                alert(error.response.data.error)
+            })
+            .finally(() => {
+                setIsButtonDisabled(false);
+            });
+    };
 
     return (
         <GoogleOAuthProvider clientId={GoogleClientID}>

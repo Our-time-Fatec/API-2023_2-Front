@@ -72,7 +72,7 @@ const EditarUser: React.FC = () => {
         if (token) {
             try {
                 const decodedToken = jwtDecode<DecodedToken>(token);
-                if (decodedToken.userId !== id) {
+                if (decodedToken.userId != id) {
                     navigate("/")
                 }
             } catch (error) {
