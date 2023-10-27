@@ -2,6 +2,8 @@ import Bicicleta from "./Bicicleta";
 
 interface User {
     id?: number;
+    googleID?: string;
+    imageUser?: string; 
     username: string;
     email: string;
     password?: string;
