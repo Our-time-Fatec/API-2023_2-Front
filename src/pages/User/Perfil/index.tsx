@@ -50,7 +50,7 @@ const PerfilUser: React.FC = () => {
           <h1 className='meuperfil'>{userIdFromUrl === userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>
           <p>Email: {user?.email}</p>
           <p>Telefone: {user?.telefone}</p>
-          <p>Endereço: {user?.endereco}</p>
+          <p>Endereço: {user?.logradouro}</p>
           <Button variant="success" className='whatsapp' href={whatsappLink} target="_blank" rel="noopener noreferrer">
             WhatsApp
           </Button>

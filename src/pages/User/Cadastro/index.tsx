@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FaUser, FaLock, FaMapMarkerAlt } from 'react-icons/fa';
 import { MdEmail, MdCall } from 'react-icons/md'
@@ -11,10 +11,14 @@ import PhoneInput from 'react-phone-input-2';
 import InputMask from 'react-input-mask';
 import './cadastro.css';
 import axios from 'axios';
+import Estado from '../../../interfaces/Estado';
+import Cidade from '../../../interfaces/Cidade';
 
 
 const RegisterPage: React.FC = () => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [estados, setEstados] = useState<Estado[]>([]);
+    const [cidades, setCidades] = useState<Cidade[]>([]);
     const navigate = useNavigate();
 
     const [formState, setFormState] = useState<User>({
@@ -29,6 +33,21 @@ const RegisterPage: React.FC = () => {
         logradouro: ""
     });
 
+    const listarEstados = async () => {
+        const response = await axios.get<Estado[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados`)
+        setEstados(response.data);
+    }
+
+    const listarMunicipios = async () => {
+        const response = await axios.get<Cidade[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/municipios`)
+        setCidades(response.data);
+    }
+
+    const listarMunicipiosPorEstado = async (estadoSigla: string) => {
+        const response = await axios.get<Cidade[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoSigla}/municipios`)
+        setCidades(response.data);
+    }
+
     function updateForm(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
 
         setFormState({
@@ -39,12 +58,10 @@ const RegisterPage: React.FC = () => {
     };
 
     const handleGetEndereco = async () => {
-        console.log(formState.cep)
         try {
-
+            listarMunicipios();
             const response = await axios.get(`https://viacep.com.br/ws/${formState.cep}/json/`);
             const addressInfo = response.data;
-
             setFormState({
                 ...formState,
                 cep: addressInfo.cep,
@@ -52,7 +69,7 @@ const RegisterPage: React.FC = () => {
                 bairro: addressInfo.bairro,
                 cidade: addressInfo.localidade,
                 estado: addressInfo.uf,
-            })
+            });
         } catch (error) {
             console.error('Erro ao buscar informações do CEP:', error);
             setFormState({
@@ -80,6 +97,11 @@ const RegisterPage: React.FC = () => {
                 setIsButtonDisabled(false);
             });
     };
+
+    useEffect(() => {
+        listarEstados()
+        listarMunicipios()
+    }, [])
 
     return (
         <div className='register'>
@@ -142,26 +164,46 @@ const RegisterPage: React.FC = () => {
                             Buscar
                         </Button>
                         <Form.Group controlId="formEstado">
-                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Estado</span></Form.Label>
+                            <Form.Label className='d-flex align-items-center gap-2'><span>Estado</span></Form.Label>
                             <Form.Control
-                                type="text"
-                                placeholder="Digite seu Estado"
-                                name="uf"
+                                as="select"
+                                name="estado"
                                 required
                                 value={formState.estado}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                            />
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                    updateForm(e);
+                                    listarMunicipiosPorEstado(e.target.value);
+                                }
+                                }
+                            >
+                                <option value="">Selecione o Estado</option>
+                                {
+                                    estados && estados.map((estado) => (
+                                        <option key={estado.id} value={estado.sigla}>
+                                            {estado.nome}
+                                        </option>
+                                    ))
+                                }
+                            </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formCidade">
-                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Cidade</span></Form.Label>
+                            <Form.Label className='d-flex align-items-center gap-2'><span>Cidade</span></Form.Label>
                             <Form.Control
-                                type="text"
-                                placeholder="Digite seu Cidade"
+                                as="select"
                                 name="cidade"
                                 required
                                 value={formState.cidade}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                            />
+                            >
+                                <option value="">Selecione a Cidade</option>
+                                {
+                                    cidades && cidades.map((cidade) => (
+                                        <option key={cidade.id} value={cidade.nome}>
+                                            {cidade.nome}
+                                        </option>
+                                    ))
+                                }
+                            </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formBairro">
                             <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Bairro</span></Form.Label>
