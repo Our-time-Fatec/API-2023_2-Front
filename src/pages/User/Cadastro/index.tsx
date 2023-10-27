@@ -23,10 +23,10 @@ const RegisterPage: React.FC = () => {
         password: "",
         telefone: "",
         cep: "",
-        endereco: "",
-        bairro: "",
+        estado: "",
         cidade: "",
-        uf: ""
+        bairro: "",
+        logradouro: ""
     });
 
     function updateForm(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
@@ -48,19 +48,19 @@ const RegisterPage: React.FC = () => {
             setFormState({
                 ...formState,
                 cep: addressInfo.cep,
-                endereco: addressInfo.logradouro,
+                logradouro: addressInfo.logradouro,
                 bairro: addressInfo.bairro,
                 cidade: addressInfo.localidade,
-                uf: addressInfo.uf,
+                estado: addressInfo.uf,
             })
         } catch (error) {
             console.error('Erro ao buscar informações do CEP:', error);
             setFormState({
                 ...formState,
-                endereco: '',
+                logradouro: '',
                 bairro: '',
                 cidade: '',
-                uf: '',
+                estado: '',
             })
         }
     }
@@ -148,7 +148,7 @@ const RegisterPage: React.FC = () => {
                                 placeholder="Digite seu Estado"
                                 name="uf"
                                 required
-                                value={formState.uf}
+                                value={formState.estado}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
@@ -179,9 +179,9 @@ const RegisterPage: React.FC = () => {
                             <Form.Control
                                 type="text"
                                 placeholder="Digite seu logradouro"
-                                name="endereco"
+                                name="logradouro"
                                 required
-                                value={formState.endereco}
+                                value={formState.logradouro}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>

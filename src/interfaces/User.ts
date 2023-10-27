@@ -9,10 +9,11 @@ interface User {
     password?: string;
     telefone: string;
     cep: string;
-    endereco: string;
-    bairro: string;
+    estado: string;
     cidade: string;
-    uf: string;
+    bairro: string;
+    logradouro: string;
+    numero_casa?: number;
     longitude?: number;
     latitude?: number;
     isAlugando?: boolean;

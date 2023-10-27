@@ -19,10 +19,10 @@ const EditarUser: React.FC = () => {
         email: "",
         telefone: "",
         cep: "",
-        endereco: "",
-        bairro: "",
+        estado: "",
         cidade: "",
-        uf: ""
+        bairro: "",
+        logradouro: ""
     });
 
     async function getUser() {
@@ -129,14 +129,14 @@ const EditarUser: React.FC = () => {
                                 }}
                             />
                         </Form.Group>
-                        <Form.Group controlId="formEndereco">
-                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Endereço</span></Form.Label>
+                        <Form.Group controlId="formLogradouro">
+                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Logradouro</span></Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Digite seu endereço"
-                                name="endereco"
+                                placeholder="Digite seu Logradouro"
+                                name="logradouro"
                                 required
-                                value={formState.endereco}
+                                value={formState.logradouro}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
