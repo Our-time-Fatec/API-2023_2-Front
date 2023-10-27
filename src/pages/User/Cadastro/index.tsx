@@ -8,7 +8,9 @@ import NavBar from '../../../components/NavBar';
 import User from '../../../interfaces/User';
 import { Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
+import InputMask from 'react-input-mask';
 import './cadastro.css';
+import axios from 'axios';
 
 
 const RegisterPage: React.FC = () => {
@@ -20,7 +22,11 @@ const RegisterPage: React.FC = () => {
         email: "",
         password: "",
         telefone: "",
-        endereco: ""
+        cep: "",
+        endereco: "",
+        bairro: "",
+        cidade: "",
+        uf: ""
     });
 
     function updateForm(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
@@ -32,6 +38,32 @@ const RegisterPage: React.FC = () => {
         })
     };
 
+    const handleGetEndereco = async () => {
+        console.log(formState.cep)
+        try {
+
+            const response = await axios.get(`https://viacep.com.br/ws/${formState.cep}/json/`);
+            const addressInfo = response.data;
+
+            setFormState({
+                ...formState,
+                cep: addressInfo.cep,
+                endereco: addressInfo.logradouro,
+                bairro: addressInfo.bairro,
+                cidade: addressInfo.localidade,
+                uf: addressInfo.uf,
+            })
+        } catch (error) {
+            console.error('Erro ao buscar informações do CEP:', error);
+            setFormState({
+                ...formState,
+                endereco: '',
+                bairro: '',
+                cidade: '',
+                uf: '',
+            })
+        }
+    }
 
     const handleRegister = async (e: ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -84,7 +116,7 @@ const RegisterPage: React.FC = () => {
                         <Form.Group controlId="formTelefone">
                             <Form.Label className='d-flex align-items-center gap-2'><MdCall /><span>Telefone</span></Form.Label>
                             <PhoneInput
-                                country={'br'} 
+                                country={'br'}
                                 value={formState.telefone}
                                 onChange={(value, data, event, formattedValue) => updateForm(event)}
                                 inputProps={{
@@ -94,11 +126,59 @@ const RegisterPage: React.FC = () => {
                                 }}
                             />
                         </Form.Group>
-                        <Form.Group controlId="formEndereco">
-                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Endereço</span></Form.Label>
+                        <Form.Group controlId="formCep">
+                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>CEP</span></Form.Label>
+                            {/* Input causando erro no console, manter temporario e trocar futuramente por outro */}
+                            <InputMask
+                                type='text'
+                                name='cep'
+                                mask="99999-999"
+                                value={formState.cep}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
+                        {/* Botão de buscar endereço em local temporario, trocar futuramente */}
+                        <Button variant="dark" onClick={handleGetEndereco} className='mt-3' >
+                            Buscar
+                        </Button>
+                        <Form.Group controlId="formEstado">
+                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Estado</span></Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Digite seu endereço"
+                                placeholder="Digite seu Estado"
+                                name="uf"
+                                required
+                                value={formState.uf}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formCidade">
+                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Cidade</span></Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Digite seu Cidade"
+                                name="cidade"
+                                required
+                                value={formState.cidade}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formBairro">
+                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Bairro</span></Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Digite seu Bairro"
+                                name="bairro"
+                                required
+                                value={formState.bairro}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
+                        <Form.Group controlId="formLogradouro">
+                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Logradouro</span></Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Digite seu logradouro"
                                 name="endereco"
                                 required
                                 value={formState.endereco}

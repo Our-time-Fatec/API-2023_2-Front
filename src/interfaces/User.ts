@@ -8,7 +8,11 @@ interface User {
     email: string;
     password?: string;
     telefone: string;
+    cep: string;
     endereco: string;
+    bairro: string;
+    cidade: string;
+    uf: string;
     longitude?: number;
     latitude?: number;
     isAlugando?: boolean;

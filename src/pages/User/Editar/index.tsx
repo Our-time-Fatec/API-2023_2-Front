@@ -18,7 +18,11 @@ const EditarUser: React.FC = () => {
         username: "",
         email: "",
         telefone: "",
-        endereco: ""
+        cep: "",
+        endereco: "",
+        bairro: "",
+        cidade: "",
+        uf: ""
     });
 
     async function getUser() {
