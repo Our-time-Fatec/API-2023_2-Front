@@ -19,6 +19,7 @@ const RegisterPage: React.FC = () => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const [estados, setEstados] = useState<Estado[]>([]);
     const [cidades, setCidades] = useState<Cidade[]>([]);
+    const [cidadesDoEstado, setCidadesDoEstado] = useState<Cidade[]>([]);
     const navigate = useNavigate();
 
     const [formState, setFormState] = useState<User>({
@@ -41,25 +42,52 @@ const RegisterPage: React.FC = () => {
     const listarMunicipios = async () => {
         const response = await axios.get<Cidade[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/municipios`)
         setCidades(response.data);
+        setCidadesDoEstado(response.data)
     }
 
     const listarMunicipiosPorEstado = async (estadoSigla: string) => {
-        const response = await axios.get<Cidade[]>(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoSigla}/municipios`)
-        setCidades(response.data);
+        if (estadoSigla) {
+            const cidadesDoEstadoFitlradas = cidades.filter((cidade) => {
+                return cidade.microrregiao.mesorregiao.UF.sigla === estadoSigla;
+            });
+
+            setCidadesDoEstado(cidadesDoEstadoFitlradas)
+        }
+        else {
+            setCidadesDoEstado(cidades);
+        }
     }
 
     function updateForm(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
 
-        setFormState({
-            ...formState,
-            [e.target.name]:
-                e.target.value
-        })
+        if (e.target.name === 'cidade') {
+            const cidadeSelecionada = cidades.find(cidade => cidade.nome === e.target.value);
+            if (cidadeSelecionada) {
+                const estadoSigla = cidadeSelecionada.microrregiao.mesorregiao.UF.sigla;
+                setFormState({
+                    ...formState,
+                    estado: estadoSigla,
+                    cidade: e.target.value,
+                });
+            } else {
+                setFormState({
+                    ...formState,
+                    estado: '',
+                    cidade: e.target.value,
+                });
+            }
+        } else {
+            setFormState({
+                ...formState,
+                [e.target.name]:
+                    e.target.value
+            })
+        }
     };
 
     const handleGetEndereco = async () => {
         try {
-            listarMunicipios();
+            setCidadesDoEstado(cidades);
             const response = await axios.get(`https://viacep.com.br/ws/${formState.cep}/json/`);
             const addressInfo = response.data;
             setFormState({
@@ -197,7 +225,7 @@ const RegisterPage: React.FC = () => {
                             >
                                 <option value="">Selecione a Cidade</option>
                                 {
-                                    cidades && cidades.map((cidade) => (
+                                    cidadesDoEstado && cidadesDoEstado.map((cidade) => (
                                         <option key={cidade.id} value={cidade.nome}>
                                             {cidade.nome}
                                         </option>
