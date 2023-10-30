@@ -9,6 +9,7 @@ import DecodedToken from '../../interfaces/DecodedToken';
 import jwtDecode from 'jwt-decode';
 import { FaUser } from 'react-icons/fa';
 import { HiOutlineLogout } from 'react-icons/hi';
+import IconBicicleta from '../../assets/Icon';
 
 interface CardNav {
     isLogin?: boolean;
@@ -41,9 +42,14 @@ function NavBar({ isLogin }: CardNav) {
     };
 
     return (
-        <Navbar collapseOnSelect expand={!isLogin ? "lg" : undefined} className="bg-body-tertiary" bg="dark" data-bs-theme="dark">
+        <Navbar collapseOnSelect expand={!isLogin ? "lg" : undefined} className="custom-navbar-color" data-bs-theme="dark"> 
+        {/* //bg="dark" data-bs-theme="dark" */}
             <Container>
-                <Navbar.Brand className="link-no-style"><img src="https://i.imgur.com/N1FUl3D.png" style={{ width: '110px' }} /></Navbar.Brand>
+                <Navbar.Brand className="link-no-style" >
+                    <span className="icon-bike" >
+                        <IconBicicleta />
+                    </span>
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 {
                     !isLogin ? (

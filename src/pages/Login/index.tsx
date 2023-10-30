@@ -8,7 +8,6 @@ import jwtDecode from 'jwt-decode';
 import DecodedCredentials from '../../interfaces/DecodedCredentials';
 import NavBar from '../../components/NavBar';
 import api from '../../services/api';
-import './login.css';
 
 
 const LoginPage: React.FC = () => {
@@ -41,7 +40,7 @@ const LoginPage: React.FC = () => {
         handleAuthGoogle(credentialsDecode);
     };
 
-    const handleAuthGoogle = async (credentialsDecode:DecodedCredentials) => {
+    const handleAuthGoogle = async (credentialsDecode: DecodedCredentials) => {
         setIsButtonDisabled(true);
         await api.post(`/user/authGoogle`, credentialsDecode)
             .then((response) => {
@@ -64,12 +63,14 @@ const LoginPage: React.FC = () => {
             <div className='login'>
                 <NavBar isLogin={true} />
                 <main className='main-container'>
-                    <h1 className='mt-1' style={{ color: '#38f515' }}> Bem-vindo</h1>
-                    <h2 className='mt-1' style={{ color: '#38f515' }}>Efetue já seu login!</h2>
-                    <div className="d-flex justify-content-center align-items-center login-container mt-1">
+                    <div className="bem-vindo">
+                        <h1 className='roboto-negrito'> Bem-vindo</h1>
+                        <h2 className='roboto-regular'>Efetue seu login!</h2>
+                    </div>
+                    <div className="d-flex justify-content-center align-items-center login-container mt-1 roboto-regular">
                         <Form className='d-flex flex-column gap-2'>
                             <Form.Group controlId="formEmail">
-                                <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>Email</span></Form.Label>
+                                <Form.Label className='d-flex align-items-center gap-2 roboto-negrito'><MdEmail /><span>Email</span></Form.Label>
                                 <Form.Control
                                     type="email"
                                     placeholder="Digite seu Email"
@@ -78,7 +79,7 @@ const LoginPage: React.FC = () => {
                                 />
                             </Form.Group>
                             <Form.Group controlId="formPassword">
-                                <Form.Label className='d-flex align-items-center gap-2'><FaLock /><span>Senha</span></Form.Label>
+                                <Form.Label className='d-flex align-items-center gap-2 roboto-negrito'><FaLock /><span>Senha</span></Form.Label>
                                 <Form.Control
                                     type="password"
                                     placeholder="Digite sua senha"
@@ -87,7 +88,7 @@ const LoginPage: React.FC = () => {
                                 />
 
                             </Form.Group>
-                            <Button variant="dark" onClick={handleLogin} className='mt-3 custom-login-button' disabled={isButtonDisabled}>
+                            <Button variant="dark" onClick={handleLogin} className='mt-3 custom-login-button roboto-negrito' disabled={isButtonDisabled}>
                                 Entrar
                             </Button>
 
@@ -96,14 +97,12 @@ const LoginPage: React.FC = () => {
                     <GoogleLogin
                         onSuccess={responseGoogle}
                     />
-                    <div className='options d-flex flex-column align-items-center mt-1'>
-                        <span className='d-flex gap-1'>
-                            <span>Ainda não tem uma conta?</span>
-                            <Link to={`/register`}>Registre-se aqui!</Link>
+                    <div className='options d-flex flex-column align-items-center mt-1 '>
+                        <span className='d-flex'>
+                            <Link to={`/register`}  className='link-no-style roboto-regular'>Quero criar uma conta!</Link>
                         </span>
-                        <span className='d-flex gap-1'>
-                            <span>Quer navegar como visistante?</span>
-                            <Link to={`/inicio`}>Continue aqui!</Link>
+                        <span className='d-flex'>
+                            <Link to={`/inicio`}  className='link-no-style roboto-regular'>Continuar como visitante!</Link>
                         </span>
                     </div>
                 </main>

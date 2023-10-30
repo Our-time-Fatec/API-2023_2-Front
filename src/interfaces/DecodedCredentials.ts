@@ -1,8 +1,8 @@
 interface DecodedCredentials {
-    sub: string; // sub representa o Google ID
-    picture: string; // picture representa a imagem do Google
-    name: string; // name representa o nome do usuário
-    email: string; // email representa o email do usuário
+    sub: string; 
+    picture: string;
+    name: string; 
+    email: string;
 }
 
 export default DecodedCredentials;
