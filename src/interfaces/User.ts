@@ -13,7 +13,7 @@ interface User {
     cidade: string;
     bairro: string;
     logradouro: string;
-    numero_casa?: number;
+    numero_casa: number;
     longitude?: number;
     latitude?: number;
     isAlugando?: boolean;

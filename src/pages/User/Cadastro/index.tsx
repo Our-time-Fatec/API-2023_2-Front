@@ -9,7 +9,6 @@ import User from '../../../interfaces/User';
 import { Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import InputMask from 'react-input-mask';
-import './cadastro.css';
 import axios from 'axios';
 import Estado from '../../../interfaces/Estado';
 import Cidade from '../../../interfaces/Cidade';
@@ -31,7 +30,8 @@ const RegisterPage: React.FC = () => {
         estado: "",
         cidade: "",
         bairro: "",
-        logradouro: ""
+        logradouro: "",
+        numero_casa: 0
     });
 
     const listarEstados = async () => {
@@ -132,14 +132,14 @@ const RegisterPage: React.FC = () => {
     }, [])
 
     return (
-        <div className='register'>
-            <header>
-                <NavBar isLogin={true} />
-            </header>
+        <div>
+            <NavBar isLogin={true} />
             <main className='main-container'>
-                <h1 className='mt-3'>Bem-vindo</h1>
-                <h2>Efetue já seu registro!</h2>
-                <div className="d-flex justify-content-center align-items-center login-container mt-5">
+                <div className="bem-vindo">
+                    <h1 className='roboto-negrito'>Bem-vindo</h1>
+                    <h2 className='roboto-regular'>Efetue já seu registro!</h2>
+                </div>
+                <div className="d-flex justify-content-center align-items-center">
                     <Form className='d-flex flex-column gap-2' onSubmit={handleRegister}>
                         <Form.Group controlId="formUsername">
                             <Form.Label className='d-flex align-items-center gap-2'><FaUser /><span>Username</span></Form.Label>
@@ -255,6 +255,17 @@ const RegisterPage: React.FC = () => {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
+                        <Form.Group controlId="formNumeroCasa">
+                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Nº Casa</span></Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Digite Nº Casa"
+                                name="numero_casa"
+                                required
+                                value={formState.numero_casa}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
                         <Form.Group controlId="formPassword">
                             <Form.Label className='d-flex align-items-center gap-2'><FaLock /><span>Senha</span></Form.Label>
                             <Form.Control
@@ -272,13 +283,11 @@ const RegisterPage: React.FC = () => {
                     </Form>
                 </div>
                 <div className='options d-flex flex-column align-items-center mt-4'>
-                    <span className='d-flex gap-1'>
-                        <span>Já possuí uma conta?</span>
-                        <Link to={`/`}>Logue aqui!</Link>
+                    <span>
+                        <Link to={`/`} className='link-no-style roboto-regular'>Já possuí uma conta?</Link>
                     </span>
-                    <span className='d-flex gap-1'>
-                        <span>Quer navegar como visistante?</span>
-                        <Link to={`/inicio`}>Continue aqui!</Link>
+                    <span>
+                        <Link to={`/inicio`} className='link-no-style roboto-regular'>Quer navegar como visistante?</Link>
                     </span>
                 </div>
             </main>

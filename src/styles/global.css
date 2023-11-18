@@ -41,7 +41,6 @@
   }
   
   .custom-navbar-color {
-    height: 3.5rem;
     background-color: var(--cor-secundaria);
   }
 
@@ -52,7 +51,7 @@
 
   .icon-bike {
     width: 200px;
-    height: 3.5rem;
+    height: 2rem;
     display: flex;
     align-items: center;
   }

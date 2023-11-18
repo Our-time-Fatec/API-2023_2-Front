@@ -22,7 +22,8 @@ const EditarUser: React.FC = () => {
         estado: "",
         cidade: "",
         bairro: "",
-        logradouro: ""
+        logradouro: "",
+        numero_casa: 0
     });
 
     async function getUser() {
