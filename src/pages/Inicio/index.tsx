@@ -3,18 +3,21 @@ import CardBike from "../../components/Card";
 import NavBar from "../../components/NavBar";
 import Bicicleta from "../../interfaces/Bicicleta";
 import api from "../../services/api";
-import "./style.css";
 import jwtDecode from "jwt-decode";
 import DecodedToken from "../../interfaces/DecodedToken";
+import { Sort } from "../../functions/bubble_sort";
 
 
 function Inicio() {
     const [bicicletas, setBicicleta] = useState<Bicicleta[]>([]);
     const [userId, setUserId] = useState<number>();
+    const sort = new Sort<Bicicleta>();
+
 
     async function getAllBikes() {
         const response = await api.get<Bicicleta[]>("/bicicleta/")
-        setBicicleta(response.data);
+        const bikes = sort.bubble_naive_view(response.data)
+        setBicicleta(bikes);
     }
 
     useEffect(() => {
@@ -24,20 +27,24 @@ function Inicio() {
             getAllBikes();
         }, 60000);
 
+
         return () => clearInterval(intervalId);
     }, []);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');    
+        const token = localStorage.getItem('token');
         if (token) {
-          try {
-            const decodedToken = jwtDecode<DecodedToken>(token);
-            setUserId(parseInt(decodedToken.userId));
-          } catch (error) {
-            console.error('Erro ao decodificar o token JWT:', error);
-          }
+            try {
+                const decodedToken = jwtDecode<DecodedToken>(token);
+                setUserId(parseInt(decodedToken.userId));
+            } catch (error) {
+                console.error('Erro ao decodificar o token JWT:', error);
+            }
         }
-      }, []);
+
+    }, []);
+
+    
 
     return (
         <div className="inicio">
@@ -66,7 +73,7 @@ function Inicio() {
                                 return (
 
                                     <div className="bike" key={i.id}>
-                                        <CardBike id={i.id} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isAlugada={i.isAlugada}/>
+                                        <CardBike id={i.id} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isAlugada={i.isAlugada} />
                                     </div>
 
                                 )
