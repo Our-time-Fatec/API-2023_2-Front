@@ -4,6 +4,10 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from 'react-router-dom';
 import './style.css'
 import api from '../../services/api';
+import { useState } from 'react';
+import { Rating, Box } from "@mui/material";
+import { Star } from "@mui/icons-material"
+import { calculateNewValue } from '@testing-library/user-event/dist/utils';
 
 interface CardBike {
     id?: number;
@@ -48,6 +52,8 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
         alert("Você precisa fazer login para fazer uma solicitação.");
       }
     }
+    const [value, setValue] = useState<number | null>(1)
+    const [hover, setHover] = useState(-1)
     return (
         <Card className='card' style={{ width: '18rem' }}>
             <Card.Img variant="top" src={`http://localhost:3001/images/${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
@@ -58,6 +64,25 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
                     {descricao}
                 </Card.Text>
             </Card.Body>
+            <Box
+                sx={{
+                    width: 200,
+                    display: 'flex',
+                    alignItems:'center',
+                }}>
+                <Rating
+                    name='hover-feedback'
+                    value={value}
+                    precision={0.5}
+                    onChange={(event, NewValue) => {
+                        setValue(NewValue)
+                    }}
+                    onChangeActive={(event, newHover) =>{
+                        setHover(newHover)
+                    }}
+                    emptyIcon={<Star style={{ opacity: 0.5}} fontSize='inherit'/>}
+                />
+            </Box>
             <ListGroup className="list-group-flush">
                 <ListGroup.Item>Valor por dia: R$ {valorDia}</ListGroup.Item>
                 <ListGroup.Item>Valor por hora: R$ {valorHora}</ListGroup.Item>
