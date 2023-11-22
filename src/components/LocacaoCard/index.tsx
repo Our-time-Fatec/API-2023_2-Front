@@ -2,6 +2,9 @@ import { Button, Form, Modal } from "react-bootstrap";
 import Bicicleta from "../../interfaces/Bicicleta";
 import User from "../../interfaces/User";
 import { useState } from "react";
+import jwtDecode from "jwt-decode";
+import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 interface LocacaoCard {
     id: number;
@@ -17,6 +20,8 @@ interface LocacaoCard {
 }
 
 function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, avaliacaoDono, bicicleta, locatario, isLocacoesLocadas, isLocacoesAlugadas }: LocacaoCard) {
+    const tokenJson = localStorage.getItem('token');
+    const navigate = useNavigate();
     const [avaliacao, setAvaliacao] = useState<number>();
     const [showModal, setShowModal] = useState(false);
     const handleShowModal = () => setShowModal(true);
@@ -29,14 +34,35 @@ function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, a
     const renderAvaliacaoOptions = (start: number, end: number, step: number) => {
         const options: JSX.Element[] = [];
         for (let value = start; value <= end; value += step) {
-          options.push(
-            <option key={value} value={value.toString()}>
-              {value}
-            </option>
-          );
+            options.push(
+                <option key={value} value={value.toString()}>
+                    {value}
+                </option>
+            );
         }
         return options;
-      };
+    };
+
+    const encerrarLocacao = async (idLocacao: number) => {
+        if (tokenJson) {
+            const tokenObject = JSON.parse(tokenJson);
+            const headers = {
+                Authorization: `${tokenObject}`,
+            };
+
+            await api.put(`/locacao/Encerrar/${idLocacao}`, avaliacao, { headers })
+                .then((response) => {
+                    alert(response.data.message)
+                    //navigate(0)
+                })
+                .catch((error) => {
+                    alert(error.response.data.error)
+                })
+
+        } else {
+            alert("Você precisa fazer login para fazer uma solicitação.");
+        }
+    }
     return (
         <div className="locacao-card">
             <div className="card-bike roboto-regular text-black d-flex flex-column">
@@ -75,7 +101,7 @@ function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, a
                     <Button variant="secondary" onClick={handleCloseModal}>
                         Fechar
                     </Button>
-                    <Button variant="primary">
+                    <Button variant="primary" onClick={() => encerrarLocacao(id)} >
                         Encerrar Locação
                     </Button>
                 </Modal.Footer>
