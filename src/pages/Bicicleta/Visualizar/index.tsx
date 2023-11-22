@@ -87,21 +87,18 @@ const VisualizarBike: React.FC = () => {
             };
             const decodedToken = jwtDecode<DecodedToken>(tokenJson);
             const idLocatario = (parseInt(decodedToken.userId));
-            try {
-                const data = {
-                    idBicicleta: id,
-                    idLocatario: idLocatario
-                };
-                const response = await api.post(`/solicitacao/create/`, data, { headers });
-                if (response.status === 200) {
-                    alert("Solicitação enviada com sucesso!");
-                } else {
-                    alert(`Erro ao enviar a solicitação: ${response.data.error}`);
-                }
-            } catch (error) {
-                alert("Erro ao enviar a solicitação: Ocorreu um erro de rede ou exceção.");
-                console.error("Erro ao enviar a solicitação:", error);
-            }
+            const data = {
+                idBicicleta: id,
+                idLocatario: idLocatario
+            };
+            await api.post(`/solicitacao/create/`, data, { headers })
+                .then((response) => {
+                    alert(response.data.message)
+                    navigate("/solicitacoesEnviadas")
+                })
+                .catch((error) => {
+                    alert(error.response.data.error)
+                })
         } else {
             alert("Você precisa fazer login para fazer uma solicitação.");
         }
@@ -149,11 +146,10 @@ const VisualizarBike: React.FC = () => {
                             Contato
                         </Button>
                     </Link >) : ""}
-                    {!bicicleta?.isAlugada && isAuthenticated && (bicicleta?.donoId != userId) ? (<Link className='' to={`/solicitacoesEnviadas`}>
+                    {!bicicleta?.isAlugada && isAuthenticated && (bicicleta?.donoId != userId) ? (
                         <Button variant="dark" onClick={handleSolicitarClick}>
                             Solicitar
-                        </Button>
-                    </Link >) : ""}
+                        </Button>) : ""}
                 </div>
             </main>
         </div>
