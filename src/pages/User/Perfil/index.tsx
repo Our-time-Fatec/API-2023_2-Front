@@ -46,9 +46,10 @@ const PerfilUser: React.FC = () => {
     <div>
       <NavBar />
       <main className='main-container'>
-        <div className="userDados d-flex flex-column align-items-center justify-content-center">
-          <h1 className='meuperfil'>{userIdFromUrl === userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>
+        <div className="userDados d-flex flex-column align-items-center justify-content-center roboto-regular">
+          <h1 className='meuperfil roboto-regular'>{userIdFromUrl === userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>
           <img className='profile-image' src={user?.imageUser || "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"} />
+          {user?.isAlugando ? <span className='text-green roboto-negrito'>Usuário contém uma locação ativa</span> : ""}
           <p>Email: {user?.email}</p>
           <p>Telefone: {user?.telefone}</p>
           <p>Endereço: {user?.logradouro}</p>
