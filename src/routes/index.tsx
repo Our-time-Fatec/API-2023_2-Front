@@ -10,6 +10,8 @@ import EditarBikePage from "../pages/Bicicleta/Editar";
 import VisualizarBike from "../pages/Bicicleta/Visualizar";
 import SolicitacoesEnviadas from "../pages/Solicitacoes/Enviadas";
 import SolicitacoesRecebidas from "../pages/Solicitacoes/Recebidas"
+import LocacoesAlugadas from "../pages/Locacoes/Alugadas";
+import LocacoesLocadas from "../pages/Locacoes/Locadas";
 
 
 function AppRouter() {
@@ -28,6 +30,8 @@ function AppRouter() {
                     <Route path="/bike/:id" element={<VisualizarBike />} />
                     <Route path="/SolicitacoesEnviadas" element={isAuthenticated ? (<SolicitacoesEnviadas />) : (<Navigate to="/" />)} />
                     <Route path="/SolicitacoesRecebidas" element={isAuthenticated ? (<SolicitacoesRecebidas />) : (<Navigate to="/" />)} />
+                    <Route path="/LocacoesAlugadas" element={isAuthenticated ? (<LocacoesAlugadas />) : (<Navigate to="/" />)} />
+                    <Route path="/LocacoesLocadas" element={isAuthenticated ? (<LocacoesLocadas />) : (<Navigate to="/" />)} />
                     <Route path="/perfil/:donoId/bike/editar/:id" element={isAuthenticated ? (<EditarBikePage />) : (<Navigate to="/" />)} />
                 </Routes>
             </auth.AuthMiddleware>
