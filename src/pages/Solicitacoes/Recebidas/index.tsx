@@ -49,7 +49,7 @@ function SolicitacoesRecebidas() {
         <h1 className="roboto-negrito ">Solicitações Recebidas</h1>
         <div className="bike">
           {
-            solicitacoes.some((i) => !i.isRespondido) ? (
+            solicitacoes.some((i) => !i.isRespondido && !i.bicicleta?.isAlugada) ? (
               solicitacoes
                 .filter((i) => !i.isRespondido)
                 .map((i) => (
