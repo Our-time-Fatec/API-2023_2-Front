@@ -35,8 +35,7 @@ const EditarBikePage: React.FC = () => {
         valorDia: 0,
         marcaId: 0,
         modalidadeId: 0,
-        donoId: 0,
-        isAlugada: false
+        donoId: 0
     });
 
     async function getMarcasModalidades() {
@@ -118,7 +117,7 @@ const EditarBikePage: React.FC = () => {
             <main className='main-container'>
                 <h1>Editar Bicicleta</h1>
                 <Form className='d-flex flex-column gap-2' onSubmit={handleUpdate}>
-                    <Form.Check
+                    {/* <Form.Check
                         type="checkbox"
                         label="Alugada"
                         name="isAlugada"
@@ -129,7 +128,7 @@ const EditarBikePage: React.FC = () => {
                                 isAlugada: e.target.checked,
                             })
                         }
-                    />
+                    /> */}
                     <div className="d-flex gap-2">
                         <Form.Group controlId="formTamanho" className="col-md-6">
                             <Form.Label><span>Tamanho</span></Form.Label>
