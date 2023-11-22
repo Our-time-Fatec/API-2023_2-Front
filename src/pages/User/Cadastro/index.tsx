@@ -220,13 +220,14 @@ const RegisterPage: React.FC = () => {
                                     }
                                 </Form.Control>
                             </Form.Group>
-                            <Form.Group controlId="formCidade">
+                            <Form.Group  className="fixed-input-width" controlId="formCidade">
                                 <Form.Label className='d-flex align-items-center gap-2'><span>Cidade</span></Form.Label>
                                 <Form.Control
                                     as="select"
                                     name="cidade"
                                     required
                                     value={formState.cidade}
+                                   
                                     onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                                 >
                                     <option value="">Selecione a Cidade</option>
@@ -270,17 +271,6 @@ const RegisterPage: React.FC = () => {
                                 type="text"
                                 placeholder="Digite Nº Casa"
                                 name="numero_casa"
-                                required
-                                value={formState.numero_casa}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                            />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Número</span></Form.Label>
-                            <Form.Control
-                                type="number"
-                                placeholder="Digite o número da residência"
-                                name="numero"
                                 required
                                 value={formState.numero_casa}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}

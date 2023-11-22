@@ -55,3 +55,11 @@
     display: flex;
     align-items: center;
   }
+
+  .text-green{
+    color: #38f515;
+  }
+
+  .fixed-input-width {
+    width: 245px; /* Adjust the width as needed */
+}
