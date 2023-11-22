@@ -3,7 +3,7 @@ import User from "./User";
 
 interface Solicitacao {
     idSolicitacao: number;
-    idLocador: number;
+    idLocatario: number;
     idBicicleta: number;
     isRespondido?: boolean;
     isAceito?: boolean;

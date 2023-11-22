@@ -12,6 +12,8 @@ import Marca from '../../../interfaces/Marca';
 import Modalidade from '../../../interfaces/Modalidade';
 import { Button } from 'react-bootstrap';
 import './style.css';
+import jwtDecode from 'jwt-decode';
+import DecodedToken from '../../../interfaces/DecodedToken';
 
 
 const marcaPadrao: Marca = {
@@ -27,6 +29,7 @@ const modalidadePadrao: Modalidade = {
 const VisualizarBike: React.FC = () => {
     const navigate = useNavigate();
     const { id } = useParams();
+    const [userId, setUserId] = useState<number>();
     const isAuthenticated = !!localStorage.getItem('token');
     const tokenJson = localStorage.getItem('token');
     const [bicicleta, setBicicleta] = useState<Bicicleta>({
@@ -66,7 +69,43 @@ const VisualizarBike: React.FC = () => {
 
     useEffect(() => {
         getBike();
+        if (tokenJson) {
+            try {
+                const decodedToken = jwtDecode<DecodedToken>(tokenJson);
+                setUserId(parseInt(decodedToken.userId));
+            } catch (error) {
+                console.error('Erro ao decodificar o token JWT:', error);
+            }
+        }
     }, [])
+
+    const handleSolicitarClick = async () => {
+        if (tokenJson) {
+            const tokenObject = JSON.parse(tokenJson);
+            const headers = {
+                Authorization: `${tokenObject}`,
+            };
+            const decodedToken = jwtDecode<DecodedToken>(tokenJson);
+            const idLocatario = (parseInt(decodedToken.userId));
+            try {
+                const data = {
+                    idBicicleta: id,
+                    idLocatario: idLocatario
+                };
+                const response = await api.post(`/solicitacao/create/`, data, { headers });
+                if (response.status === 200) {
+                    alert("Solicitação enviada com sucesso!");
+                } else {
+                    alert(`Erro ao enviar a solicitação: ${response.data.error}`);
+                }
+            } catch (error) {
+                alert("Erro ao enviar a solicitação: Ocorreu um erro de rede ou exceção.");
+                console.error("Erro ao enviar a solicitação:", error);
+            }
+        } else {
+            alert("Você precisa fazer login para fazer uma solicitação.");
+        }
+    }
 
     const formattedPhoneNumber = bicicleta?.dono?.telefone ? formatPhoneNumber(bicicleta?.dono?.telefone) : '';
     const whatsappLink = `https://wa.me/${formattedPhoneNumber}`;
@@ -97,18 +136,25 @@ const VisualizarBike: React.FC = () => {
                     </div>
                 </div>
                 <div className="d-flex gap-2 mt-3">
-    <span><strong>Dono: </strong>{bicicleta.dono?.username}</span>
-</div>
-<div className="d-flex gap-2">
-    <span><strong>Status: </strong></span>
-    <span className={bicicleta?.isAlugada ? "text-danger" : "text-success"}>{bicicleta?.isAlugada ? "Alugada" : "Disponivel"}</span>
-</div>
+                    <span><strong>Dono: </strong>{bicicleta.dono?.username}</span>
+                </div>
+                <div className="d-flex gap-2">
+                    <span><strong>Status: </strong></span>
+                    <span className={bicicleta?.isAlugada ? "text-red" : "text-green"}>{bicicleta?.isAlugada ? "Alugada" : "Disponivel"}</span>
+                </div>
 
-                {isAuthenticated ? (<Link className='mt-2' to={`/perfil/${bicicleta?.donoId}`}>
-                    <Button variant="dark" >
-                        Contato
-                    </Button>
-                </Link >) : ""}
+                <div className="d-flex gap-2 mt-2">
+                    {isAuthenticated ? (<Link className='' to={`/perfil/${bicicleta?.donoId}`}>
+                        <Button variant="dark" >
+                            Contato
+                        </Button>
+                    </Link >) : ""}
+                    {!bicicleta?.isAlugada && isAuthenticated && (bicicleta?.donoId != userId) ? (<Link className='' to={`/solicitacoesEnviadas`}>
+                        <Button variant="dark" onClick={handleSolicitarClick}>
+                            Solicitar
+                        </Button>
+                    </Link >) : ""}
+                </div>
             </main>
         </div>
     );

@@ -25,33 +25,34 @@ interface CardBike {
 function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada, isMyPerfil, usuarioLogadoId }: CardBike) {
     const isAuthenticated = !!localStorage.getItem('token');
     const tokenJson = localStorage.getItem('token');
-    const handleSolicitarClick = async () => {
-        if (tokenJson) {
-            const tokenObject = JSON.parse(tokenJson);
-            const headers = {
-                Authorization: `${tokenObject}`,
-            };
-            const decodedToken = jwtDecode<DecodedToken>(tokenJson);
-            const idLocatario = (parseInt(decodedToken.userId));
-            try {
-                const data = {
-                    idBicicleta: id,
-                    idLocatario: idLocatario
-                };
-                const response = await api.post(`/solicitacao/create/`, data, { headers });
-                if (response.status === 200) {
-                    alert("Solicitação enviada com sucesso!");
-                } else {
-                    alert(`Erro ao enviar a solicitação: ${response.data.error}`);
-                }
-            } catch (error) {
-                alert("Erro ao enviar a solicitação: Ocorreu um erro de rede ou exceção.");
-                console.error("Erro ao enviar a solicitação:", error);
-            }
-        } else {
-            alert("Você precisa fazer login para fazer uma solicitação.");
-        }
-    }
+
+    // const handleSolicitarClick = async () => {
+    //     if (tokenJson) {
+    //         const tokenObject = JSON.parse(tokenJson);
+    //         const headers = {
+    //             Authorization: `${tokenObject}`,
+    //         };
+    //         const decodedToken = jwtDecode<DecodedToken>(tokenJson);
+    //         const idLocatario = (parseInt(decodedToken.userId));
+    //         try {
+    //             const data = {
+    //                 idBicicleta: id,
+    //                 idLocatario: idLocatario
+    //             };
+    //             const response = await api.post(`/solicitacao/create/`, data, { headers });
+    //             if (response.status === 200) {
+    //                 alert("Solicitação enviada com sucesso!");
+    //             } else {
+    //                 alert(`Erro ao enviar a solicitação: ${response.data.error}`);
+    //             }
+    //         } catch (error) {
+    //             alert("Erro ao enviar a solicitação: Ocorreu um erro de rede ou exceção.");
+    //             console.error("Erro ao enviar a solicitação:", error);
+    //         }
+    //     } else {
+    //         alert("Você precisa fazer login para fazer uma solicitação.");
+    //     }
+    // }
     return (
         <Card className='card' style={{ width: '18rem' }}>
             <Card.Img variant="top" src={`http://localhost:3001/images/${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
@@ -77,11 +78,11 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
                         Contato
                     </Button>
                 </Card.Link >) : ""}
-                {!isAlugada && isAuthenticated && (donoId != usuarioLogadoId) ? (<Card.Link className='' as={Link} to={`/solicitacoesEnviadas`}>
+                {/* {!isAlugada && isAuthenticated && (donoId != usuarioLogadoId) ? (<Card.Link className='' as={Link} to={`/solicitacoesEnviadas`}>
                     <Button variant="dark" className='mt-1' onClick={handleSolicitarClick}>
                         Solicitar
                     </Button>
-                </Card.Link >) : ""}
+                </Card.Link >) : ""} */}
                 {isMyPerfil && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}/bike/editar/${id}`}>
                     <Button variant="dark" className='mt-2'>
                         Editar
