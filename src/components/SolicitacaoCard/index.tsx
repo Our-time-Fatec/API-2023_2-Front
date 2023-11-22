@@ -73,8 +73,11 @@ function SolicitacaoCard({ idSolicitacao, idLocatario, idBicicleta, isRespondido
                 :
                 <p className={isAceito ? 'text-green' : 'text-red'}>{isAceito ? "Solicitação Aceita" : "Solicitação Rejeitada"}</p>
             }
-
-            <span className="text-black roboto-regular">Locatário: {locatario?.username}</span><br></br>
+            {solicitacoesRecebidas ?
+                <span className="text-black roboto-regular">Locatário: {locatario?.username}</span>
+                :
+                <span className="text-black roboto-regular">Dono: {bicicleta?.dono?.username}</span>
+            }<br></br>
             <span className="text-black roboto-regular">Bicicleta: {bicicleta?.marca?.nome} - {bicicleta?.modalidade?.nome}</span><br></br>
             <span className="text-black roboto-regular">Tipo De Solicitacao: {DiaouHora}</span><br></br>
             {
