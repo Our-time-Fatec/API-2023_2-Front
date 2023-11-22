@@ -275,6 +275,17 @@ const RegisterPage: React.FC = () => {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
+                        <Form.Group>
+                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Número</span></Form.Label>
+                            <Form.Control
+                                type="number"
+                                placeholder="Digite o número da residência"
+                                name="numero"
+                                required
+                                value={formState.numero_casa}
+                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                            />
+                        </Form.Group>
                         <Form.Group controlId="formPassword">
                             <Form.Label className='d-flex align-items-center gap-2'><FaLock /><span>Senha</span></Form.Label>
                             <Form.Control

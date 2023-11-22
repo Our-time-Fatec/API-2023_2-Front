@@ -14,8 +14,10 @@ const EditarUser: React.FC = () => {
     const navigate = useNavigate();
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
     const { id } = useParams();
+    const [imagem, setImagem] = useState<File | null>(null);
     const [formState, setFormState] = useState<User>({
         username: "",
+        imageUser: "",
         email: "",
         telefone: "",
         cep: "",
@@ -31,6 +33,22 @@ const EditarUser: React.FC = () => {
         setFormState(response.data);
     }
 
+    function handleImageChange(e: ChangeEvent<HTMLInputElement>) {
+        const selectedFile = e.target.files?.[0];
+
+        if (selectedFile) {
+            const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+
+            if (allowedTypes.includes(selectedFile.type)) {
+                setImagem(selectedFile);
+            } else {
+                alert("Por favor, selecione um arquivo de imagem válido (JPEG, PNG, GIF ou WebP).");
+                e.target.value = "";
+            }
+        } else {
+            setImagem(null);
+        }
+    }
     function updateForm(e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         setFormState({
             ...formState,
@@ -141,6 +159,16 @@ const EditarUser: React.FC = () => {
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             />
                         </Form.Group>
+                        <Form.Group controlId="formimageUser">
+                        <Form.Label className='d-flex align-items-center gap-2'><span>Imagem de Perfil</span></Form.Label>
+                        <Form.Control
+                            type="file"
+                            placeholder="Insira uma imagem para o seu perfil"
+                            name="foto"
+                            required
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
+                        />
+                    </Form.Group>
                         <Button variant='dark' type='submit' className='mt-2' disabled={isButtonDisabled}>
                             Editar
                         </Button>
