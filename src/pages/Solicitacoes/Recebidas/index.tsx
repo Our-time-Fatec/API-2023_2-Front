@@ -4,28 +4,33 @@ import "./styles.css";
 import NavBar from "../../../components/NavBar";
 import api from "../../../services/api";
 import Solicitacao from "../../../interfaces/Solicitacao";
+import jwtDecode from "jwt-decode";
+import DecodedToken from "../../../interfaces/DecodedToken";
+import SolicitacaoCard from "../../../components/SolicitacaoCard";
 
-const SoliCard = (props: {title:string}) => {
-  return (
-    <div className="card-bike">
-      <div className="card-title">{props.title}</div>
-      <p>Aguardando resposta </p>
-    </div>
-  );
-};
-
-function App() {
+function SolicitacoesRecebidas() {
   const [solicitacoes, setSolicitacoes] = useState<Solicitacao[]>([]);
 
   async function getAllSolicit() {
     try {
-      const response = await api.get<Solicitacao[]>("/solicitacao/");
-      setSolicitacoes(response.data);
+      const tokenJson = localStorage.getItem('token');
+      if (tokenJson) {
+        const tokenObject = JSON.parse(tokenJson);
+        const decodedToken = jwtDecode<DecodedToken>(tokenJson);
+        const idLocador = (parseInt(decodedToken.userId));
+        const headers = {
+          Authorization: `${tokenObject}`,
+        };
+
+        const response = await api.get<Solicitacao[]>(`/solicitacao/${idLocador}`, { headers });
+        setSolicitacoes(response.data);
+      }
+
     } catch (error) {
       console.error("Erro ao buscar solicitações:", error);
     }
   }
-  
+
   useEffect(() => {
     getAllSolicit();
 
@@ -36,26 +41,27 @@ function App() {
     return () => clearInterval(intervalId);
   }, []);
 
+
   return (
-    <div>
+    <div className="solicitacoes-recebidas">
       <NavBar />
-      <div className="main-container">
+      <main className="main-container">
         <div className="bike">
           {
-          solicitacoes && solicitacoes.filter((i) => !i.isRespondido)
-          .map((i) =>{
-            return (
-              <div key={i.idSolicitacao}>
-                <SoliCard
-                title="Sua solicitação" />
-              </div>
-            );
-          })}
+            solicitacoes && solicitacoes.filter((i) => !i.isRespondido)
+              .map((i) => {
+                return (
+                  <div key={i.idSolicitacao}>
+                    <SolicitacaoCard idSolicitacao={i.idSolicitacao} idLocador={i.idLocador} idBicicleta={i.idBicicleta} />
+                  </div>
+                );
+              })
+          }
           {solicitacoes.length === 0 && <p>Sem solicitações disponíveis.</p>}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
 
-export default App;
+export default SolicitacoesRecebidas;

@@ -4,15 +4,7 @@ import "./styles.css";
 import NavBar from "../../../components/NavBar";
 import api from "../../../services/api";
 import Solicitacao from "../../../interfaces/Solicitacao";
-
-const SoliCard = (props: {title:string}) => {
-  return (
-    <div className="card-bike">
-      <div className="card-title">{props.title}</div>
-      <p>Aguardando resposta </p>
-    </div>
-  );
-};
+import SolicitacaoCard from "../../../components/SolicitacaoCard";
 
 function App() {
   const [solicitacoes, setSolicitacoes] = useState<Solicitacao[]>([]);
@@ -25,7 +17,7 @@ function App() {
       console.error("Erro ao buscar solicitações:", error);
     }
   }
-  
+
   useEffect(() => {
     getAllSolicit();
 
@@ -42,15 +34,15 @@ function App() {
       <div className="main-container">
         <div className="bike">
           {
-          solicitacoes && solicitacoes.filter((i) => !i.isRespondido)
-          .map((i) =>{
-            return (
-              <div key={i.idSolicitacao}>
-                <SoliCard
-                title="Sua solicitação" />
-              </div>
-            );
-          })}
+            solicitacoes && solicitacoes.filter((i) => !i.isRespondido)
+              .map((i) => {
+                return (
+                  <div key={i.idSolicitacao}>
+                    <SolicitacaoCard idSolicitacao={i.idSolicitacao} idLocador={i.idLocador} idBicicleta={i.idBicicleta} />
+                  </div>
+                );
+              })
+          }
           {solicitacoes.length === 0 && <p>Sem solicitações disponíveis.</p>}
         </div>
       </div>
