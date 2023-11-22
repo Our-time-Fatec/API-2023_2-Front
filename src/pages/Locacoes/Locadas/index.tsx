@@ -55,11 +55,13 @@ function LocacoesLocadas() {
                                             <LocacaoCard
                                                 id={i.id}
                                                 isAtivo={i.isAtivo}
+                                                isBikeDevolvida={i.isBikeDevolvida}
                                                 idLocatario={i.idLocatario}
                                                 idBicicleta={i.idBicicleta}
                                                 avaliacaoDono={i.avaliacaoDono}
                                                 bicicleta={i.bicicleta}
                                                 locatario={i.locatario}
+                                                isLocacoesLocadas={true}
                                             />
                                         </div>
                                     ))
@@ -81,11 +83,13 @@ function LocacoesLocadas() {
                                             <LocacaoCard
                                                 id={i.id}
                                                 isAtivo={i.isAtivo}
+                                                isBikeDevolvida={i.isBikeDevolvida}
                                                 idLocatario={i.idLocatario}
                                                 idBicicleta={i.idBicicleta}
                                                 avaliacaoDono={i.avaliacaoDono}
                                                 bicicleta={i.bicicleta}
                                                 locatario={i.locatario}
+                                                isLocacoesLocadas={true}
                                             />
                                         </div>
                                     ))

@@ -43,7 +43,7 @@ function LocacoesAlugadas() {
         <div className="locacoes-alugadas">
             <NavBar />
             <main className="main-container">
-                <h1 className="roboto-negrito ">Locações Locadas</h1>
+                <h1 className="roboto-negrito ">Locações Alugadas</h1>
                 <div className="d-flex flex-column align-items-center">
                     <h2 className="text-green">Locações Ativas</h2>
                     <div className="locacoes d-flex flex-wrap mt-5 gap-2 align-items-center justify-content-center">
@@ -55,11 +55,13 @@ function LocacoesAlugadas() {
                                             <LocacaoCard
                                                 id={i.id}
                                                 isAtivo={i.isAtivo}
+                                                isBikeDevolvida={i.isBikeDevolvida}
                                                 idLocatario={i.idLocatario}
                                                 idBicicleta={i.idBicicleta}
                                                 avaliacaoDono={i.avaliacaoDono}
                                                 bicicleta={i.bicicleta}
                                                 locatario={i.locatario}
+                                                isLocacoesAlugadas={true}
                                             />
                                         </div>
                                     ))
@@ -81,11 +83,13 @@ function LocacoesAlugadas() {
                                             <LocacaoCard
                                                 id={i.id}
                                                 isAtivo={i.isAtivo}
+                                                isBikeDevolvida={i.isBikeDevolvida}
                                                 idLocatario={i.idLocatario}
                                                 idBicicleta={i.idBicicleta}
                                                 avaliacaoDono={i.avaliacaoDono}
                                                 bicicleta={i.bicicleta}
                                                 locatario={i.locatario}
+                                                isLocacoesAlugadas={true}
                                             />
                                         </div>
                                     ))
