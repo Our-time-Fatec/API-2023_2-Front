@@ -53,7 +53,7 @@ function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, a
             await api.put(`/locacao/Encerrar/${idLocacao}`, avaliacao, { headers })
                 .then((response) => {
                     alert(response.data.message)
-                    //navigate(0)
+                    navigate(0)
                 })
                 .catch((error) => {
                     alert(error.response.data.error)
@@ -67,7 +67,7 @@ function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, a
         <div className="locacao-card">
             <div className="card-bike roboto-regular text-black d-flex flex-column">
                 <div className="card-title roboto-negrito">Locação: {id}</div>
-                {isAtivo ? <span className="text-green">Ativa</span> : <span className="text-red">Encerrada</span>}
+                {isAtivo ? (isBikeDevolvida ? <span className="text-green">{isLocacoesAlugadas ? "Aguardando retorno do Locador" : "Necessário confirmar pagamento de locação!"}</span> : <span className="text-green">Ativa</span>) : <span className="text-red">Encerrada</span>}
                 <span>Locatário: {locatario.username}</span>
                 <span>Bicicleta: {bicicleta.marca?.nome} - {bicicleta.modalidade?.nome}</span>
                 <span>Dono: {bicicleta.dono?.username}</span>
