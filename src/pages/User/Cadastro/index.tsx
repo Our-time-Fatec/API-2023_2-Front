@@ -141,120 +141,130 @@ const RegisterPage: React.FC = () => {
                 </div>
                 <div className="d-flex justify-content-center align-items-center">
                     <Form className='d-flex flex-column gap-2' onSubmit={handleRegister}>
-                        <Form.Group controlId="formUsername">
-                            <Form.Label className='d-flex align-items-center gap-2'><FaUser /><span>Username</span></Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Digite seu username"
-                                name="username"
-                                required
-                                value={formState.username}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="formEmail">
-                            <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>E-mail</span></Form.Label>
-                            <Form.Control
-                                type="email"
-                                placeholder="Digite seu e-mail"
-                                name="email"
-                                required
-                                value={formState.email}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="formTelefone">
-                            <Form.Label className='d-flex align-items-center gap-2'><MdCall /><span>Telefone</span></Form.Label>
-                            <PhoneInput
-                                country={'br'}
-                                value={formState.telefone}
-                                onChange={(value, data, event, formattedValue) => updateForm(event)}
-                                inputProps={{
-                                    name: 'telefone',
-                                    required: true,
-                                    'aria-label': 'Telefone',
-                                }}
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="formCep">
-                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>CEP</span></Form.Label>
-                            {/* Input causando erro no console, manter temporario e trocar futuramente por outro */}
-                            <InputMask
-                                type='text'
-                                name='cep'
-                                mask="99999-999"
-                                value={formState.cep}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                            />
-                        </Form.Group>
-                        {/* Botão de buscar endereço em local temporario, trocar futuramente */}
-                        <Button variant="dark" onClick={handleGetEndereco} className='mt-3' >
+                        <div className="d-flex gap-2 col-sm-12">
+                            <Form.Group controlId="formUsername">
+                                <Form.Label className='d-flex align-items-center gap-2'><FaUser /><span>Username</span></Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Digite seu username"
+                                    name="username"
+                                    required
+                                    value={formState.username}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="formEmail">
+                                <Form.Label className='d-flex align-items-center gap-2'><MdEmail /><span>E-mail</span></Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    placeholder="Digite seu e-mail"
+                                    name="email"
+                                    required
+                                    value={formState.email}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                                />
+                            </Form.Group>
+                        </div>
+                        <div className="d-flex gap-2">
+                            <Form.Group controlId="formTelefone">
+                                <Form.Label className='d-flex align-items-center gap-2'><MdCall /><span>Telefone</span></Form.Label>
+                                <PhoneInput
+                                    country={'br'}
+                                    value={formState.telefone}
+                                    onChange={(value, data, event, formattedValue) => updateForm(event)}
+                                    inputProps={{
+                                        name: 'telefone',
+                                        required: true,
+                                        'aria-label': 'Telefone',
+                                    }}
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="formCep">
+                                <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>CEP</span></Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    name='cep'
+                                    value={formState.cep}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                                    as={InputMask}
+                                    mask="99999-999"
+                                />
+                            </Form.Group>
+                        </div>
+                        <div className="d-flex gap-2">
+                        </div>
+                        <Button variant="dark" onClick={handleGetEndereco} className='' >
                             Buscar
                         </Button>
-                        <Form.Group controlId="formEstado">
-                            <Form.Label className='d-flex align-items-center gap-2'><span>Estado</span></Form.Label>
-                            <Form.Control
-                                as="select"
-                                name="estado"
-                                required
-                                value={formState.estado}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                                    updateForm(e);
-                                    listarMunicipiosPorEstado(e.target.value);
-                                }
-                                }
-                            >
-                                <option value="">Selecione o Estado</option>
-                                {
-                                    estados && estados.map((estado) => (
-                                        <option key={estado.id} value={estado.sigla}>
-                                            {estado.nome}
-                                        </option>
-                                    ))
-                                }
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="formCidade">
-                            <Form.Label className='d-flex align-items-center gap-2'><span>Cidade</span></Form.Label>
-                            <Form.Control
-                                as="select"
-                                name="cidade"
-                                required
-                                value={formState.cidade}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                            >
-                                <option value="">Selecione a Cidade</option>
-                                {
-                                    cidadesDoEstado && cidadesDoEstado.map((cidade) => (
-                                        <option key={cidade.id} value={cidade.nome}>
-                                            {cidade.nome}
-                                        </option>
-                                    ))
-                                }
-                            </Form.Control>
-                        </Form.Group>
-                        <Form.Group controlId="formBairro">
-                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Bairro</span></Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Digite seu Bairro"
-                                name="bairro"
-                                required
-                                value={formState.bairro}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="formLogradouro">
-                            <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Logradouro</span></Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Digite seu logradouro"
-                                name="logradouro"
-                                required
-                                value={formState.logradouro}
-                                onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
-                            />
-                        </Form.Group>
+                        <div className="d-flex gap-2">
+                            <Form.Group controlId="formEstado">
+                                <Form.Label className='d-flex align-items-center gap-2'><span>Estado</span></Form.Label>
+                                <Form.Control
+                                    as="select"
+                                    name="estado"
+                                    required
+                                    value={formState.estado}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                        updateForm(e);
+                                        listarMunicipiosPorEstado(e.target.value);
+                                    }
+                                    }
+                                >
+                                    <option value="">Selecione o Estado</option>
+                                    {
+                                        estados && estados.map((estado) => (
+                                            <option key={estado.id} value={estado.sigla}>
+                                                {estado.nome}
+                                            </option>
+                                        ))
+                                    }
+                                </Form.Control>
+                            </Form.Group>
+                            <Form.Group  className="fixed-input-width" controlId="formCidade">
+                                <Form.Label className='d-flex align-items-center gap-2'><span>Cidade</span></Form.Label>
+                                <Form.Control
+                                    as="select"
+                                    name="cidade"
+                                    required
+                                    value={formState.cidade}
+                                   
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                                >
+                                    <option value="">Selecione a Cidade</option>
+                                    {
+                                        cidadesDoEstado && cidadesDoEstado.map((cidade) => (
+                                            <option key={cidade.id} value={cidade.nome}>
+                                                {cidade.nome}
+                                            </option>
+                                        ))
+                                    }
+                                </Form.Control>
+                            </Form.Group>
+                        </div>
+                        <div className="d-flex gap-2">
+                            <Form.Group controlId="formBairro">
+                                <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Bairro</span></Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Digite seu Bairro"
+                                    name="bairro"
+                                    required
+                                    value={formState.bairro}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="formLogradouro">
+                                <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Logradouro</span></Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Digite seu logradouro"
+                                    name="logradouro"
+                                    required
+                                    value={formState.logradouro}
+                                    onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
+                                />
+                            </Form.Group>
+                        </div>
                         <Form.Group controlId="formNumeroCasa">
                             <Form.Label className='d-flex align-items-center gap-2'><FaMapMarkerAlt /><span>Nº Casa</span></Form.Label>
                             <Form.Control
