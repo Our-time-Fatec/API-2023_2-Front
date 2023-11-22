@@ -1,4 +1,4 @@
-import DouH from "../Enums/DataHora";
+import DouH from "../Enums/DiaouHora";
 import User from "./User";
 
 interface Solicitacao {
@@ -7,7 +7,7 @@ interface Solicitacao {
     idBicicleta: number;
     isRespondido?: boolean;
     isAceito?: boolean;
-    DataouHora?: DouH;
+    DiaouHora?: DouH;
     dono?: User;
 }
 

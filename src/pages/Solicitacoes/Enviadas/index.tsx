@@ -51,7 +51,7 @@ function SolicitacoesEnviadas() {
               .map((i) => {
                 return (
                   <div key={i.idSolicitacao}>
-                    <SolicitacaoCard idSolicitacao={i.idSolicitacao} idLocatario={i.idLocatario} idBicicleta={i.idBicicleta} />
+                    <SolicitacaoCard idSolicitacao={i.idSolicitacao} idLocatario={i.idLocatario} idBicicleta={i.idBicicleta} DiaouHora={i.DiaouHora} />
                   </div>
                 );
               })

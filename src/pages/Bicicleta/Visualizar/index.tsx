@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Modal, Button, Form } from 'react-bootstrap';
 import NavBar from '../../../components/NavBar';
 import api from '../../../services/api';
 import Bicicleta from '../../../interfaces/Bicicleta';
@@ -10,10 +11,10 @@ import Material from '../../../Enums/Material';
 import Suspensao from '../../../Enums/Suspensao';
 import Marca from '../../../interfaces/Marca';
 import Modalidade from '../../../interfaces/Modalidade';
-import { Button } from 'react-bootstrap';
 import './style.css';
 import jwtDecode from 'jwt-decode';
 import DecodedToken from '../../../interfaces/DecodedToken';
+import DiaouHora from '../../../Enums/DiaouHora';
 
 
 const marcaPadrao: Marca = {
@@ -28,8 +29,12 @@ const modalidadePadrao: Modalidade = {
 
 const VisualizarBike: React.FC = () => {
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
     const { id } = useParams();
     const [userId, setUserId] = useState<number>();
+    const [diaouhora, setDiaouHora] = useState<DiaouHora>();
     const isAuthenticated = !!localStorage.getItem('token');
     const tokenJson = localStorage.getItem('token');
     const [bicicleta, setBicicleta] = useState<Bicicleta>({
@@ -61,6 +66,7 @@ const VisualizarBike: React.FC = () => {
             })
     }
 
+
     const formatPhoneNumber = (phoneNumber: string) => {
         const numericPhone = phoneNumber.replace(/\D/g, '');
         const formattedPhone = numericPhone.startsWith('55') ? numericPhone : `55${numericPhone}`;
@@ -80,6 +86,7 @@ const VisualizarBike: React.FC = () => {
     }, [])
 
     const handleSolicitarClick = async () => {
+        setShowModal(false)
         if (tokenJson) {
             const tokenObject = JSON.parse(tokenJson);
             const headers = {
@@ -89,7 +96,8 @@ const VisualizarBike: React.FC = () => {
             const idLocatario = (parseInt(decodedToken.userId));
             const data = {
                 idBicicleta: id,
-                idLocatario: idLocatario
+                idLocatario: idLocatario,
+                DiaouHora: diaouhora
             };
             await api.post(`/solicitacao/create/`, data, { headers })
                 .then((response) => {
@@ -103,6 +111,10 @@ const VisualizarBike: React.FC = () => {
             alert("Você precisa fazer login para fazer uma solicitação.");
         }
     }
+
+    const handleDiaouHoraChange = (e: React.ChangeEvent<any>) => {
+        setDiaouHora(e.target.value as DiaouHora);
+    };
 
     const formattedPhoneNumber = bicicleta?.dono?.telefone ? formatPhoneNumber(bicicleta?.dono?.telefone) : '';
     const whatsappLink = `https://wa.me/${formattedPhoneNumber}`;
@@ -147,10 +159,39 @@ const VisualizarBike: React.FC = () => {
                         </Button>
                     </Link >) : ""}
                     {!bicicleta?.isAlugada && isAuthenticated && (bicicleta?.donoId != userId) ? (
-                        <Button variant="dark" onClick={handleSolicitarClick}>
+                        <Button variant="dark" onClick={handleShowModal}>
                             Solicitar
                         </Button>) : ""}
                 </div>
+                <Modal show={showModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Qual opção você deseja solicitar?</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Control
+                            as="select"
+                            name="diaouhora"
+                            required
+                            value={diaouhora || ""}
+                            onChange={handleDiaouHoraChange}
+                        >
+                            <option value="">Opção de locação</option>
+                            {Object.values(DiaouHora).map((i) => (
+                                <option key={i} value={i}>
+                                    {i}
+                                </option>
+                            ))}
+                        </Form.Control>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleCloseModal}>
+                            Fechar
+                        </Button>
+                        <Button variant="primary" onClick={handleSolicitarClick}>
+                            Solicitar
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </main>
         </div>
     );
