@@ -74,8 +74,8 @@ function NavBar({ isLogin }: CardNav) {
                                                 </span>
                                             }>
                                                 <NavDropdown.Item as={Link} to={`/solicitacoesEnviadas/`} className='Teste'>Enviados</NavDropdown.Item>
-                                                {/* <NavDropdown.Item as={Link}  to={`/Solicitacoes/`}
-                                                    className='Teste'>Recebidos</NavDropdown.Item> */}
+                                                {<NavDropdown.Item as={Link}  to={`/SolicitacoesRecebidas/`}
+                                                    className='Teste'>Recebidos</NavDropdown.Item>}
                                             </NavDropdown>
 
 
