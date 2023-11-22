@@ -1,4 +1,5 @@
 import DouH from "../Enums/DiaouHora";
+import Bicicleta from "./Bicicleta";
 import User from "./User";
 
 interface Solicitacao {
@@ -8,7 +9,8 @@ interface Solicitacao {
     isRespondido?: boolean;
     isAceito?: boolean;
     DiaouHora?: DouH;
-    dono?: User;
+    locatario?: User;
+    bicicleta?: Bicicleta;
 }
 
 export default Solicitacao;

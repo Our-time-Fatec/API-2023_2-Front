@@ -175,7 +175,6 @@ const VisualizarBike: React.FC = () => {
                             value={diaouhora || ""}
                             onChange={handleDiaouHoraChange}
                         >
-                            <option value="">Opção de locação</option>
                             {Object.values(DiaouHora).map((i) => (
                                 <option key={i} value={i}>
                                     {i}
