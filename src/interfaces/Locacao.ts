@@ -10,6 +10,7 @@ interface Locacao {
     avaliacaoDono: number;
     bicicleta: Bicicleta;
     locatario: User;
+    valorTotal?: number;
 }
 
 export default Locacao

@@ -62,6 +62,7 @@ function LocacoesLocadas() {
                                                 bicicleta={i.bicicleta}
                                                 locatario={i.locatario}
                                                 isLocacoesLocadas={true}
+                                                valorTotal={i.valorTotal || 0}
                                             />
                                         </div>
                                     ))
@@ -90,6 +91,7 @@ function LocacoesLocadas() {
                                                 bicicleta={i.bicicleta}
                                                 locatario={i.locatario}
                                                 isLocacoesLocadas={true}
+                                                valorTotal={i.valorTotal || 0}
                                             />
                                         </div>
                                     ))

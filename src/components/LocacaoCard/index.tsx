@@ -16,10 +16,11 @@ interface LocacaoCard {
     bicicleta: Bicicleta;
     locatario: User;
     isLocacoesAlugadas?: boolean;
-    isLocacoesLocadas?: boolean
+    isLocacoesLocadas?: boolean;
+    valorTotal?: number;
 }
 
-function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, avaliacaoDono, bicicleta, locatario, isLocacoesLocadas, isLocacoesAlugadas }: LocacaoCard) {
+function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, avaliacaoDono, bicicleta, locatario, isLocacoesLocadas, isLocacoesAlugadas, valorTotal }: LocacaoCard) {
     const tokenJson = localStorage.getItem('token');
     const navigate = useNavigate();
     const [avaliacao, setAvaliacao] = useState<number>();
@@ -71,6 +72,7 @@ function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, a
                 <span>Locatário: {locatario.username}</span>
                 <span>Bicicleta: {bicicleta.marca?.nome} - {bicicleta.modalidade?.nome}</span>
                 <span>Dono: {bicicleta.dono?.username}</span>
+                {isBikeDevolvida ? <span className="text-green">Valor Total: {valorTotal}</span> : ""}
                 {
                     isLocacoesAlugadas && !isBikeDevolvida ? (
                         <div className="d-flex gap-2">
