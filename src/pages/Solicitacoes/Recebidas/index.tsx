@@ -22,7 +22,7 @@ function SolicitacoesRecebidas() {
           Authorization: `${tokenObject}`,
         };
 
-        const response = await api.get<Solicitacao[]>(`/solicitacao/${idLocador}`, { headers });
+        const response = await api.get<Solicitacao[]>(`/solicitacao/Recebidas/${idLocador}`, { headers });
         setSolicitacoes(response.data);
       }
 
