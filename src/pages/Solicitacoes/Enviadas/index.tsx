@@ -45,16 +45,16 @@ function SolicitacoesEnviadas() {
     <div className="solicitacoes-enviadas">
       <NavBar />
       <main className="main-container">
+        <h1 className="roboto-negrito ">Solicitações Enviadas</h1>
         <div className="bike">
           {
-            solicitacoes && solicitacoes.filter((i) => !i.isRespondido)
-              .map((i) => {
-                return (
-                  <div key={i.idSolicitacao}>
-                    <SolicitacaoCard idSolicitacao={i.idSolicitacao} idLocatario={i.idLocatario} idBicicleta={i.idBicicleta} DiaouHora={i.DiaouHora} locatario={i.locatario} bicicleta={i.bicicleta} isAceito={i.isAceito} isRespondido={i.isRespondido}/>
-                  </div>
-                );
-              })
+            solicitacoes && solicitacoes.map((i) => {
+              return (
+                <div key={i.idSolicitacao}>
+                  <SolicitacaoCard idSolicitacao={i.idSolicitacao} idLocatario={i.idLocatario} idBicicleta={i.idBicicleta} DiaouHora={i.DiaouHora} locatario={i.locatario} bicicleta={i.bicicleta} isAceito={i.isAceito} isRespondido={i.isRespondido} />
+                </div>
+              );
+            })
           }
           {solicitacoes.length === 0 && <p>Sem solicitações disponíveis.</p>}
         </div>

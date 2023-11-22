@@ -46,13 +46,14 @@ function SolicitacoesRecebidas() {
     <div className="solicitacoes-recebidas">
       <NavBar />
       <main className="main-container">
+      <h1 className="roboto-negrito ">Solicitações Recebidas</h1>
         <div className="bike">
           {
             solicitacoes && solicitacoes.filter((i) => !i.isRespondido)
               .map((i) => {
                 return (
                   <div key={i.idSolicitacao}>
-                    <SolicitacaoCard idSolicitacao={i.idSolicitacao} idLocatario={i.idLocatario} idBicicleta={i.idBicicleta} DiaouHora={i.DiaouHora} locatario={i.locatario} bicicleta={i.bicicleta} isAceito={i.isAceito} isRespondido={i.isRespondido}/>
+                    <SolicitacaoCard idSolicitacao={i.idSolicitacao} idLocatario={i.idLocatario} idBicicleta={i.idBicicleta} DiaouHora={i.DiaouHora} locatario={i.locatario} bicicleta={i.bicicleta} isAceito={i.isAceito} isRespondido={i.isRespondido} solicitacoesRecebidas={true} />
                   </div>
                 );
               })

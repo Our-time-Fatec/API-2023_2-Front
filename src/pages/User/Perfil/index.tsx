@@ -44,11 +44,11 @@ const PerfilUser: React.FC = () => {
 
   return (
     <div>
-        <NavBar />
+      <NavBar />
       <main className='main-container'>
         <div className="userDados d-flex flex-column align-items-center justify-content-center">
           <h1 className='meuperfil'>{userIdFromUrl === userId ? "Meu Perfil" : `Perfil de ${user?.username}`}</h1>
-          <img className='profile-image' src={user?.imageUser || "../../../assets/Icon/perfil-padrao.png"}/>
+          <img className='profile-image' src={user?.imageUser || "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"} />
           <p>Email: {user?.email}</p>
           <p>Telefone: {user?.telefone}</p>
           <p>Endereço: {user?.logradouro}</p>
