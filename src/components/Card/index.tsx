@@ -52,8 +52,7 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
         alert("Você precisa fazer login para fazer uma solicitação.");
       }
     }
-    const [value, setValue] = useState<number | null>(1)
-    const [hover, setHover] = useState(-1)
+    const [value, setValue] = useState<number | null>(5)
     return (
         <Card className='card' style={{ width: '18rem' }}>
             <Card.Img variant="top" src={`http://localhost:3001/images/${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
@@ -71,17 +70,12 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
                     alignItems:'center',
                 }}>
                 <Rating
-                    name='hover-feedback'
+                    name='static-rating'
                     value={value}
+                    readOnly
                     precision={0.5}
-                    onChange={(event, NewValue) => {
-                        setValue(NewValue)
-                    }}
-                    onChangeActive={(event, newHover) =>{
-                        setHover(newHover)
-                    }}
                     emptyIcon={<Star style={{ opacity: 0.5}} fontSize='inherit'/>}
-                />
+                />5.0 (1)
             </Box>
             <ListGroup className="list-group-flush">
                 <ListGroup.Item>Valor por dia: R$ {valorDia}</ListGroup.Item>

@@ -12,6 +12,8 @@ import Marca from '../../../interfaces/Marca';
 import Modalidade from '../../../interfaces/Modalidade';
 import { Button } from 'react-bootstrap';
 import './style.css';
+import { Rating, Box } from "@mui/material";
+import { Star } from "@mui/icons-material"
 
 
 const marcaPadrao: Marca = {
@@ -70,6 +72,9 @@ const VisualizarBike: React.FC = () => {
 
     const formattedPhoneNumber = bicicleta?.dono?.telefone ? formatPhoneNumber(bicicleta?.dono?.telefone) : '';
     const whatsappLink = `https://wa.me/${formattedPhoneNumber}`;
+    
+    const [value, setValue] = useState<number | null>(0)
+    const [hover, setHover] = useState(-1)
 
     return (
         <div>
@@ -98,6 +103,28 @@ const VisualizarBike: React.FC = () => {
                 </div>
                 <div className="d-flex gap-2 mt-3">
     <span><strong>Dono: </strong>{bicicleta.dono?.username}</span>
+</div>
+<div className="d-flex gap-2">
+        <span><strong>Avalie essa bicicleta:</strong></span>
+        <Box
+                sx={{
+                    width: 200,
+                    display: 'flex',
+                    alignItems:'center',
+                }}>
+                <Rating
+                    name='hover-feedback'
+                    value={value}
+                    precision={0.5}
+                    onChange={(event, NewValue) => {
+                        setValue(NewValue)
+                    }}
+                    onChangeActive={(event, newHover) =>{
+                        setHover(newHover)
+                    }}
+                    emptyIcon={<Star style={{ opacity: 0.5}} fontSize='inherit'/>}
+                />
+            </Box>
 </div>
 <div className="d-flex gap-2">
     <span><strong>Status: </strong></span>

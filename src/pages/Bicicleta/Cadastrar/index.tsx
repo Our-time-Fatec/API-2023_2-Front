@@ -268,7 +268,7 @@ const CadastrarBikePage: React.FC = () => {
                             <Form.Control
                                 as="select"
                                 name="marcaId"
-                                required
+                                
                                 value={formState.marcaId}
                                 onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                             >
@@ -288,7 +288,7 @@ const CadastrarBikePage: React.FC = () => {
                         <Form.Control
                             as="select"
                             name="modalidadeId"
-                            required
+                            
                             value={formState.modalidadeId}
                             onChange={(e: ChangeEvent<HTMLInputElement>) => updateForm(e)}
                         >
