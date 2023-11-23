@@ -19,10 +19,11 @@ interface CardBike {
     isProfile?: boolean;
     isAlugada?: boolean;
     isMyPerfil?: boolean;
+    avaliacao?: number;
     usuarioLogadoId?: number;
 }
 
-function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada, isMyPerfil, usuarioLogadoId }: CardBike) {
+function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada, isMyPerfil, usuarioLogadoId, avaliacao }: CardBike) {
     const isAuthenticated = !!localStorage.getItem('token');
     const tokenJson = localStorage.getItem('token');
 
@@ -57,7 +58,8 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
         <Card className='card' style={{ width: '18rem' }}>
             <Card.Img variant="top" src={`http://localhost:3001/images/${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
             <Card.Body>
-                <span className={isAlugada ? "text-danger" : "text-success"}>{isAlugada ? "Alugada" : "Disponivel"}</span>
+                <span className={isAlugada ? "text-danger" : "text-success"}>{isAlugada ? "Alugada" : "Disponivel"}</span><br></br>
+                <span className='roboto-negrito'>Avaliação: {avaliacao}</span>
                 <Card.Title>{marca} - {modalidade}</Card.Title>
                 <Card.Text style={{ height: '3rem', overflowY: 'auto' }}>
                     {descricao}

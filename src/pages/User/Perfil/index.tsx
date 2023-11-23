@@ -53,6 +53,7 @@ const PerfilUser: React.FC = () => {
           <p>Email: {user?.email}</p>
           <p>Telefone: {user?.telefone}</p>
           <p>Endereço: {user?.logradouro}</p>
+          <p>Avaliacao: {user?.avaliacao}</p>
           <Button variant="success" className='whatsapp' href={whatsappLink} target="_blank" rel="noopener noreferrer">
             WhatsApp
           </Button>
@@ -67,7 +68,7 @@ const PerfilUser: React.FC = () => {
                 {user?.bicicletas.map((i) => {
                   return (
                     <div className="div-bike" key={i.id}>
-                      <CardBike id={i.id} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} isAlugada={i.isAlugada} isMyPerfil={userIdFromUrl == userId} usuarioLogadoId={userId} />
+                      <CardBike id={i.id} avaliacao={i.avaliacao} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isProfile={true} isAlugada={i.isAlugada} isMyPerfil={userIdFromUrl == userId} usuarioLogadoId={userId} />
                     </div>
                   )
                 })}

@@ -17,8 +17,7 @@ interface User {
     longitude?: number;
     latitude?: number;
     isAlugando?: boolean;
-    avaliacaoBikes?: number;
-    avaliacaoLocacoes?: number;
+    avaliacao?: number;
     createdAt?: string;
     updatedAt?: string;
     bicicletas?: Bicicleta[];

@@ -57,7 +57,7 @@ function Inicio() {
                             bicicletas && bicicletas.filter((i) => !i.isAlugada).map((i) => {
                                 return (
                                     <div className="bike" key={i.id}>
-                                        <CardBike id={i.id} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} usuarioLogadoId={userId} />
+                                        <CardBike id={i.id}  avaliacao={i.avaliacao} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} usuarioLogadoId={userId} />
                                     </div>
 
                                 )
@@ -73,7 +73,7 @@ function Inicio() {
                                 return (
 
                                     <div className="bike" key={i.id}>
-                                        <CardBike id={i.id} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isAlugada={i.isAlugada} />
+                                        <CardBike id={i.id} avaliacao={i.avaliacao} marca={i.marca?.nome} modalidade={i.modalidade?.nome} foto={i.fotos && i.fotos[0]?.url} descricao={i.descricao} valorDia={i.valorDia} valorHora={i.valorHora} donoId={i.donoId} isAlugada={i.isAlugada} />
                                     </div>
 
                                 )
