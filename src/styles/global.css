@@ -64,6 +64,10 @@
     color: #FF0000;
   }
 
+  .text-black{
+    color: var(--cor-texto);
+  }
+
   .fixed-input-width {
-    width: 245px; /* Adjust the width as needed */
-}
+    width: 245px; 
+  }

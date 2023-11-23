@@ -1,14 +1,16 @@
-import DouH from "../Enums/DataHora";
+import DouH from "../Enums/DiaouHora";
+import Bicicleta from "./Bicicleta";
 import User from "./User";
 
 interface Solicitacao {
-    idSolicitacao?: number;
-    idLocador?: number;
-    idBicicleta?: number;
+    idSolicitacao: number;
+    idLocatario: number;
+    idBicicleta: number;
     isRespondido?: boolean;
     isAceito?: boolean;
-    DataouHora: DouH;
-    dono?: User;
+    DiaouHora?: DouH;
+    locatario?: User;
+    bicicleta?: Bicicleta;
 }
 
 export default Solicitacao;

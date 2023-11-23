@@ -42,8 +42,8 @@ function NavBar({ isLogin }: CardNav) {
     };
 
     return (
-        <Navbar collapseOnSelect expand={!isLogin ? "lg" : undefined} className="custom-navbar-color" data-bs-theme="dark"> 
-        {/* //bg="dark" data-bs-theme="dark" */}
+        <Navbar collapseOnSelect expand={!isLogin ? "lg" : undefined} className="custom-navbar-color" data-bs-theme="dark">
+            {/* //bg="dark" data-bs-theme="dark" */}
             <Container>
                 <Navbar.Brand className="link-no-style" >
                     <span className="icon-bike" >
@@ -73,20 +73,20 @@ function NavBar({ isLogin }: CardNav) {
                                                     <span> Minhas Solicitações</span>
                                                 </span>
                                             }>
-                                                <NavDropdown.Item as={Link} to={`/solicitacoesEnviadas/`} className='Teste'>Enviados</NavDropdown.Item>
-                                                {<NavDropdown.Item as={Link}  to={`/SolicitacoesRecebidas/`}
-                                                    className='Teste'>Recebidos</NavDropdown.Item>}
+                                                <NavDropdown.Item as={Link} to={`/solicitacoesEnviadas/`} >Enviados</NavDropdown.Item>
+                                                {<NavDropdown.Item as={Link} to={`/SolicitacoesRecebidas/`}
+                                                >Recebidos</NavDropdown.Item>}
                                             </NavDropdown>
 
 
-                                            {/* <NavDropdown title={
-                                                    <span className='titulo d-flex-row align-items-center'>
-                                                        <span> Minhas locações</span>
-                                                    </span>
-                                                }>
-                                                    <NavDropdown.Item className='Teste'>Enviados</NavDropdown.Item>
-                                                    <NavDropdown.Item className='Teste'>Recebidos</NavDropdown.Item>
-                                                </NavDropdown> */}
+                                            <NavDropdown title={
+                                                <span className='titulo d-flex-row align-items-center'>
+                                                    <span> Minhas locações</span>
+                                                </span>
+                                            }>
+                                                <NavDropdown.Item as={Link} to={`/LocacoesAlugadas`}>Alugadas</NavDropdown.Item>
+                                                <NavDropdown.Item as={Link} to={`/LocacoesLocadas`}>Locadas</NavDropdown.Item>
+                                            </NavDropdown>
 
 
 
