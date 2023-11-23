@@ -4,6 +4,7 @@ import Bicicleta from "../../interfaces/Bicicleta";
 import User from "../../interfaces/User";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface SoliCard {
     idSolicitacao: number;
@@ -74,11 +75,11 @@ function SolicitacaoCard({ idSolicitacao, idLocatario, idBicicleta, isRespondido
                 <p className={isAceito ? 'text-green' : 'text-red'}>{isAceito ? "Solicitação Aceita" : "Solicitação Rejeitada"}</p>
             }
             {solicitacoesRecebidas ?
-                <span className="text-black roboto-regular">Locatário: {locatario?.username}</span>
+                <span className="text-black roboto-regular">Locatário: <Link target="_blank" to={`/perfil/${locatario?.id}`}>{locatario?.username}</Link></span>
                 :
-                <span className="text-black roboto-regular">Dono: {bicicleta?.dono?.username}</span>
+                <span className="text-black roboto-regular">Dono: <Link target="_blank" to={`/perfil/${bicicleta?.donoId}`}>{bicicleta?.dono?.username}</Link></span>
             }<br></br>
-            <span className="text-black roboto-regular">Bicicleta: {bicicleta?.marca?.nome} - {bicicleta?.modalidade?.nome}</span><br></br>
+            <span className="text-black roboto-regular">Bicicleta: <Link target="_blank" to={`/bike/${bicicleta?.id}`}>{bicicleta?.marca?.nome} - {bicicleta?.modalidade?.nome}</Link></span><br></br>
             <span className="text-black roboto-regular">Tipo De Solicitacao: {DiaouHora}</span><br></br>
             {
                 solicitacoesRecebidas ?

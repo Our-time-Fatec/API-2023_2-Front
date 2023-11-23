@@ -5,6 +5,7 @@ import { useState } from "react";
 import jwtDecode from "jwt-decode";
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface LocacaoCard {
     id: number;
@@ -98,9 +99,9 @@ function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, a
             <div className="card-bike roboto-regular text-black d-flex flex-column">
                 <div className="card-title roboto-negrito">Locação: {id}</div>
                 {isAtivo ? (isBikeDevolvida ? <span className="text-green">{isLocacoesAlugadas ? "Aguardando retorno do Locador" : "Necessário confirmar pagamento de locação!"}</span> : <span className="text-green">Ativa</span>) : <span className="text-red">Encerrada</span>}
-                <span>Locatário: {locatario.username}</span>
-                <span>Bicicleta: {bicicleta.marca?.nome} - {bicicleta.modalidade?.nome}</span>
-                <span>Dono: {bicicleta.dono?.username}</span>
+                <span>Locatário:  <Link target="_blank" to={`/perfil/${locatario.id}`}>{locatario.username}</Link></span>
+                <span>Bicicleta:  <Link target="_blank" to={`/bike/${bicicleta?.id}`}>{bicicleta?.marca?.nome} - {bicicleta?.modalidade?.nome}</Link></span>
+                <span>Dono: <Link target="_blank" to={`/perfil/${bicicleta.donoId}`}>{bicicleta.dono?.username}</Link></span>
                 {isBikeDevolvida ? <span className="text-green">Avaliação: {avaliacaoDono}</span> : ""}
                 {isBikeDevolvida ? <span className="text-red">Valor Total: {valorTotal}</span> : ""}
                 {
