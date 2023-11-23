@@ -68,6 +68,31 @@ function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, a
             alert("Você precisa fazer login para fazer uma solicitação.");
         }
     }
+
+    const confirmarPagamento = async (idLocacao: number) => {
+        if (tokenJson) {
+            const tokenObject = JSON.parse(tokenJson);
+            const headers = {
+                Authorization: `${tokenObject}`,
+            };
+
+            const data = {
+                avaliacaoDono: avaliacao
+            };
+
+            await api.put(`/locacao/ConfirmarPagamento/${idLocacao}`, data, { headers })
+                .then((response) => {
+                    alert(response.data.message)
+                    navigate(0)
+                })
+                .catch((error) => {
+                    alert(error.response.data.error)
+                })
+
+        } else {
+            alert("Você precisa fazer login para fazer uma solicitação.");
+        }
+    }
     return (
         <div className="locacao-card">
             <div className="card-bike roboto-regular text-black d-flex flex-column">
@@ -88,10 +113,20 @@ function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, a
                     )
                         : ""
                 }
+                {
+                    isLocacoesLocadas && isBikeDevolvida && isAtivo ? (
+                        <div className="d-flex gap-2">
+                            <Button variant="primary" className='mt-2' onClick={() => confirmarPagamento(id)}>
+                                Confirmar Pagamento
+                            </Button>
+                        </div>
+                    )
+                        : ""
+                }
             </div>
             <Modal show={showModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Qual opção você deseja solicitar?</Modal.Title>
+                    <Modal.Title>Em qual nota você avalia o Locador e Bicicleta</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form.Control
