@@ -34,7 +34,7 @@ const VisualizarBike: React.FC = () => {
     const handleCloseModal = () => setShowModal(false);
     const { id } = useParams();
     const [userId, setUserId] = useState<number>();
-    const [diaouhora, setDiaouHora] = useState<DiaouHora>();
+    const [diaouhora, setDiaouHora] = useState<DiaouHora>(DiaouHora.Dia);
     const isAuthenticated = !!localStorage.getItem('token');
     const tokenJson = localStorage.getItem('token');
     const [bicicleta, setBicicleta] = useState<Bicicleta>({
@@ -172,7 +172,7 @@ const VisualizarBike: React.FC = () => {
                             as="select"
                             name="diaouhora"
                             required
-                            value={diaouhora || ""}
+                            value={diaouhora}
                             onChange={handleDiaouHoraChange}
                         >
                             {Object.values(DiaouHora).map((i) => (
