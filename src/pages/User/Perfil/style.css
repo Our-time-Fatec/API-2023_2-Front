@@ -101,5 +101,12 @@
   }
   
   /* Outros estilos gerais */
+  .profile-image{
+  border-radius: 50%;
+  /* Certifique-se de que a largura e a altura da imagem sejam iguais */
+  width: 100px; /* Defina a largura desejada */
+  height: 100px; /* Defina a altura desejada */
+  object-fit: cover; /* Opcional: mantém a proporção da imagem e cobre o círculo */
+  }
   /* Adicione outros estilos gerais aqui */
   

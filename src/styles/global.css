@@ -1,3 +1,11 @@
+  :root {
+    --cor-primaria: #3C6E71;
+    --cor-secundaria: #2D3142;
+    --cor-alugada: #D86378;
+    --cor-disponivel: #63D1D8;
+    --cor-texto: #FFFFFF;
+  }
+
   .link-no-style {
     color: inherit; 
     text-decoration: none; 
@@ -6,10 +14,9 @@
   .main-container {
     min-height: calc(100vh - 56px);
     display: flex;
+    color: var(--cor-texto);
     flex-direction: column;
-    align-items: center;
-    background:linear-gradient(to bottom, #000000, #2b3035) ;
-    padding: 0;
+    background: var(--cor-primaria);
     border-radius: 0;
   }
   
@@ -21,4 +28,46 @@
 
   .special-label {
     display: none; 
-}
+  }
+
+  .roboto-regular{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+  }
+
+  .roboto-negrito{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+  }
+  
+  .custom-navbar-color {
+    background-color: var(--cor-secundaria);
+  }
+
+  .custom-login-button{
+    background-color: var(--cor-secundaria);
+    color: var(--cor-primaria);
+  }
+
+  .icon-bike {
+    width: 200px;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .text-green{
+    color: #38f515;
+  }
+
+  .text-red{
+    color: #FF0000;
+  }
+
+  .text-black{
+    color: var(--cor-texto);
+  }
+
+  .fixed-input-width {
+    width: 245px; 
+  }

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Modal, Button, Form } from 'react-bootstrap';
 import NavBar from '../../../components/NavBar';
 import api from '../../../services/api';
 import Bicicleta from '../../../interfaces/Bicicleta';
@@ -10,8 +11,10 @@ import Material from '../../../Enums/Material';
 import Suspensao from '../../../Enums/Suspensao';
 import Marca from '../../../interfaces/Marca';
 import Modalidade from '../../../interfaces/Modalidade';
-import { Button } from 'react-bootstrap';
 import './style.css';
+import jwtDecode from 'jwt-decode';
+import DecodedToken from '../../../interfaces/DecodedToken';
+import DiaouHora from '../../../Enums/DiaouHora';
 
 
 const marcaPadrao: Marca = {
@@ -26,7 +29,12 @@ const modalidadePadrao: Modalidade = {
 
 const VisualizarBike: React.FC = () => {
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
+    const handleShowModal = () => setShowModal(true);
+    const handleCloseModal = () => setShowModal(false);
     const { id } = useParams();
+    const [userId, setUserId] = useState<number>();
+    const [diaouhora, setDiaouHora] = useState<DiaouHora>();
     const isAuthenticated = !!localStorage.getItem('token');
     const tokenJson = localStorage.getItem('token');
     const [bicicleta, setBicicleta] = useState<Bicicleta>({
@@ -58,6 +66,7 @@ const VisualizarBike: React.FC = () => {
             })
     }
 
+
     const formatPhoneNumber = (phoneNumber: string) => {
         const numericPhone = phoneNumber.replace(/\D/g, '');
         const formattedPhone = numericPhone.startsWith('55') ? numericPhone : `55${numericPhone}`;
@@ -66,7 +75,46 @@ const VisualizarBike: React.FC = () => {
 
     useEffect(() => {
         getBike();
+        if (tokenJson) {
+            try {
+                const decodedToken = jwtDecode<DecodedToken>(tokenJson);
+                setUserId(parseInt(decodedToken.userId));
+            } catch (error) {
+                console.error('Erro ao decodificar o token JWT:', error);
+            }
+        }
     }, [])
+
+    const handleSolicitarClick = async () => {
+        setShowModal(false)
+        if (tokenJson) {
+            const tokenObject = JSON.parse(tokenJson);
+            const headers = {
+                Authorization: `${tokenObject}`,
+            };
+            const decodedToken = jwtDecode<DecodedToken>(tokenJson);
+            const idLocatario = (parseInt(decodedToken.userId));
+            const data = {
+                idBicicleta: id,
+                idLocatario: idLocatario,
+                DiaouHora: diaouhora
+            };
+            await api.post(`/solicitacao/create/`, data, { headers })
+                .then((response) => {
+                    alert(response.data.message)
+                    navigate("/solicitacoesEnviadas")
+                })
+                .catch((error) => {
+                    alert(error.response.data.error)
+                })
+        } else {
+            alert("Você precisa fazer login para fazer uma solicitação.");
+        }
+    }
+
+    const handleDiaouHoraChange = (e: React.ChangeEvent<any>) => {
+        setDiaouHora(e.target.value as DiaouHora);
+    };
 
     const formattedPhoneNumber = bicicleta?.dono?.telefone ? formatPhoneNumber(bicicleta?.dono?.telefone) : '';
     const whatsappLink = `https://wa.me/${formattedPhoneNumber}`;
@@ -77,7 +125,7 @@ const VisualizarBike: React.FC = () => {
             <main className='main-container'>
                 <div className="d-flex flex-wrap justify-content-center gap-3 mt-3">
                     <div className="d-flex flex-column gap-2 img-bike" style={{ width: '20rem' }}>
-                        <img src={`http://localhost:3001/images/${bicicleta.fotos && bicicleta.fotos[0]?.url}`} style={{ height: '22rem', objectFit: 'cover', objectPosition: 'center' }} />
+                        <img src={`${bicicleta.fotos && bicicleta.fotos[0]?.url}`} style={{ height: '22rem', objectFit: 'cover', objectPosition: 'center' }} />
                     </div>
                     <div className="d-flex flex-column gap-2 info-bikes">
                         <span><strong>Marca: </strong>{bicicleta?.marca?.nome}</span>
@@ -97,18 +145,52 @@ const VisualizarBike: React.FC = () => {
                     </div>
                 </div>
                 <div className="d-flex gap-2 mt-3">
-    <span><strong>Dono: </strong>{bicicleta.dono?.username}</span>
-</div>
-<div className="d-flex gap-2">
-    <span><strong>Status: </strong></span>
-    <span className={bicicleta?.isAlugada ? "text-danger" : "text-success"}>{bicicleta?.isAlugada ? "Alugada" : "Disponivel"}</span>
-</div>
+                    <span><strong>Dono: </strong>{bicicleta.dono?.username}</span>
+                </div>
+                <div className="d-flex gap-2">
+                    <span><strong>Status: </strong></span>
+                    <span className={bicicleta?.isAlugada ? "text-red" : "text-green"}>{bicicleta?.isAlugada ? "Alugada" : "Disponivel"}</span>
+                </div>
 
-                {isAuthenticated ? (<Link className='mt-2' to={`/perfil/${bicicleta?.donoId}`}>
-                    <Button variant="dark" >
-                        Contato
-                    </Button>
-                </Link >) : ""}
+                <div className="d-flex gap-2 mt-2">
+                    {isAuthenticated ? (<Link className='' to={`/perfil/${bicicleta?.donoId}`}>
+                        <Button variant="dark" >
+                            Contato
+                        </Button>
+                    </Link >) : ""}
+                    {!bicicleta?.isAlugada && isAuthenticated && (bicicleta?.donoId != userId) ? (
+                        <Button variant="dark" onClick={handleShowModal}>
+                            Solicitar
+                        </Button>) : ""}
+                </div>
+                <Modal show={showModal} onHide={handleCloseModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Qual opção você deseja solicitar?</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form.Control
+                            as="select"
+                            name="diaouhora"
+                            required
+                            value={diaouhora || ""}
+                            onChange={handleDiaouHoraChange}
+                        >
+                            {Object.values(DiaouHora).map((i) => (
+                                <option key={i} value={i}>
+                                    {i}
+                                </option>
+                            ))}
+                        </Form.Control>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleCloseModal}>
+                            Fechar
+                        </Button>
+                        <Button variant="primary" onClick={handleSolicitarClick}>
+                            Solicitar
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             </main>
         </div>
     );

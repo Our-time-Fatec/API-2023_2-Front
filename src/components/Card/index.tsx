@@ -1,9 +1,11 @@
 import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './style.css'
 import api from '../../services/api';
+import jwtDecode from 'jwt-decode';
+import DecodedToken from '../../interfaces/DecodedToken';
 
 interface CardBike {
     id?: number;
@@ -17,42 +19,70 @@ interface CardBike {
     isProfile?: boolean;
     isAlugada?: boolean;
     isMyPerfil?: boolean;
+    avaliacao?: number;
     usuarioLogadoId?: number;
 }
 
-function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada, isMyPerfil, usuarioLogadoId }: CardBike) {
+function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada, isMyPerfil, usuarioLogadoId, avaliacao }: CardBike) {
     const isAuthenticated = !!localStorage.getItem('token');
     const tokenJson = localStorage.getItem('token');
-    const handleSolicitarClick = async () => {
+    const navigate = useNavigate();
+
+    // const handleSolicitarClick = async () => {
+    //     if (tokenJson) {
+    //         const tokenObject = JSON.parse(tokenJson);
+    //         const headers = {
+    //             Authorization: `${tokenObject}`,
+    //         };
+    //         const decodedToken = jwtDecode<DecodedToken>(tokenJson);
+    //         const idLocatario = (parseInt(decodedToken.userId));
+    //         try {
+    //             const data = {
+    //                 idBicicleta: id,
+    //                 idLocatario: idLocatario
+    //             };
+    //             const response = await api.post(`/solicitacao/create/`, data, { headers });
+    //             if (response.status === 200) {
+    //                 alert("Solicitação enviada com sucesso!");
+    //             } else {
+    //                 alert(`Erro ao enviar a solicitação: ${response.data.error}`);
+    //             }
+    //         } catch (error) {
+    //             alert("Erro ao enviar a solicitação: Ocorreu um erro de rede ou exceção.");
+    //             console.error("Erro ao enviar a solicitação:", error);
+    //         }
+    //     } else {
+    //         alert("Você precisa fazer login para fazer uma solicitação.");
+    //     }
+    // }
+
+    const excluirBike = async (idBicicleta: number) => {
         if (tokenJson) {
             const tokenObject = JSON.parse(tokenJson);
             const headers = {
                 Authorization: `${tokenObject}`,
             };
-        try{
-            const data = {
-              idBicicleta: id,
-              idLocador: donoId
-            };
-            const response = await api.post(`/solicitacao/create/`, data, {headers});
-        if (response.status === 200) {
-            alert("Solicitação enviada com sucesso!");
-          } else {
-            alert(`Erro ao enviar a solicitação: ${response.data.error}`);
-          }
-        }catch (error) {
-          alert("Erro ao enviar a solicitação: Ocorreu um erro de rede ou exceção.");
-          console.error("Erro ao enviar a solicitação:", error);
+
+            await api.delete(`/bicicleta/${idBicicleta}`, { headers })
+                .then((response) => {
+                    alert(response.data.message)
+                    navigate(0)
+                })
+                .catch((error) => {
+                    alert(error.response.data.error)
+                })
+
+        } else {
+            alert("Você precisa fazer login para fazer uma solicitação.");
         }
-      } else {
-        alert("Você precisa fazer login para fazer uma solicitação.");
-      }
     }
+
     return (
         <Card className='card' style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={`http://localhost:3001/images/${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
+            <Card.Img variant="top" src={`${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
             <Card.Body>
-                <span className={isAlugada ? "text-danger" : "text-success"}>{isAlugada ? "Alugada" : "Disponivel"}</span>
+                <span className={isAlugada ? "text-danger" : "text-success"}>{isAlugada ? "Alugada" : "Disponivel"}</span><br></br>
+                <span className='roboto-negrito'>Avaliação: {avaliacao}</span>
                 <Card.Title>{marca} - {modalidade}</Card.Title>
                 <Card.Text style={{ height: '3rem', overflowY: 'auto' }}>
                     {descricao}
@@ -73,14 +103,19 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
                         Contato
                     </Button>
                 </Card.Link >) : ""}
-                {!isAlugada && isAuthenticated && (donoId != usuarioLogadoId) ? (<Card.Link className='' as={Link} to={`/solicitacoesEnviadas`}>
+                {/* {!isAlugada && isAuthenticated && (donoId != usuarioLogadoId) ? (<Card.Link className='' as={Link} to={`/solicitacoesEnviadas`}>
                     <Button variant="dark" className='mt-1' onClick={handleSolicitarClick}>
-                       Solicitar
+                        Solicitar
+                    </Button>
+                </Card.Link >) : ""} */}
+                {isMyPerfil && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}/bike/editar/${id}`}>
+                    <Button variant="dark" className='mt-1'>
+                        Editar
                     </Button>
                 </Card.Link >) : ""}
-                {isMyPerfil && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}/bike/editar/${id}`}>
-                    <Button variant="dark" className='mt-2'>
-                        Editar
+                {isMyPerfil && isAuthenticated ? (<Card.Link>
+                    <Button variant="danger" className='mt-1' onClick={() => excluirBike(id || 0)}>
+                        Excluir
                     </Button>
                 </Card.Link >) : ""}
             </Card.Body>

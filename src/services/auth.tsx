@@ -11,6 +11,7 @@ import DecodedToken from "../interfaces/DecodedToken";
 const logout = (): void => {
   localStorage.removeItem('token');
   localStorage.removeItem('username');
+  localStorage.removeItem('imageUser');
 };
 
 function isTokenExpired(tokenJson: string | null): boolean {
