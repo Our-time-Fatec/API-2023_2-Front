@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './style.css'
 import api from '../../services/api';
 import jwtDecode from 'jwt-decode';
@@ -26,6 +26,7 @@ interface CardBike {
 function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora, donoId, isProfile, isAlugada, isMyPerfil, usuarioLogadoId, avaliacao }: CardBike) {
     const isAuthenticated = !!localStorage.getItem('token');
     const tokenJson = localStorage.getItem('token');
+    const navigate = useNavigate();
 
     // const handleSolicitarClick = async () => {
     //     if (tokenJson) {
@@ -54,6 +55,28 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
     //         alert("Você precisa fazer login para fazer uma solicitação.");
     //     }
     // }
+
+    const excluirBike = async (idBicicleta: number) => {
+        if (tokenJson) {
+            const tokenObject = JSON.parse(tokenJson);
+            const headers = {
+                Authorization: `${tokenObject}`,
+            };
+
+            await api.delete(`/bicicleta/${idBicicleta}`, { headers })
+                .then((response) => {
+                    alert(response.data.message)
+                    navigate(0)
+                })
+                .catch((error) => {
+                    alert(error.response.data.error)
+                })
+
+        } else {
+            alert("Você precisa fazer login para fazer uma solicitação.");
+        }
+    }
+
     return (
         <Card className='card' style={{ width: '18rem' }}>
             <Card.Img variant="top" src={`${foto}`} style={{ height: '15rem', objectFit: 'cover', objectPosition: 'center' }} />
@@ -86,8 +109,13 @@ function CardBike({ id, marca, modalidade, foto, descricao, valorDia, valorHora,
                     </Button>
                 </Card.Link >) : ""} */}
                 {isMyPerfil && isAuthenticated ? (<Card.Link as={Link} to={`/perfil/${donoId}/bike/editar/${id}`}>
-                    <Button variant="dark" className='mt-2'>
+                    <Button variant="dark" className='mt-1'>
                         Editar
+                    </Button>
+                </Card.Link >) : ""}
+                {isMyPerfil && isAuthenticated ? (<Card.Link>
+                    <Button variant="danger" className='mt-1' onClick={() => excluirBike(id || 0)}>
+                        Excluir
                     </Button>
                 </Card.Link >) : ""}
             </Card.Body>
