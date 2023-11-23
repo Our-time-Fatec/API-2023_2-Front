@@ -51,7 +51,11 @@ function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, a
                 Authorization: `${tokenObject}`,
             };
 
-            await api.put(`/locacao/Encerrar/${idLocacao}`, avaliacao, { headers })
+            const data = {
+                avaliacaoDono: avaliacao
+            };
+
+            await api.put(`/locacao/Encerrar/${idLocacao}`, data, { headers })
                 .then((response) => {
                     alert(response.data.message)
                     navigate(0)
@@ -72,7 +76,8 @@ function LocacaoCard({ id, isAtivo, isBikeDevolvida, idLocatario, idBicicleta, a
                 <span>Locatário: {locatario.username}</span>
                 <span>Bicicleta: {bicicleta.marca?.nome} - {bicicleta.modalidade?.nome}</span>
                 <span>Dono: {bicicleta.dono?.username}</span>
-                {isBikeDevolvida ? <span className="text-green">Valor Total: {valorTotal}</span> : ""}
+                {isBikeDevolvida ? <span className="text-green">Avaliação: {avaliacaoDono}</span> : ""}
+                {isBikeDevolvida ? <span className="text-red">Valor Total: {valorTotal}</span> : ""}
                 {
                     isLocacoesAlugadas && !isBikeDevolvida ? (
                         <div className="d-flex gap-2">
